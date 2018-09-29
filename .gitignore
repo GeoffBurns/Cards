@@ -1,0 +1,5 @@
+Carthage/
+
+*.xcbkptlist
+
+Cards.xcodeproj/xcuserdata/geoffburns.xcuserdatad/xcdebugger/Breakpoints_v2.xcbkptlist

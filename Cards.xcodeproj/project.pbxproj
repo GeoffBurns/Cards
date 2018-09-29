@@ -7,9 +7,55 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		AC100BD42102C91500F951E5 /* SKNodeExtensions2.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC100BD22102C91400F951E5 /* SKNodeExtensions2.swift */; };
+		AC100BD52102C91500F951E5 /* SKNodeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC100BD32102C91400F951E5 /* SKNodeExtensions.swift */; };
 		AC1D449E21009EE9008E80B3 /* Cards.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC1D449421009EE9008E80B3 /* Cards.framework */; };
 		AC1D44A321009EE9008E80B3 /* CardsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1D44A221009EE9008E80B3 /* CardsTests.swift */; };
-		AC1D44A521009EE9008E80B3 /* Cards.h in Headers */ = {isa = PBXBuildFile; fileRef = AC1D449721009EE9008E80B3 /* Cards.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AC1D44B221009FE3008E80B3 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC1D44B021009FE3008E80B3 /* Result.framework */; };
+		AC1D44CB2100A08F008E80B3 /* CardStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1D44B32100A08B008E80B3 /* CardStack.swift */; };
+		AC1D44CC2100A08F008E80B3 /* Achievements.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1D44B42100A08B008E80B3 /* Achievements.swift */; };
+		AC1D44CD2100A08F008E80B3 /* CardSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1D44B52100A08B008E80B3 /* CardSize.swift */; };
+		AC1D44CE2100A08F008E80B3 /* CardPile.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1D44B62100A08B008E80B3 /* CardPile.swift */; };
+		AC1D44CF2100A08F008E80B3 /* Multi-Line.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1D44B72100A08B008E80B3 /* Multi-Line.swift */; };
+		AC1D44D02100A08F008E80B3 /* CardSlide.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1D44B82100A08C008E80B3 /* CardSlide.swift */; };
+		AC1D44D12100A08F008E80B3 /* Cards.h in Headers */ = {isa = PBXBuildFile; fileRef = AC1D44B92100A08C008E80B3 /* Cards.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		AC1D44D22100A08F008E80B3 /* BinaryToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1D44BA2100A08C008E80B3 /* BinaryToggle.swift */; };
+		AC1D44D32100A08F008E80B3 /* CardState.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1D44BB2100A08C008E80B3 /* CardState.swift */; };
+		AC1D44D42100A08F008E80B3 /* CardFan.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1D44BC2100A08C008E80B3 /* CardFan.swift */; };
+		AC1D44D52100A08F008E80B3 /* CardPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1D44BD2100A08D008E80B3 /* CardPlayer.swift */; };
+		AC1D44D62100A08F008E80B3 /* GameSetting.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1D44BE2100A08D008E80B3 /* GameSetting.swift */; };
+		AC1D44D72100A08F008E80B3 /* PlayingCard.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1D44BF2100A08D008E80B3 /* PlayingCard.swift */; };
+		AC1D44D82100A08F008E80B3 /* MathExtention.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1D44C02100A08D008E80B3 /* MathExtention.swift */; };
+		AC1D44D92100A08F008E80B3 /* Label.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1D44C12100A08D008E80B3 /* Label.swift */; };
+		AC1D44DA2100A08F008E80B3 /* stringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1D44C22100A08D008E80B3 /* stringExtensions.swift */; };
+		AC1D44DB2100A08F008E80B3 /* CardPileType.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1D44C32100A08E008E80B3 /* CardPileType.swift */; };
+		AC1D44DD2100A08F008E80B3 /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1D44C52100A08E008E80B3 /* Direction.swift */; };
+		AC1D44DF2100A08F008E80B3 /* SIdeOfTable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1D44C72100A08E008E80B3 /* SIdeOfTable.swift */; };
+		AC1D44E02100A08F008E80B3 /* CardSprite.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1D44C82100A08E008E80B3 /* CardSprite.swift */; };
+		AC1D44E12100A08F008E80B3 /* CardSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1D44C92100A08F008E80B3 /* CardSource.swift */; };
+		AC1D44E22100A08F008E80B3 /* GameKitHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1D44CA2100A08F008E80B3 /* GameKitHelper.swift */; };
+		AC1D44E42100A3A7008E80B3 /* GameScene.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1D44E32100A3A6008E80B3 /* GameScene.swift */; };
+		AC1D44E62100A48C008E80B3 /* PlayingCardComparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1D44E52100A48C008E80B3 /* PlayingCardComparable.swift */; };
+		AC1D44E82100A54C008E80B3 /* SequenceTypeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1D44E72100A54C008E80B3 /* SequenceTypeExtensions.swift */; };
+		AC1D44EA2100A649008E80B3 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1D44E92100A648008E80B3 /* ArrayExtensions.swift */; };
+		AC498952210BB5C90048D6A1 /* Bus.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC498951210BB5C90048D6A1 /* Bus.swift */; };
+		AC498956210BB8CF0048D6A1 /* CardPassingStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC498955210BB8CF0048D6A1 /* CardPassingStrategy.swift */; };
+		AC498958210BBAAE0048D6A1 /* PassYourThreeWorstCardsPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC498957210BBAAD0048D6A1 /* PassYourThreeWorstCardsPhase.swift */; };
+		AC49895C210BC05B0048D6A1 /* Seater.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC49895B210BC05A0048D6A1 /* Seater.swift */; };
+		AC498960210BC2A70048D6A1 /* StatusArea.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC49895F210BC2A70048D6A1 /* StatusArea.swift */; };
+		AC498962210C1B8E0048D6A1 /* ScoreDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC498961210C1B8E0048D6A1 /* ScoreDisplay.swift */; };
+		ACBCC9F4210600150014B2E6 /* OptionScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACBCC9F3210600150014B2E6 /* OptionScreen.swift */; };
+		ACBCC9FF2106FDF50014B2E6 /* RuleScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACBCC9FD2106FDF50014B2E6 /* RuleScreen.swift */; };
+		ACBCCA002106FDF50014B2E6 /* CardDisplayScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACBCC9FE2106FDF50014B2E6 /* CardDisplayScreen.swift */; };
+		ACD6965F210B58D200ECC62A /* GameNotice.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD6965D210B58D200ECC62A /* GameNotice.swift */; };
+		ACD69660210B58D200ECC62A /* GameEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD6965E210B58D200ECC62A /* GameEvent.swift */; };
+		ACFC6D85215B542A00330058 /* ReactiveSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACFC6D84215B542900330058 /* ReactiveSwift.framework */; };
+		ACFC7BD22102CB4000ED1839 /* NumberRangeToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFC7BD02102CB4000ED1839 /* NumberRangeToggle.swift */; };
+		ACFC7BD32102CB4000ED1839 /* Popup.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFC7BD12102CB4000ED1839 /* Popup.swift */; };
+		ACFC7BD52102CC0600ED1839 /* PopupButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFC7BD42102CC0600ED1839 /* PopupButton.swift */; };
+		ACFC7BD92102CCE100ED1839 /* Resizable.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFC7BD82102CCE100ED1839 /* Resizable.swift */; };
+		ACFC7BE82104006E00ED1839 /* ExitScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFC7BE72104006E00ED1839 /* ExitScreen.swift */; };
+		ACFC7BEA210426D900ED1839 /* SaveableOption.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFC7BE9210426D900ED1839 /* SaveableOption.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -23,12 +69,58 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		AC100BD22102C91400F951E5 /* SKNodeExtensions2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKNodeExtensions2.swift; sourceTree = "<group>"; };
+		AC100BD32102C91400F951E5 /* SKNodeExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKNodeExtensions.swift; sourceTree = "<group>"; };
 		AC1D449421009EE9008E80B3 /* Cards.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Cards.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		AC1D449721009EE9008E80B3 /* Cards.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Cards.h; sourceTree = "<group>"; };
 		AC1D449821009EE9008E80B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		AC1D449D21009EE9008E80B3 /* CardsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CardsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC1D44A221009EE9008E80B3 /* CardsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsTests.swift; sourceTree = "<group>"; };
 		AC1D44A421009EE9008E80B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		AC1D44B021009FE3008E80B3 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/iOS/Result.framework; sourceTree = "<group>"; };
+		AC1D44B32100A08B008E80B3 /* CardStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardStack.swift; sourceTree = "<group>"; };
+		AC1D44B42100A08B008E80B3 /* Achievements.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Achievements.swift; sourceTree = "<group>"; };
+		AC1D44B52100A08B008E80B3 /* CardSize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardSize.swift; sourceTree = "<group>"; };
+		AC1D44B62100A08B008E80B3 /* CardPile.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardPile.swift; sourceTree = "<group>"; };
+		AC1D44B72100A08B008E80B3 /* Multi-Line.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "Multi-Line.swift"; sourceTree = "<group>"; };
+		AC1D44B82100A08C008E80B3 /* CardSlide.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardSlide.swift; sourceTree = "<group>"; };
+		AC1D44B92100A08C008E80B3 /* Cards.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Cards.h; sourceTree = "<group>"; };
+		AC1D44BA2100A08C008E80B3 /* BinaryToggle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BinaryToggle.swift; sourceTree = "<group>"; };
+		AC1D44BB2100A08C008E80B3 /* CardState.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardState.swift; sourceTree = "<group>"; };
+		AC1D44BC2100A08C008E80B3 /* CardFan.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardFan.swift; sourceTree = "<group>"; };
+		AC1D44BD2100A08D008E80B3 /* CardPlayer.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardPlayer.swift; sourceTree = "<group>"; };
+		AC1D44BE2100A08D008E80B3 /* GameSetting.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameSetting.swift; sourceTree = "<group>"; };
+		AC1D44BF2100A08D008E80B3 /* PlayingCard.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayingCard.swift; sourceTree = "<group>"; };
+		AC1D44C02100A08D008E80B3 /* MathExtention.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MathExtention.swift; sourceTree = "<group>"; };
+		AC1D44C12100A08D008E80B3 /* Label.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Label.swift; sourceTree = "<group>"; };
+		AC1D44C22100A08D008E80B3 /* stringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = stringExtensions.swift; sourceTree = "<group>"; };
+		AC1D44C32100A08E008E80B3 /* CardPileType.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardPileType.swift; sourceTree = "<group>"; };
+		AC1D44C52100A08E008E80B3 /* Direction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Direction.swift; sourceTree = "<group>"; };
+		AC1D44C72100A08E008E80B3 /* SIdeOfTable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SIdeOfTable.swift; sourceTree = "<group>"; };
+		AC1D44C82100A08E008E80B3 /* CardSprite.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardSprite.swift; sourceTree = "<group>"; };
+		AC1D44C92100A08F008E80B3 /* CardSource.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardSource.swift; sourceTree = "<group>"; };
+		AC1D44CA2100A08F008E80B3 /* GameKitHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameKitHelper.swift; sourceTree = "<group>"; };
+		AC1D44E32100A3A6008E80B3 /* GameScene.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameScene.swift; sourceTree = "<group>"; };
+		AC1D44E52100A48C008E80B3 /* PlayingCardComparable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PlayingCardComparable.swift; sourceTree = "<group>"; };
+		AC1D44E72100A54C008E80B3 /* SequenceTypeExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SequenceTypeExtensions.swift; sourceTree = "<group>"; };
+		AC1D44E92100A648008E80B3 /* ArrayExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ArrayExtensions.swift; sourceTree = "<group>"; };
+		AC498951210BB5C90048D6A1 /* Bus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bus.swift; sourceTree = "<group>"; };
+		AC498955210BB8CF0048D6A1 /* CardPassingStrategy.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardPassingStrategy.swift; sourceTree = "<group>"; };
+		AC498957210BBAAD0048D6A1 /* PassYourThreeWorstCardsPhase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PassYourThreeWorstCardsPhase.swift; sourceTree = "<group>"; };
+		AC49895B210BC05A0048D6A1 /* Seater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Seater.swift; sourceTree = "<group>"; };
+		AC49895F210BC2A70048D6A1 /* StatusArea.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StatusArea.swift; sourceTree = "<group>"; };
+		AC498961210C1B8E0048D6A1 /* ScoreDisplay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreDisplay.swift; sourceTree = "<group>"; };
+		ACBCC9F3210600150014B2E6 /* OptionScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = OptionScreen.swift; sourceTree = "<group>"; };
+		ACBCC9FD2106FDF50014B2E6 /* RuleScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = RuleScreen.swift; sourceTree = "<group>"; };
+		ACBCC9FE2106FDF50014B2E6 /* CardDisplayScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardDisplayScreen.swift; sourceTree = "<group>"; };
+		ACD6965D210B58D200ECC62A /* GameNotice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameNotice.swift; sourceTree = "<group>"; };
+		ACD6965E210B58D200ECC62A /* GameEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameEvent.swift; sourceTree = "<group>"; };
+		ACFC6D84215B542900330058 /* ReactiveSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveSwift.framework; path = Carthage/Build/iOS/ReactiveSwift.framework; sourceTree = "<group>"; };
+		ACFC7BD02102CB4000ED1839 /* NumberRangeToggle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberRangeToggle.swift; sourceTree = "<group>"; };
+		ACFC7BD12102CB4000ED1839 /* Popup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Popup.swift; sourceTree = "<group>"; };
+		ACFC7BD42102CC0600ED1839 /* PopupButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupButton.swift; sourceTree = "<group>"; };
+		ACFC7BD82102CCE100ED1839 /* Resizable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Resizable.swift; sourceTree = "<group>"; };
+		ACFC7BE72104006E00ED1839 /* ExitScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExitScreen.swift; sourceTree = "<group>"; };
+		ACFC7BE9210426D900ED1839 /* SaveableOption.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SaveableOption.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -36,6 +128,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC1D44B221009FE3008E80B3 /* Result.framework in Frameworks */,
+				ACFC6D85215B542A00330058 /* ReactiveSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -56,6 +150,7 @@
 				AC1D449621009EE9008E80B3 /* Cards */,
 				AC1D44A121009EE9008E80B3 /* CardsTests */,
 				AC1D449521009EE9008E80B3 /* Products */,
+				AC1D44AE21009FE3008E80B3 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -71,8 +166,52 @@
 		AC1D449621009EE9008E80B3 /* Cards */ = {
 			isa = PBXGroup;
 			children = (
-				AC1D449721009EE9008E80B3 /* Cards.h */,
+				AC498961210C1B8E0048D6A1 /* ScoreDisplay.swift */,
+				AC1D44B42100A08B008E80B3 /* Achievements.swift */,
+				AC1D44E92100A648008E80B3 /* ArrayExtensions.swift */,
+				AC1D44BA2100A08C008E80B3 /* BinaryToggle.swift */,
+				AC498951210BB5C90048D6A1 /* Bus.swift */,
+				ACBCC9FE2106FDF50014B2E6 /* CardDisplayScreen.swift */,
+				AC1D44BC2100A08C008E80B3 /* CardFan.swift */,
+				AC498955210BB8CF0048D6A1 /* CardPassingStrategy.swift */,
+				AC1D44B62100A08B008E80B3 /* CardPile.swift */,
+				AC1D44C32100A08E008E80B3 /* CardPileType.swift */,
+				AC1D44BD2100A08D008E80B3 /* CardPlayer.swift */,
+				AC1D44B92100A08C008E80B3 /* Cards.h */,
+				AC1D44B52100A08B008E80B3 /* CardSize.swift */,
+				AC1D44B82100A08C008E80B3 /* CardSlide.swift */,
+				AC1D44C92100A08F008E80B3 /* CardSource.swift */,
+				AC1D44C82100A08E008E80B3 /* CardSprite.swift */,
+				AC1D44B32100A08B008E80B3 /* CardStack.swift */,
+				AC1D44BB2100A08C008E80B3 /* CardState.swift */,
+				AC1D44C52100A08E008E80B3 /* Direction.swift */,
+				ACFC7BE72104006E00ED1839 /* ExitScreen.swift */,
+				ACD6965E210B58D200ECC62A /* GameEvent.swift */,
+				AC1D44CA2100A08F008E80B3 /* GameKitHelper.swift */,
+				ACD6965D210B58D200ECC62A /* GameNotice.swift */,
+				AC1D44E32100A3A6008E80B3 /* GameScene.swift */,
+				AC1D44BE2100A08D008E80B3 /* GameSetting.swift */,
 				AC1D449821009EE9008E80B3 /* Info.plist */,
+				AC1D44C12100A08D008E80B3 /* Label.swift */,
+				AC1D44C02100A08D008E80B3 /* MathExtention.swift */,
+				AC1D44B72100A08B008E80B3 /* Multi-Line.swift */,
+				ACFC7BD02102CB4000ED1839 /* NumberRangeToggle.swift */,
+				ACBCC9F3210600150014B2E6 /* OptionScreen.swift */,
+				AC498957210BBAAD0048D6A1 /* PassYourThreeWorstCardsPhase.swift */,
+				AC1D44BF2100A08D008E80B3 /* PlayingCard.swift */,
+				AC1D44E52100A48C008E80B3 /* PlayingCardComparable.swift */,
+				ACFC7BD12102CB4000ED1839 /* Popup.swift */,
+				ACFC7BD42102CC0600ED1839 /* PopupButton.swift */,
+				ACFC7BD82102CCE100ED1839 /* Resizable.swift */,
+				ACBCC9FD2106FDF50014B2E6 /* RuleScreen.swift */,
+				ACFC7BE9210426D900ED1839 /* SaveableOption.swift */,
+				AC49895B210BC05A0048D6A1 /* Seater.swift */,
+				AC1D44E72100A54C008E80B3 /* SequenceTypeExtensions.swift */,
+				AC1D44C72100A08E008E80B3 /* SIdeOfTable.swift */,
+				AC100BD32102C91400F951E5 /* SKNodeExtensions.swift */,
+				AC100BD22102C91400F951E5 /* SKNodeExtensions2.swift */,
+				AC49895F210BC2A70048D6A1 /* StatusArea.swift */,
+				AC1D44C22100A08D008E80B3 /* stringExtensions.swift */,
 			);
 			path = Cards;
 			sourceTree = "<group>";
@@ -86,6 +225,15 @@
 			path = CardsTests;
 			sourceTree = "<group>";
 		};
+		AC1D44AE21009FE3008E80B3 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				ACFC6D84215B542900330058 /* ReactiveSwift.framework */,
+				AC1D44B021009FE3008E80B3 /* Result.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -93,7 +241,7 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AC1D44A521009EE9008E80B3 /* Cards.h in Headers */,
+				AC1D44D12100A08F008E80B3 /* Cards.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -148,9 +296,11 @@
 				TargetAttributes = {
 					AC1D449321009EE9008E80B3 = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1000;
 					};
 					AC1D449C21009EE9008E80B3 = {
 						CreatedOnToolsVersion = 9.4.1;
+						LastSwiftMigration = 1000;
 					};
 				};
 			};
@@ -194,6 +344,50 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC1D44D62100A08F008E80B3 /* GameSetting.swift in Sources */,
+				AC1D44DA2100A08F008E80B3 /* stringExtensions.swift in Sources */,
+				ACBCC9FF2106FDF50014B2E6 /* RuleScreen.swift in Sources */,
+				ACFC7BD32102CB4000ED1839 /* Popup.swift in Sources */,
+				AC1D44E62100A48C008E80B3 /* PlayingCardComparable.swift in Sources */,
+				AC1D44CF2100A08F008E80B3 /* Multi-Line.swift in Sources */,
+				ACBCCA002106FDF50014B2E6 /* CardDisplayScreen.swift in Sources */,
+				ACFC7BE82104006E00ED1839 /* ExitScreen.swift in Sources */,
+				AC100BD52102C91500F951E5 /* SKNodeExtensions.swift in Sources */,
+				AC498952210BB5C90048D6A1 /* Bus.swift in Sources */,
+				AC1D44DB2100A08F008E80B3 /* CardPileType.swift in Sources */,
+				AC1D44CD2100A08F008E80B3 /* CardSize.swift in Sources */,
+				ACFC7BD52102CC0600ED1839 /* PopupButton.swift in Sources */,
+				AC1D44E02100A08F008E80B3 /* CardSprite.swift in Sources */,
+				AC1D44CE2100A08F008E80B3 /* CardPile.swift in Sources */,
+				AC1D44D82100A08F008E80B3 /* MathExtention.swift in Sources */,
+				AC1D44D42100A08F008E80B3 /* CardFan.swift in Sources */,
+				AC498958210BBAAE0048D6A1 /* PassYourThreeWorstCardsPhase.swift in Sources */,
+				AC1D44E12100A08F008E80B3 /* CardSource.swift in Sources */,
+				AC1D44D02100A08F008E80B3 /* CardSlide.swift in Sources */,
+				AC1D44D22100A08F008E80B3 /* BinaryToggle.swift in Sources */,
+				ACFC7BD92102CCE100ED1839 /* Resizable.swift in Sources */,
+				AC1D44EA2100A649008E80B3 /* ArrayExtensions.swift in Sources */,
+				AC100BD42102C91500F951E5 /* SKNodeExtensions2.swift in Sources */,
+				ACD6965F210B58D200ECC62A /* GameNotice.swift in Sources */,
+				AC1D44D32100A08F008E80B3 /* CardState.swift in Sources */,
+				AC1D44CB2100A08F008E80B3 /* CardStack.swift in Sources */,
+				AC1D44D52100A08F008E80B3 /* CardPlayer.swift in Sources */,
+				AC1D44DF2100A08F008E80B3 /* SIdeOfTable.swift in Sources */,
+				AC1D44E82100A54C008E80B3 /* SequenceTypeExtensions.swift in Sources */,
+				AC1D44D72100A08F008E80B3 /* PlayingCard.swift in Sources */,
+				ACFC7BD22102CB4000ED1839 /* NumberRangeToggle.swift in Sources */,
+				AC1D44E42100A3A7008E80B3 /* GameScene.swift in Sources */,
+				AC1D44D92100A08F008E80B3 /* Label.swift in Sources */,
+				AC1D44E22100A08F008E80B3 /* GameKitHelper.swift in Sources */,
+				AC498962210C1B8E0048D6A1 /* ScoreDisplay.swift in Sources */,
+				AC498960210BC2A70048D6A1 /* StatusArea.swift in Sources */,
+				ACBCC9F4210600150014B2E6 /* OptionScreen.swift in Sources */,
+				AC1D44CC2100A08F008E80B3 /* Achievements.swift in Sources */,
+				ACFC7BEA210426D900ED1839 /* SaveableOption.swift in Sources */,
+				ACD69660210B58D200ECC62A /* GameEvent.swift in Sources */,
+				AC49895C210BC05B0048D6A1 /* Seater.swift in Sources */,
+				AC498956210BB8CF0048D6A1 /* CardPassingStrategy.swift in Sources */,
+				AC1D44DD2100A08F008E80B3 /* Direction.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -339,23 +533,30 @@
 		AC1D44A921009EE9008E80B3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Cards/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.NereidsGold.Cards;
+				PRODUCT_BUNDLE_IDENTIFIER = com.GeoffBurns.Cards;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -363,23 +564,29 @@
 		AC1D44AA21009EE9008E80B3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				INFOPLIST_FILE = Cards/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				PRODUCT_BUNDLE_IDENTIFIER = com.NereidsGold.Cards;
+				PRODUCT_BUNDLE_IDENTIFIER = com.GeoffBurns.Cards;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
@@ -387,6 +594,7 @@
 		AC1D44AC21009EE9008E80B3 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = CardsTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -396,7 +604,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.NereidsGold.CardsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -404,6 +612,7 @@
 		AC1D44AD21009EE9008E80B3 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				INFOPLIST_FILE = CardsTests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -413,7 +622,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.NereidsGold.CardsTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_VERSION = 4.0;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

@@ -15,12 +15,16 @@ public class ScoreDisplay
 {
     public var scoreLabel = [SKLabelNode]()
     var players = [CardPlayer]()
-    public static var top : CGFloat =  DeviceSettings.isPortrait ? 0.90 : 0.88
-    public static var bottom : CGFloat =  DeviceSettings.isPortrait ? 0.12 :
+    public static var top : CGFloat { get { return DeviceSettings.isPortrait ? 0.893 : 0.873 } }
+    public static var _bottom : ()->CGFloat = { return DeviceSettings.isPortrait ? 0.115 :
         (DeviceSettings.isPhone
-            ? (DeviceSettings.isPhoneX ? 0.19 : 0.19)
-            : 0.22)
-
+            ? 0.19 //(DeviceSettings.isPhoneX ? 0.19 : 0.19)
+            : 0.23) }
+    public static var bottom  : CGFloat { get { return _bottom() }}
+   /* ScoreDisplay.bottom =  DeviceSettings.isPortrait ? 0.12 :
+    (DeviceSettings.isPhone
+    ? (DeviceSettings.isPhoneX || DeviceSettings.isPhone55inch ? 0.25 : 0.19)
+    : 0.22) */
     public static let sharedInstance = ScoreDisplay()
     fileprivate init() { }
     

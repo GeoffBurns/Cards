@@ -10,12 +10,12 @@ import SpriteKit
 
 public extension CGPoint {
 
-    public func length() -> CGFloat {
+     func length() -> CGFloat {
         return sqrt(x*x + y*y)
     }
     
 
-    public func lengthSquared() -> CGFloat {
+     func lengthSquared() -> CGFloat {
         return x*x + y*y
     }
 }

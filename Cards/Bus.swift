@@ -8,14 +8,14 @@
 
 
 import ReactiveSwift
-import enum Result.NoError
+//import enum Result.NoError
 
 
 public class Bus {
     
-    public let (gameSignal,gameSink) = Signal<GameEvent,Result.NoError>.pipe()
+    public let (gameSignal,gameSink) = Signal<GameEvent,Never>.pipe()
     
-    public let (noteSignal,noteSink) = Signal<GameNotice,Result.NoError>.pipe()
+    public let (noteSignal,noteSink) = Signal<GameNotice,Never>.pipe()
     
     public static let sharedInstance = Bus()
     fileprivate init() { }

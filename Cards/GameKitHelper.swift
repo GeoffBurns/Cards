@@ -29,7 +29,6 @@ public protocol GameKitHelperDelegate {
 open class GameKitHelper: NSObject, GKGameCenterControllerDelegate, GKTurnBasedMatchmakerViewControllerDelegate {
     public var authenticationViewController: UIViewController?
     public var lastError: Error?
-    public var gameCenterEnabled: Bool
     public var delegate: GameKitHelperDelegate?
     public var multiplayerMatch: GKMatch?
     public var presentingViewController: UIViewController?
@@ -44,7 +43,6 @@ open class GameKitHelper: NSObject, GKGameCenterControllerDelegate, GKTurnBasedM
     }
     
     override init() {
-        gameCenterEnabled = true
         multiplayerMatchStarted = false
         super.init()
     }
@@ -52,19 +50,20 @@ open class GameKitHelper: NSObject, GKGameCenterControllerDelegate, GKTurnBasedM
     
     public var displayName : String
         {
-        let name = GKLocalPlayer.local.alias
-        if !gameCenterEnabled || name == "Unknown" {
-            
-            return "You".localize
+       
+        if let name = gameCenterName, name != "Unknown"
+        {
+             return name
         }
-        
-        
-            return name // ?? "You".localize
-    }
     
+        return "You".localize
+      
+       
+    }
+    public var  gameCenterEnabled : Bool { return GKLocalPlayer.local.isAuthenticated }
     public var gameCenterName : String?
         {
-        if !GKLocalPlayer.local.isAuthenticated { return nil }
+        if  !gameCenterEnabled { return nil }
         
         return displayName.truncated(18)
         }
@@ -86,12 +85,6 @@ open class GameKitHelper: NSObject, GKGameCenterControllerDelegate, GKTurnBasedM
                 NotificationCenter.default.post(
                     name: Notification.Name(rawValue: PresentAuthenticationViewController),
                     object: self)
-            } else if localPlayer.isAuthenticated {
-                //4
-                self.gameCenterEnabled = true
-            } else {
-                //5
-                self.gameCenterEnabled = false
             }
         }
     }
@@ -100,7 +93,7 @@ open class GameKitHelper: NSObject, GKGameCenterControllerDelegate, GKTurnBasedM
         delegate: GameKitHelperDelegate) {
             
             //1
-            if !gameCenterEnabled {
+            if  !gameCenterEnabled{
                 print("Local player is not authenticated")
                 return
             }
@@ -190,6 +183,7 @@ open class GameKitHelper: NSObject, GKGameCenterControllerDelegate, GKTurnBasedM
             self.lastError = error
         }) 
     }
+ 
     public func reportScore(_ score: Int64,
         forLeaderBoard leaderBoard: LearderBoard) {
             

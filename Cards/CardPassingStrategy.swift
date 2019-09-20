@@ -67,8 +67,8 @@ open class HighLowCardsPassingStrategy : CardPassingStrategy
         
                 let midCard = Game.deck.middleCardIn(card.suite)
                 
-                if let midIdx = suiteCards.index(of: midCard),
-                    let cardIdx = suiteCards.index(of: card)
+                if let midIdx = suiteCards.firstIndex(of: midCard),
+                    let cardIdx = suiteCards.firstIndex(of: card)
                   {
                     let rank = abs(cardIdx-midIdx)
                     ranksForCards[card] = rank

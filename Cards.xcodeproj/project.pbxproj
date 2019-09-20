@@ -11,7 +11,6 @@
 		AC100BD52102C91500F951E5 /* SKNodeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC100BD32102C91400F951E5 /* SKNodeExtensions.swift */; };
 		AC1D449E21009EE9008E80B3 /* Cards.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC1D449421009EE9008E80B3 /* Cards.framework */; };
 		AC1D44A321009EE9008E80B3 /* CardsTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1D44A221009EE9008E80B3 /* CardsTests.swift */; };
-		AC1D44B221009FE3008E80B3 /* Result.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC1D44B021009FE3008E80B3 /* Result.framework */; };
 		AC1D44CB2100A08F008E80B3 /* CardStack.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1D44B32100A08B008E80B3 /* CardStack.swift */; };
 		AC1D44CC2100A08F008E80B3 /* Achievements.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1D44B42100A08B008E80B3 /* Achievements.swift */; };
 		AC1D44CD2100A08F008E80B3 /* CardSize.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1D44B52100A08B008E80B3 /* CardSize.swift */; };
@@ -76,7 +75,6 @@
 		AC1D449D21009EE9008E80B3 /* CardsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = CardsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		AC1D44A221009EE9008E80B3 /* CardsTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CardsTests.swift; sourceTree = "<group>"; };
 		AC1D44A421009EE9008E80B3 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		AC1D44B021009FE3008E80B3 /* Result.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Result.framework; path = Carthage/Build/iOS/Result.framework; sourceTree = "<group>"; };
 		AC1D44B32100A08B008E80B3 /* CardStack.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardStack.swift; sourceTree = "<group>"; };
 		AC1D44B42100A08B008E80B3 /* Achievements.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Achievements.swift; sourceTree = "<group>"; };
 		AC1D44B52100A08B008E80B3 /* CardSize.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardSize.swift; sourceTree = "<group>"; };
@@ -128,7 +126,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AC1D44B221009FE3008E80B3 /* Result.framework in Frameworks */,
 				ACFC6D85215B542A00330058 /* ReactiveSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -229,7 +226,6 @@
 			isa = PBXGroup;
 			children = (
 				ACFC6D84215B542900330058 /* ReactiveSwift.framework */,
-				AC1D44B021009FE3008E80B3 /* Result.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -296,7 +292,7 @@
 				TargetAttributes = {
 					AC1D449321009EE9008E80B3 = {
 						CreatedOnToolsVersion = 9.4.1;
-						LastSwiftMigration = 1000;
+						LastSwiftMigration = 1030;
 					};
 					AC1D449C21009EE9008E80B3 = {
 						CreatedOnToolsVersion = 9.4.1;
@@ -310,6 +306,7 @@
 			hasScannedForEncodings = 0;
 			knownRegions = (
 				en,
+				Base,
 			);
 			mainGroup = AC1D448A21009EE9008E80B3;
 			productRefGroup = AC1D449521009EE9008E80B3 /* Products */;
@@ -556,7 +553,7 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -586,7 +583,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.GeoffBurns.Cards;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
-				SWIFT_VERSION = 4.2;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;

@@ -94,7 +94,11 @@ open class CardPlayer :CardHolderBase , Equatable, Hashable
     open var hashValue: Int {
         return self.name.hashValue
     }
-    
+    public func hash(into hasher: inout Hasher) {
+        
+        self.name.hash(into:&hasher)
+       // hasher = self.name.hashValue
+    }
     /////////////////////////////////
     /// Constructors and setup
     /////////////////////////////////

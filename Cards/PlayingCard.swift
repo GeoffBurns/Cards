@@ -440,7 +440,11 @@ public struct PlayingCard : Equatable, Comparable, Hashable
         {
             return imageName.hashValue;
     }
-    
+    public func hash(into hasher: inout Hasher) {
+        
+        imageName.hash(into:&hasher)
+
+    }
     public var isRicketyKate : Bool
         {
             return imageName == "QS"
@@ -583,7 +587,7 @@ public struct PlayingCard : Equatable, Comparable, Hashable
             case .ace : return 1
             case .pip(let n) : return n
             case .courtCard :
-               return (valuesInSuite.index(of: card.value)  ?? -1) + 1
+               return (valuesInSuite.firstIndex(of: card.value)  ?? -1) + 1
             }
         }
         override open var orderedDeck:[PlayingCard]

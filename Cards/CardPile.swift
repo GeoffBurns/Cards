@@ -140,7 +140,7 @@ open class CardPile : PositionedOnTable
     }
     public func remove(_ card:PlayingCard) -> PlayingCard?
     {
-        if let index = cards.index(of: card)
+        if let index = cards.firstIndex(of: card)
         {
             return cards.remove(at: index)
         }

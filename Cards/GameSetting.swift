@@ -97,6 +97,11 @@ open class DeviceSettings
         let size = UIScreen.main.applicationFrame
         return size.width > 1250 || size.height > 1250
     }
+    public static var isBigPro : Bool
+    {
+        let size = UIScreen.main.applicationFrame
+        return isBigPad && (size.width > 1360 || size.height > 1360)
+    }
     public static var isBigPhone : Bool
     {
         return   UIScreen.main.nativeScale > 2.5

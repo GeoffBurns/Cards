@@ -16,11 +16,27 @@ public class ScoreDisplay
     public var scoreLabel = [SKLabelNode]()
     var players = [CardPlayer]()
     public static var top : CGFloat { get { return DeviceSettings.isPortrait ? 0.893 : 0.873 } }
-    public static var _bottom : ()->CGFloat = { return DeviceSettings.isPortrait ? 0.115 :
-        (DeviceSettings.isPhone
-            ? 0.19 //(DeviceSettings.isPhoneX ? 0.19 : 0.19)
-            : 0.23) }
-    public static var bottom  : CGFloat { get { return _bottom() }}
+    public static var _bottom : ()->CGFloat = {
+        let isBig = DeviceSettings.isBigPro
+        let bottom : CGFloat = DeviceSettings.isPortrait ? ( isBig ? 0.09 : 0.115) :
+            (DeviceSettings.isPhone
+                ?  0.19
+                : ( isBig ? 0.16 : 0.23))
+        return bottom
+        
+    }
+    public static var bottom  : CGFloat { get {
+        
+
+        let isBig = DeviceSettings.isBigPro
+        let bottom : CGFloat = DeviceSettings.isPortrait ? ( isBig ? 0.09 : 0.115) :
+            (DeviceSettings.isPhone
+                ?  0.19
+                : ( isBig ? 0.16 : 0.23))
+        return bottom
+      //  return _bottom()
+        
+        }}
    /* ScoreDisplay.bottom =  DeviceSettings.isPortrait ? 0.12 :
     (DeviceSettings.isPhone
     ? (DeviceSettings.isPhoneX || DeviceSettings.isPhone55inch ? 0.25 : 0.19)

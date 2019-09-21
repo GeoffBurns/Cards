@@ -85,13 +85,17 @@ open class DeviceSettings
     }
     public static var isPhoneX : Bool
     {
-        return UIScreen.main.nativeBounds.height == 2436
+        return isPhone && UIScreen.main.nativeBounds.height > 2430
     }
     public static var isPhone55inch : Bool
     {
         return UIScreen.main.nativeBounds.height == 2208
     }
-    
+     public static var isPhone65inch : Bool
+    {
+    return UIScreen.main.nativeBounds.height ==  2688
+    }
+   
     public static var isPadPro : Bool
     {
         let size = UIScreen.main.applicationFrame

@@ -27,14 +27,7 @@ public class ScoreDisplay
     }
     public static var bottom  : CGFloat { get {
         
-
-        let isBig = DeviceSettings.isBigPro
-        let bottom : CGFloat = DeviceSettings.isPortrait ? ( isBig ? 0.09 : 0.115) :
-            (DeviceSettings.isPhone
-                ?  0.19
-                : ( isBig ? 0.16 : 0.23))
-        return bottom
-      //  return _bottom()
+        return _bottom()
         
         }}
    /* ScoreDisplay.bottom =  DeviceSettings.isPortrait ? 0.12 :

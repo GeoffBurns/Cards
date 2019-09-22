@@ -21,7 +21,7 @@ public class ScoreDisplay
         let bottom : CGFloat = DeviceSettings.isPortrait ? ( isBig ? 0.09 : 0.115) :
             (DeviceSettings.isPhone
                 ?  0.19
-                : ( isBig ? 0.16 : 0.23))
+                : ( isBig ? 0.17 : 0.23))
         return bottom
         
     }

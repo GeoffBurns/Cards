@@ -590,40 +590,89 @@ public struct PlayingCard : Equatable, Comparable, Hashable
                return (valuesInSuite.firstIndex(of: card.value)  ?? -1) + 1
             }
         }
-        override open var orderedDeck:[PlayingCard]
+        func getRemovedLowCards(_ n: Int ) -> Set<PlayingCard> {
+            var removedCards = Set<PlayingCard>()
+  
+            var removedSoFar = 0
+            
+            var pip = 2
+            /// Make sure than the cards divide evenly between the players by removing low value cards until the pack size is a multiple of the number of players
+            repeat
             {
-                var deck = [PlayingCard]();
-       
-                calculateNoOfCardsInEachSuite()
-                
-                let toRemove = gameSettings!.makeDeckEvenlyDevidable
-                                   ? noOfPossibleCardsInDeck % gameSettings!.noOfPlayersAtTable
-                                   : 0
-                
-                var removedCards = Set<PlayingCard>()
-                var removedSoFar = 0
-                
-                var pip = 2
-                /// Make sure than the cards divide evenly between the players by removing low value cards until the pack size is a multiple of the number of players
-                repeat
+                for s in normalSuitesInDeck
                 {
-                  for s in normalSuitesInDeck
-                  {
-                    if removedSoFar >= toRemove
+                    if removedSoFar >= n
                     {
                         break
                     }
                     if s == gameSettings!.specialSuite
                     {
                         continue
+                        
                     }
                     removedCards.insert(PlayingCard(suite: s, value: PlayingCard.CardValue.pip(pip)))
                     noInSuites[s.rawValue]  = noInSuites[s.rawValue] - 1
                     removedSoFar+=1
-                  }
-                  pip+=1
                 }
-                while removedSoFar < toRemove
+                pip+=1
+            }
+                while removedSoFar < n
+            
+            return removedCards
+        }
+        func getRemovedHighCards(_ n: Int ) -> Set<PlayingCard> {
+            var removedCards = Set<PlayingCard>()
+            let courtcards = ["K","Q","J"].map { CardValue.courtCard($0) }
+            var removedSoFar = 0
+            
+         
+            /// Make sure than the cards divide evenly between the players by removing high value cards until the pack size is a multiple of the number of players
+            repeat
+            {
+                for cardvalue in courtcards
+                {
+                  for s in normalSuitesInDeck
+                  {
+                    if removedSoFar >= n
+                    {
+                        break
+                    }
+                    if s == gameSettings!.specialSuite
+                    {
+                        continue
+                        
+                    }
+                    removedCards.insert(PlayingCard(suite: s, value: cardvalue))
+                    noInSuites[s.rawValue]  = noInSuites[s.rawValue] - 1
+                    removedSoFar+=1
+                  }
+                }
+            }
+                while removedSoFar < n
+            
+            return removedCards
+        }
+        func getRemovedCards( ) -> Set<PlayingCard> {
+       
+            let toRemove = gameSettings!.makeDeckEvenlyDevidable
+                ? noOfPossibleCardsInDeck % gameSettings!.noOfPlayersAtTable
+                : 0
+            
+            if toRemove < 1 { return Set<PlayingCard>() }
+            
+            if gameSettings!.removeLow { return getRemovedLowCards(toRemove) }
+            
+            return getRemovedHighCards(toRemove)
+          
+        }
+        
+        override open var orderedDeck:[PlayingCard]
+            {
+                var deck = [PlayingCard]();
+       
+                calculateNoOfCardsInEachSuite()
+            
+                let removedCards = getRemovedCards()
                 
                 valuesInSuite = PlayingCard.CardValue.valuesFor(gameSettings!.noOfCardsInASuite)
                 for s in normalSuitesInDeck

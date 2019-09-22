@@ -38,6 +38,7 @@ public protocol ICardGameSettings
     var useNumbersForCourtCards : Bool { get }
     var isAceHigh  : Bool { get set}
     var makeDeckEvenlyDevidable  : Bool { get }
+    var removeLow  : Bool { get set }
     var speedOfToss  : Int { get }
     var tossDuration : TimeInterval { get  }
     var memoryWarning : Bool { get set }
@@ -243,10 +244,8 @@ public class Game
 /// User controlled options for the game
 public class LiveGameSettings : ICardGameSettings
 {
-
-    
+    public var removeLow = true
     public var options: [SaveableOption]
-
     public var specialSuite: PlayingCard.Suite  = PlayingCard.Suite.none
     public var isFoolATrump = false
     public var noOfJokers = 2

@@ -660,7 +660,7 @@ public struct PlayingCard : Equatable, Comparable, Hashable
             
             if toRemove < 1 { return Set<PlayingCard>() }
             
-            if gameSettings!.removeLow { return getRemovedLowCards(toRemove) }
+            if gameSettings!.willRemoveLow { return getRemovedLowCards(toRemove) }
             
             return getRemovedHighCards(toRemove)
           

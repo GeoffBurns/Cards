@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -37,6 +37,7 @@
 		AC1D44E62100A48C008E80B3 /* PlayingCardComparable.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1D44E52100A48C008E80B3 /* PlayingCardComparable.swift */; };
 		AC1D44E82100A54C008E80B3 /* SequenceTypeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1D44E72100A54C008E80B3 /* SequenceTypeExtensions.swift */; };
 		AC1D44EA2100A649008E80B3 /* ArrayExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC1D44E92100A648008E80B3 /* ArrayExtensions.swift */; };
+		AC364FCA233861E900BCE2EF /* ReactiveSwift in Frameworks */ = {isa = PBXBuildFile; productRef = AC364FC9233861E900BCE2EF /* ReactiveSwift */; };
 		AC498952210BB5C90048D6A1 /* Bus.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC498951210BB5C90048D6A1 /* Bus.swift */; };
 		AC498956210BB8CF0048D6A1 /* CardPassingStrategy.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC498955210BB8CF0048D6A1 /* CardPassingStrategy.swift */; };
 		AC498958210BBAAE0048D6A1 /* PassYourThreeWorstCardsPhase.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC498957210BBAAD0048D6A1 /* PassYourThreeWorstCardsPhase.swift */; };
@@ -48,7 +49,6 @@
 		ACBCCA002106FDF50014B2E6 /* CardDisplayScreen.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACBCC9FE2106FDF50014B2E6 /* CardDisplayScreen.swift */; };
 		ACD6965F210B58D200ECC62A /* GameNotice.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD6965D210B58D200ECC62A /* GameNotice.swift */; };
 		ACD69660210B58D200ECC62A /* GameEvent.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACD6965E210B58D200ECC62A /* GameEvent.swift */; };
-		ACFC6D85215B542A00330058 /* ReactiveSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ACFC6D84215B542900330058 /* ReactiveSwift.framework */; };
 		ACFC7BD22102CB4000ED1839 /* NumberRangeToggle.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFC7BD02102CB4000ED1839 /* NumberRangeToggle.swift */; };
 		ACFC7BD32102CB4000ED1839 /* Popup.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFC7BD12102CB4000ED1839 /* Popup.swift */; };
 		ACFC7BD52102CC0600ED1839 /* PopupButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = ACFC7BD42102CC0600ED1839 /* PopupButton.swift */; };
@@ -112,7 +112,6 @@
 		ACBCC9FE2106FDF50014B2E6 /* CardDisplayScreen.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CardDisplayScreen.swift; sourceTree = "<group>"; };
 		ACD6965D210B58D200ECC62A /* GameNotice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameNotice.swift; sourceTree = "<group>"; };
 		ACD6965E210B58D200ECC62A /* GameEvent.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameEvent.swift; sourceTree = "<group>"; };
-		ACFC6D84215B542900330058 /* ReactiveSwift.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = ReactiveSwift.framework; path = Carthage/Build/iOS/ReactiveSwift.framework; sourceTree = "<group>"; };
 		ACFC7BD02102CB4000ED1839 /* NumberRangeToggle.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = NumberRangeToggle.swift; sourceTree = "<group>"; };
 		ACFC7BD12102CB4000ED1839 /* Popup.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Popup.swift; sourceTree = "<group>"; };
 		ACFC7BD42102CC0600ED1839 /* PopupButton.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PopupButton.swift; sourceTree = "<group>"; };
@@ -126,7 +125,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				ACFC6D85215B542A00330058 /* ReactiveSwift.framework in Frameworks */,
+				AC364FCA233861E900BCE2EF /* ReactiveSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -225,7 +224,6 @@
 		AC1D44AE21009FE3008E80B3 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				ACFC6D84215B542900330058 /* ReactiveSwift.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -258,6 +256,9 @@
 			dependencies = (
 			);
 			name = Cards;
+			packageProductDependencies = (
+				AC364FC9233861E900BCE2EF /* ReactiveSwift */,
+			);
 			productName = Cards;
 			productReference = AC1D449421009EE9008E80B3 /* Cards.framework */;
 			productType = "com.apple.product-type.framework";
@@ -287,7 +288,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0940;
-				LastUpgradeCheck = 0940;
+				LastUpgradeCheck = 1100;
 				ORGANIZATIONNAME = "Geoff Burns";
 				TargetAttributes = {
 					AC1D449321009EE9008E80B3 = {
@@ -309,6 +310,9 @@
 				Base,
 			);
 			mainGroup = AC1D448A21009EE9008E80B3;
+			packageReferences = (
+				AC364FC8233861E900BCE2EF /* XCRemoteSwiftPackageReference "ReactiveSwift" */,
+			);
 			productRefGroup = AC1D449521009EE9008E80B3 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -531,7 +535,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "";
 				CODE_SIGN_STYLE = Automatic;
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = 5CUBLSA9G4;
@@ -657,6 +661,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		AC364FC8233861E900BCE2EF /* XCRemoteSwiftPackageReference "ReactiveSwift" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/ReactiveCocoa/ReactiveSwift.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 6.1.0;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		AC364FC9233861E900BCE2EF /* ReactiveSwift */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AC364FC8233861E900BCE2EF /* XCRemoteSwiftPackageReference "ReactiveSwift" */;
+			productName = ReactiveSwift;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = AC1D448B21009EE9008E80B3 /* Project object */;
 }

@@ -50,7 +50,7 @@ open class GameKitHelper: NSObject, GKGameCenterControllerDelegate, GKTurnBasedM
     
     public var displayName : String
         {
-       
+        
         if let name = gameCenterName, name != "Unknown"
         {
              return name
@@ -65,7 +65,8 @@ open class GameKitHelper: NSObject, GKGameCenterControllerDelegate, GKTurnBasedM
         {
         if  !gameCenterEnabled { return nil }
         
-        return displayName.truncated(18)
+        let name = GKLocalPlayer.local.alias
+        return name.truncated(18)
         }
 
     public func authenticateLocalPlayer () {

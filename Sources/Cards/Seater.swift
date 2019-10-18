@@ -54,18 +54,20 @@ public class Seater
         
         for (i,(player,seat)) in zip(players,seats).enumerated()
         {
-            player.setup(scene, sideOfTable: seat, playerNo: i,isPortrait: isPortrait)
+            player.setupCardPlayer(scene, playerNo: i)
+            player.seatCardPlayer(scene, sideOfTable: seat, isPortrait: isPortrait)
+            
         }
     }
     
-    public static func seatPlayers(_ scene:CardScene, isPortrait:Bool, players:[CardPlayer], rotate:Int)
+    public static func reseatPlayers(_ scene:CardScene, isPortrait:Bool, players:[CardPlayer], rotate:Int)
     {
         let s = isPortrait ? Seater.portraitSeatsFor(players.count) : Seater.seatsFor(players.count)
         let seats = s.rotate(rotate)
         
-        for (i,(player,seat)) in zip(players,seats).enumerated()
+        for (player,seat) in zip(players,seats)
         {
-            player.setup(scene, sideOfTable: seat, playerNo: i,isPortrait: isPortrait)
+            player.seatCardPlayer(scene, sideOfTable: seat, isPortrait: isPortrait)
         }
     }
 

@@ -42,19 +42,21 @@ open class CardPile : PositionedOnTable
     
     public init(name:String,player:CardHolderBase? = nil) { self.name = name; self.player = player;  tableSize = CGSize() }
  
-    public func setup(_ scene:HasDiscardArea, direction: Direction, position: CGPoint, isUp: Bool = false, sizeOfCards: CardSize = CardSize.small)
+    public func setup(_ scene:HasDiscardArea)
     {
         self.discardAreas = scene
         self.scene = scene as? SKNode
+        tableSize = self.scene!.frame.size
+    }
+    public func setPosition(direction: Direction, position: CGPoint, isUp: Bool = false, sizeOfCards: CardSize = CardSize.small)
+    {
         self.direction = direction
         self.position = position
         self.isUp = isUp
         self.sizeOfCards = sizeOfCards
         self.isFanClosed = true
         self.zPositon = isBackground ? 3 : self.sizeOfCards.zOrder
-        tableSize = self.scene!.frame.size
     }
-    
     public func transferFrom(_ pile:CardPile)
     {
     

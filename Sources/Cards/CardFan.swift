@@ -16,20 +16,16 @@ public class CardFan : CardPile
      static let fanAnchorPoint = CGPoint(x: 0.5,y: -0.7)
      override var cardAnchorPoint : CGPoint { get { return CardFan.fanAnchorPoint }}
     
-    
-    public func setup(_ scene:HasDiscardArea, sideOfTable: SideOfTable, isUp: Bool, sizeOfCards: CardSize = CardSize.small)
+
+    public func seat(sideOfTable: SideOfTable, isUp: Bool, sizeOfCards: CardSize = CardSize.small)
     {
-        self.discardAreas = scene
-        self.scene = scene as? SKNode
         self.sideOfTable = sideOfTable
         self.isUp = isUp
         self.sizeOfCards = sizeOfCards
         self.direction = sideOfTable.direction
         self.zPositon = self.sizeOfCards.zOrder
-        tableSize = self.scene!.frame.size
     }
 
-    
     public override func append(_ card:PlayingCard)
     {
         var updatedCards = cards

@@ -48,8 +48,12 @@ extension HasDiscardArea
     {
         
         discardWhitePile.isBackground = true
-        discardPile.setup(self, direction: Direction.up, position: CGPoint(x: -300, y: -300),isUp: false)
-        discardWhitePile.setup(self, direction: Direction.up, position: CGPoint(x: -300, y: -300),isUp: false)
+        discardPile.setup(self)
+        discardWhitePile.setup(self)
+        discardPile.setPosition(direction: Direction.up, position: CGPoint(x: -300, y: -300),isUp: false)
+              discardWhitePile.setPosition( direction: Direction.up, position: CGPoint(x: -300, y: -300),isUp: false)
+            
+        
 //        discardPile.isDiscard = true
 //        discardWhitePile.isDiscard = true
         discardWhitePile.speed = 0.1
@@ -92,7 +96,8 @@ extension HasDealersArea
         for i in 0..<noOfPlayers
         {
             let dealtPile = CardPile(name: CardPileType.dealt.description)
-            dealtPile.setup(self, direction: directions[i], position: CGPoint(x: width * CGFloat(2 * i  - 3) / hSpacing,y: height*1.2), isUp: false)
+            dealtPile.setup(self)
+            dealtPile.setPosition(direction: directions[i], position: CGPoint(x: width * CGFloat(2 * i  - 3) / hSpacing,y: height*1.2), isUp: false)
             dealtPile.speed = 0.1
             dealtPiles.append(dealtPile)
         }
@@ -123,7 +128,8 @@ extension HasBackgroundSpread
     public func setupBackgroundSpread( )
     {
         backgroundFan.isBackground = true
-        backgroundFan.setup(self, sideOfTable: SideOfTable.center, isUp: true, sizeOfCards: CardSize.medium)
+        backgroundFan.setup(self)
+        backgroundFan.seat(sideOfTable: SideOfTable.center, isUp: true, sizeOfCards: CardSize.medium)
         backgroundFan.zPositon = 0.0
         backgroundFan.speed = 0.1
     }

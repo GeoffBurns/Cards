@@ -55,14 +55,16 @@ public var isCurrentlyActive = true
     
       if let passFan = passPile as? CardFan
         {
-        passFan.setup(scene, sideOfTable: SideOfTable.center, isUp: true, sizeOfCards: CardSize.medium)
+            passFan.setup(scene)
+            passFan.seat(sideOfTable: SideOfTable.center, isUp: true, sizeOfCards: CardSize.medium)
         }
       else
         {
-        passPile.setup(scene,
-        direction: side.direction,
-        position: side.positionOfPassingPile( 80, width: scene.frame.width, height: scene.frame.height),
-        isUp: false)
+        passPile.setup(scene)
+        passPile.setPosition(
+            direction: side.direction,
+            position: side.positionOfPassingPile( 80, width: scene.frame.width, height: scene.frame.height),
+            isUp: false)
         }
       }
    

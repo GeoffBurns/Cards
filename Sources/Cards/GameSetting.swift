@@ -261,6 +261,7 @@ public class LiveGameSettings : ICardGameSettings
     public var hasFool =  true
     public var makeDeckEvenlyDevidable  =  true
     public var noOfSuitesDefault : Int  = 5
+
     
     public init(options: [SaveableOption])
     {
@@ -284,7 +285,11 @@ public class LiveGameSettings : ICardGameSettings
     }
     
     public var noOfHumanPlayers : Int {
-        get { return Options.noOfHumans.value }
+        get {
+              return Options.noOfHumans.value
+            // return 2 //Options.noOfHumans.value
+            // temp_geoff
+        }
         set (newValue) { Options.noOfHumans.value = newValue }
     }
 

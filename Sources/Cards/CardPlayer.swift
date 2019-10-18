@@ -102,19 +102,31 @@ open class CardPlayer :CardHolderBase , Equatable, Hashable
     /////////////////////////////////
     /// Constructors and setup
     /////////////////////////////////
-    public func setup(_ scene: CardScene, sideOfTable: SideOfTable, playerNo: Int, isPortrait: Bool)
+    public func setupCardPlayer(_ scene: CardScene, playerNo: Int)
     {
         
         self.isSetup = true
-        self.sideOfTable = sideOfTable
         self.playerNo = playerNo
-        let isUp = sideOfTable == SideOfTable.bottom
-        let cardSize = isUp ? (isPortrait ? CardSize.medium :CardSize.big) : CardSize.small
-        _hand.setup(scene, sideOfTable: sideOfTable, isUp: isUp, sizeOfCards: cardSize)
-        wonCards.setup(scene, direction: sideOfTable.direction, position: sideOfTable.positionOfWonCards(scene.frame.width, height: scene.frame.height))
+        _hand.setup(scene)
+        wonCards.setup(scene)
     }
+    public func seatCardPlayer(_ scene: CardScene, sideOfTable: SideOfTable, isPortrait: Bool)
+      {
+          self.sideOfTable = sideOfTable
+          let isUp = sideOfTable == SideOfTable.bottom && Game.settings.noOfHumanPlayers < 2
+          let cardSize = sideOfTable == SideOfTable.bottom ? (isPortrait ? CardSize.medium :CardSize.big) : CardSize.small
+          _hand.seat(sideOfTable: sideOfTable, isUp: isUp, sizeOfCards: cardSize)
+          wonCards.setPosition(direction: sideOfTable.direction, position: sideOfTable.positionOfWonCards(scene.frame.width, height: scene.frame.height))
+      }
     
-    public func setPosition(_ size:CGSize, sideOfTable: SideOfTable)
+
+    public func turnOverCards()
+    {
+        _hand.isUp = true
+        _hand.update()
+
+    }
+/*    public func setPosition(_ size:CGSize, sideOfTable: SideOfTable)
     {
         if self.isSetup
         {
@@ -133,6 +145,7 @@ open class CardPlayer :CardHolderBase , Equatable, Hashable
       //      _hand.update()
         }
     }
+ */
     ///////////////////////////////////
     /// Instance Methods
     ///////////////////////////////////

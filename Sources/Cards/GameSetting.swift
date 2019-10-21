@@ -215,13 +215,26 @@ public class Game
     public static func newDeck(with: ICardGameSettings) {
         _deck = PlayingCard.BuiltCardDeck(gameSettings: with)
     }
-    public static var backgroundColor = UIColor(red: 0.0, green: 0.5, blue: 0.2, alpha: 1.0)
+    public static var backgroundColor : UIColor { return _backgroundColor[currentOperator] }
+    
+    public static var _backgroundColor = [UIColor(red: 0.0, green: 0.5, blue: 0.2, alpha: 1.0),
+                                          UIColor(red: 0.1, green: 0.3, blue: 0.5, alpha: 1.0),
+                                          UIColor(red: 0.5, green: 0.1, blue: 0.3, alpha: 1.0),
+                                          UIColor(red: 0.3, green: 0.1, blue: 0.5, alpha: 1.0),
+                                          UIColor(red: 0.35, green: 0.15, blue: 0.0, alpha: 1.0),
+                                          UIColor(red: 0.0, green: 0.0, blue: 0.6, alpha: 1.0),
+                                          UIColor(red: 0.6, green: 0.1, blue: 0.1, alpha: 1.0)]
+    
+    public static var currentOperator : Int = 0
     
     /// Tips shown in demo mode
     public static var demoTips : [GameTip] = []
     
     /// Tips shown in game mode
     public static var gameTips : [GameTip] = []
+    
+    /// Tips shown in multiplayer mode
+    public static var multiplayerTips : [GameTip] = []
     
     /// current tips displayed
     public static var tips = demoTips
@@ -286,9 +299,7 @@ public class LiveGameSettings : ICardGameSettings
     
     public var noOfHumanPlayers : Int {
         get {
-              return Options.noOfHumans.value
-            // return 2 //Options.noOfHumans.value
-            // temp_geoff
+             return Options.noOfHumans.value
         }
         set (newValue) { Options.noOfHumans.value = newValue }
     }

@@ -20,6 +20,7 @@ open class PassYourThreeWorstCardsPhase
 var players : [CardPlayer]
 var scene : CardScene
 var cardsPassed = [CardPile]()
+//var currentPlayerNo : Int = 0
 public var isCurrentlyActive = true
 
     
@@ -27,16 +28,23 @@ public var isCurrentlyActive = true
     {
         self.players = players
         self.scene = scene
+       // currentPlayerNo = 0
         setPassedCards()
     }
 
 
     func setPassedCards()
     {
-    cardsPassed.append(CardFan(name: CardPileType.passing.description))
-    for _ in players
+    for p in players
         {
-        cardsPassed.append(CardPile(name: CardPileType.passing.description))
+         if p is HumanPlayer
+         {
+            cardsPassed.append(CardFan(name: CardPileType.passing.description))
+         }
+            else
+         {
+            cardsPassed.append(CardPile(name: CardPileType.passing.description))
+         }
         }
     }
     func resetPassedCards()
@@ -47,6 +55,31 @@ public var isCurrentlyActive = true
        cardTrioPassed.cards = []
     }
     }
+    public func showPassPile(_ playerNo:Int)
+    {
+        if let passFan = cardsPassed[playerNo] as? CardFan
+             {
+             passFan.seat(sideOfTable: SideOfTable.center, isUp: true, sizeOfCards: CardSize.medium)
+             }
+    }
+    public func hidePassPile(_ playerNo:Int)
+    {
+        if let passFan = cardsPassed[playerNo] as? CardFan
+             {
+
+                passFan.seat(sideOfTable: SideOfTable.hidden, isUp: false, sizeOfCards: CardSize.small)
+                
+        /*        let player = players[playerNo]
+                 let side = player.sideOfTable
+                 passFan.sideOfTable = side
+                 passFan.setPosition(
+                         direction: side.direction,
+
+                         position: CGPoint(x: scene.frame.width*5 ,y: scene.frame.height*10),
+                     //    position: side.positionOfPassingPile( 80, width: scene.frame.width, height: scene.frame.height),
+                         isUp: false) */
+             }
+    }
     public func setupCardPilesSoPlayersCanPassTheir3WorstCards()
     {
     for (passPile,player) in zip( cardsPassed, players )
@@ -56,7 +89,17 @@ public var isCurrentlyActive = true
       if let passFan = passPile as? CardFan
         {
             passFan.setup(scene)
+            if player.playerNo == Game.currentOperator
+            {
             passFan.seat(sideOfTable: SideOfTable.center, isUp: true, sizeOfCards: CardSize.medium)
+            } else
+            {
+                passFan.setPosition(
+                    direction: side.direction,
+                    position: CGPoint(x: scene.frame.width*0.20 ,y: scene.frame.height*1.3),
+              //      position: side.positionOfPassingPile( 260, width: scene.frame.width, height: scene.frame.height),
+                    isUp: false)
+            }
         }
       else
         {
@@ -110,8 +153,6 @@ public var isCurrentlyActive = true
           {
           scene.cardSprite(card)!.player = toPlayer
           }
-    
-    
         toPlayer.appendContentsToHand(fromPlayersCards)
         }
       resetPassedCards()
@@ -119,12 +160,12 @@ public var isCurrentlyActive = true
     
     func unpassCard(_ seatNo:Int, passedCard:PlayingCard) -> PlayingCard?
     {
-      return players[seatNo]._hand.transferCardFrom(self.cardsPassed[seatNo], card: passedCard)
+      return players[seatNo]._hand.safeTransferCardFrom(self.cardsPassed[seatNo], card: passedCard)
     }
     
     func passCard(_ seatNo:Int, passedCard:PlayingCard) -> PlayingCard?
     {
-        return self.cardsPassed[seatNo].transferCardFrom(players[seatNo]._hand, card: passedCard)
+        return self.cardsPassed[seatNo].safeTransferCardFrom(players[seatNo]._hand, card: passedCard)
     }
     
     func passOtherCards()
@@ -141,7 +182,7 @@ public var isCurrentlyActive = true
       }
     }
     
-    func endCardPassingPhase()
+    public func endCardPassingPhase()
     {
         passOtherCards()
         takePassedCards()
@@ -155,36 +196,40 @@ public var isCurrentlyActive = true
         {
             if sourceFanName == CardPileType.hand.description  && isTargetHand
             {
-                if let _ = passCard(0, passedCard: cardsprite.card)
+                if let _ = passCard(Game.currentOperator, passedCard: cardsprite.card)
                 {
                     return true
                 }
             }
             if sourceFanName == CardPileType.passing.description  && !isTargetHand
             {
-                if let _ = unpassCard(0, passedCard: cardsprite.card)
+                if let _ = unpassCard(Game.currentOperator, passedCard: cardsprite.card)
                 {
                     return true
                 }
             }
         }
-        
         return false
     }
-    public func isPassingPhaseContinuing() -> Bool
+ 
+    public func isPlayerPassing() -> Bool
     {
-        let count = cardsPassed[scene.currentPlayer.playerNo].cards.count
+         //cardsPassed[scene.currentPlayer.playerNo]
+        let passpile = cardsPassed[Game.currentOperator]
+        let count = passpile.cards.count
       
         if  count < 3
           {
           Bus.send(GameNotice.discardWorstCards(3-count))
           return true
           }
-        else
-          {
-          endCardPassingPhase()
-          //  startTrickPhase()
-          return false
-          }
+        
+        let side = SideOfTable.bottom // scene.currentPlayer.sideOfTable
+        passpile.setPosition(
+                direction: side.direction,
+                position: side.positionOfPassingPile( 80, width: scene.frame.width, height: scene.frame.height),
+                isUp: false)
+        
+        return false
     }
 }

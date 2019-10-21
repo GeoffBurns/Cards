@@ -25,6 +25,14 @@ public class CardStack : CardPile
     public var x = 0
     public var y = 0
     
+     public func updateBaseBackground()
+     {
+     if let white = self.baseSprite as? WhiteCardSprite
+            {
+                white.updateBackground()
+            }
+    }
+        
     public static func nextLowerCard(_ lastCard:PlayingCard) ->[PlayingCard]
     {
             let prevcards = Game.deck.orderedDeck

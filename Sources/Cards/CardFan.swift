@@ -24,6 +24,9 @@ public class CardFan : CardPile
         self.sizeOfCards = sizeOfCards
         self.direction = sideOfTable.direction
         self.zPositon = self.sizeOfCards.zOrder
+        self.position = CGPoint.zero
+        self.isFanClosed = false
+
     }
 
     public override func append(_ card:PlayingCard)

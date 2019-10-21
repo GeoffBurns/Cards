@@ -429,6 +429,13 @@ class WhiteCardSprite : CardSprite
     }
     
     override var indexMaskingImageName : String { return "letterwhite" }
+    
+    func updateBackground()
+    {
+    self.blank?.color =  Game.backgroundColor
+    self.blank?.colorBlendFactor = 1.0
+    }
+    
     fileprivate init(card:PlayingCard)
     {
         super.init(card:card, texture: SKTexture(imageNamed: "blank"))
@@ -451,6 +458,7 @@ class WhiteCardSprite : CardSprite
             b.zPosition = 0.0
             self.addChild(b)
         }
+        
         if let s = shadow
         {
             

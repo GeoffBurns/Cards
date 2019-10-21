@@ -36,6 +36,12 @@ public class StatusDisplay : Resizable
         noticeLabel.displayTime = 6
         noticeLabel2.displayTime = 6
     }
+    public func setMultiplayerMode()
+       {
+        Game.tips = Game.multiplayerTips
+           noticeLabel.displayTime = 6
+           noticeLabel2.displayTime = 6
+       }
     public func arrangeLayoutFor(_ size:CGSize, bannerHeight:CGFloat)
     {
         let fontsize : CGFloat = FontSize.huge.scale

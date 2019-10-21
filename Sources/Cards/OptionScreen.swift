@@ -59,8 +59,7 @@ public class OptionScreen: MultiPagePopup {
         pageNo = 0
         
         optionSettings = Game.settings.options.map { $0.view }
-       /*     [self.noOfSuites, noOfCardsInASuite, noOfPlayers, hasJokers, hasTrumps, willPassCards, gameWinningScore,speedOfToss, ruleSet, includeHooligan, includeOmnibus, showTips, allowBreakingTrumps , useNumbersForCourtCards]
- */
+
         multiPlayerSettings = [Options.noOfHumans.view]
      //   tabNames = ["Options","Gamecentre","multiplayer"]
         tabNames = ["Options","Gamecentre"]

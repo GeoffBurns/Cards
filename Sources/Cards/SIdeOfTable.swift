@@ -23,7 +23,8 @@ public enum SideOfTable:Int
     case rightHigh
     case leftLow
     case leftHigh
- 
+    case hidden
+    
     fileprivate func heightOfFarHand(_ height: CGFloat, _ top: CGFloat) -> CGFloat {
         if DeviceSettings.isPhone
           {
@@ -117,9 +118,10 @@ public enum SideOfTable:Int
                     verticalSpacing = -height * 0.12 / fullHand
                     startheight = height * 0.75
                     startWidth = left
-                 //   startWidth =  DeviceSettings.isPad ? width*0.03 : 0.01
                     return CGPoint(x: startWidth - spriteHeight*1.4 ,y: startheight+verticalSpacing*positionInSpread )
-            
+        case .hidden:
+            return CGPoint(x: 0.0,y: -400.0)
+               
             // the trick pile
         case .center:
             let startheight =  DeviceSettings.isPad ?
@@ -214,7 +216,8 @@ public enum SideOfTable:Int
             startheight = height * 0.75
             return CGPoint(x:startWidth - spriteHeight*1.4 ,y: startheight )
     
-            
+        case .hidden:
+                return CGPoint(x: 0.0 ,y: -400 )
         default:
             let startheight = height * 0.5
             let startWidth = width * 0.35
@@ -263,7 +266,8 @@ public enum SideOfTable:Int
             
         case .leftHigh:
             return CGPoint(x: -500,y: height * 0.75)
-            
+        case .hidden:
+                return CGPoint(x: width*0.5,y: -400.0)
             // the trick pile
         case .center:
             

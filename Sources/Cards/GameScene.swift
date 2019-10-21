@@ -22,11 +22,7 @@ open class CardScene : SKScene, HasDiscardArea, PositionedOnTable  {
     open var tableSize = CGSize()
     var _currentPlayer = MutableProperty<CardPlayer>(CardPlayer(name: "None"))
     public var currentPlayer : CardPlayer { get { return _currentPlayer.value }}
-    
- /*   public func redealThen(cards:[[PlayingCard]],  whenDone: ([CardPile]) -> Void)
-    {
-
-    }*/
+  
     
     open func setupCurrentPlayer()
     {
@@ -120,6 +116,7 @@ public protocol HasBackgroundSpread : HasDiscardArea
 public protocol HasDemoMode
 {
     func resetSceneAsDemo()
+    var isInDemoMode  : Bool { get }
 }
 
 

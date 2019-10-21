@@ -51,7 +51,7 @@ public class Seater
     {
         
         let seats = isPortrait ? Seater.portraitSeatsFor(players.count) : Seater.seatsFor(players.count)
-        
+        scene.backgroundColor = Game.backgroundColor
         for (i,(player,seat)) in zip(players,seats).enumerated()
         {
             player.setupCardPlayer(scene, playerNo: i)
@@ -62,12 +62,24 @@ public class Seater
     
     public static func reseatPlayers(_ scene:CardScene, isPortrait:Bool, players:[CardPlayer], rotate:Int)
     {
-        let s = isPortrait ? Seater.portraitSeatsFor(players.count) : Seater.seatsFor(players.count)
-        let seats = s.rotate(rotate)
+        scene.backgroundColor = Game.backgroundColor
+        let seats = isPortrait ? Seater.portraitSeatsFor(players.count) : Seater.seatsFor(players.count)
+        let p = players.rotate(rotate)
         
-        for (player,seat) in zip(players,seats)
+        for (player,seat) in zip(p,seats)
         {
             player.seatCardPlayer(scene, sideOfTable: seat, isPortrait: isPortrait)
+        }
+    }
+    public static func reseatPlayers(_ scene:CardScene, isPortrait:Bool, players:[CardPlayer], rotate:Int, isCardsShown: Bool)
+    {
+        scene.backgroundColor = Game.backgroundColor
+        let seats = isPortrait ? Seater.portraitSeatsFor(players.count) : Seater.seatsFor(players.count)
+        let p = players.rotate(rotate)
+        
+        for (player,seat) in zip(p,seats)
+        {
+            player.seatCardPlayer(scene, sideOfTable: seat, isPortrait: isPortrait, isCardsShown: isCardsShown)
         }
     }
 

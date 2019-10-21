@@ -57,6 +57,19 @@ open class CardPile : PositionedOnTable
         self.isFanClosed = true
         self.zPositon = isBackground ? 3 : self.sizeOfCards.zOrder
     }
+    
+    public func updateBackgrounds()
+    {
+        for card in cards
+        {
+        if let sprite = scene?.cardSpriteNamed(card.whiteImageName),
+           let white = sprite as? WhiteCardSprite
+            {
+                white.updateBackground()
+            }
+               
+        }
+    }
     public func transferFrom(_ pile:CardPile)
     {
     
@@ -78,7 +91,16 @@ open class CardPile : PositionedOnTable
         append(card)
         return result
     }
-    
+    public func safeTransferCardFrom(_ pile:CardPile, card:PlayingCard) -> PlayingCard?
+     {
+         let result = pile.remove(card)
+         if card == result
+         {
+         append(card)
+        }
+         return result
+     }
+     
     public func discardAll()
     {
        if isBackground

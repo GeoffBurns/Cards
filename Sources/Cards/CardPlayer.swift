@@ -112,18 +112,37 @@ open class CardPlayer :CardHolderBase , Equatable, Hashable
     }
     public func seatCardPlayer(_ scene: CardScene, sideOfTable: SideOfTable, isPortrait: Bool)
       {
-          self.sideOfTable = sideOfTable
-          let isUp = sideOfTable == SideOfTable.bottom && Game.settings.noOfHumanPlayers < 2
+      
+        var isInDemoMode = false
+        if let demoable = scene as? HasDemoMode
+        {
+            isInDemoMode = demoable.isInDemoMode
+        }
+        let isCardsShown = ((Game.settings.noOfHumanPlayers < 2 && self is HumanPlayer) ||
+                isInDemoMode)
+          seatCardPlayer(scene , sideOfTable: sideOfTable, isPortrait: isPortrait, isCardsShown: isCardsShown)
+        
+      }
+    
+    public func seatCardPlayer(_ scene: CardScene, sideOfTable: SideOfTable, isPortrait: Bool, isCardsShown: Bool)
+      {
+        self.sideOfTable = sideOfTable
+        let isUp = sideOfTable == SideOfTable.bottom && isCardsShown
           let cardSize = sideOfTable == SideOfTable.bottom ? (isPortrait ? CardSize.medium :CardSize.big) : CardSize.small
           _hand.seat(sideOfTable: sideOfTable, isUp: isUp, sizeOfCards: cardSize)
           wonCards.setPosition(direction: sideOfTable.direction, position: sideOfTable.positionOfWonCards(scene.frame.width, height: scene.frame.height))
+        
+        _hand.rearrangeFast()
+        wonCards.rearrangeFast()
+        
       }
+    
     
 
     public func turnOverCards()
     {
         _hand.isUp = true
-        _hand.update()
+        _hand.rearrangeFast()
 
     }
 /*    public func setPosition(_ size:CGSize, sideOfTable: SideOfTable)

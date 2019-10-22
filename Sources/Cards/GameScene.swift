@@ -119,7 +119,11 @@ public protocol HasDemoMode
     var isInDemoMode  : Bool { get }
 }
 
-
+public protocol HasMusic
+{
+    func stopMusic()
+    func playMusic(_ n: Int)
+}
 extension HasBackgroundSpread
 {
     public func setupBackgroundSpread( )

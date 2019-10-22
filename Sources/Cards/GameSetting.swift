@@ -32,6 +32,8 @@ public protocol ICardGameSettings
     var hasTrumps  : Bool { get }
     var hasJokers : Bool { get set}
     var hasFool : Bool { get }
+    var isPlayingMusic : Bool { get }
+    var isPlayingSound : Bool { get }
     var isFoolATrump : Bool { get set}
     var showTips : Bool { get }
     var willPassCards  : Bool { get }
@@ -69,6 +71,10 @@ enum GameProperties : String
     case speedOfToss = "speedOfToss"
     case memoryWarning = "memoryWarning"
     case hideTips = "hideTips"
+    case playMusic = "playMusic"
+    case silenceMusic = "silenceMusic"
+    case playSound  = "playSound"
+    case silenceSound = "silenceSound"
 }
 
 /// User controlled options for the game
@@ -188,6 +194,15 @@ public class Options
     public static var trumps = YesNoOption(inverted: false, prompt: "Include Tarot Trumps", key: GameProperties.HasTrumps)
 
     public static var jokers = YesNoOption(inverted: false, prompt: "Include Jokers", key: GameProperties.HasJokers)
+    
+    
+    public static var music = YesNoOption(inverted: true, prompt: "Play Music", key: GameProperties.silenceMusic)
+    
+    
+    public static var credit = InfoOption(prompt: "Music by Kevin MacLeod (creative commons 3.0 licience)")
+    
+    public static var sound = YesNoOption(inverted: true, prompt: "Play Sound", key: GameProperties.silenceSound)
+
 }
 
 class Silent : GameTip {
@@ -369,10 +384,19 @@ public class LiveGameSettings : ICardGameSettings
         set (newValue) { jokerToggle.value = newValue }
     }
     
+    public var isPlayingMusic : Bool {
+        get { return Options.music.value  }
+           set (newValue) { Options.music.value = newValue }
+       }
+    public var isPlayingSound : Bool {
+           get { return Options.sound.value }
+           set (newValue) { Options.sound.value = newValue }
+       }
     public func changed() -> Bool
     {
         return changed(settings:options);
     }
+    
     func changed(settings:[SaveableOption]) -> Bool
     {
         if settings.hasAnyChanged { settings.saveAll() ; Game.newDeck(with: self) ; return true }

@@ -61,3 +61,30 @@ public class BinaryToggle: SKNode {
         }
         
     }}
+
+
+/// Info
+public class InfoLabel  {
+
+    
+    public var label = SKLabelNode(fontNamed:"Chalkduster")
+    
+    
+    public init(text: String)
+    {
+        label.fontSize =  FontSize.smaller.scale
+        label.text = text
+    //    label.isUserInteractionEnabled = false
+
+      //  super.init()
+      //  self.addChild(label)
+        label.isUserInteractionEnabled = true
+    }
+    
+    public required init?(coder aDecoder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+
+
+    }

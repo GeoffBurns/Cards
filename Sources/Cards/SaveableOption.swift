@@ -142,6 +142,25 @@ public class YesNoOption : SaveableOption
         value = toggle.current
     }
 }
+public class InfoOption : SaveableOption
+{
+    public var view: SKNode { get { return info.label as SKNode}}
+    
+    public var hasChanged: Bool = false
+    
+    var info : InfoLabel
+    
+    public init(prompt: String)
+    {
+        self.info = InfoLabel(text: prompt.localize)
+    }
+    
+    public func load() {
+    }
+    
+    public func save() {
+    }
+}
 
 public class SelectOption : SaveableOption
 {

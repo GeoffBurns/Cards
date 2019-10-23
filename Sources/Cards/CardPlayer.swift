@@ -50,6 +50,7 @@ open class NoPlayer:  CardHolderBase
 open class CardHolderBase :  CardHolder
 {
     open var name : String = "Base"
+    open var sound : String = "Base"
     open var isYou : Bool { return name=="You".localize }
     public lazy var _hand : CardFan = CardFan(name: CardPileType.hand.description, player:self)
     open var hand : [PlayingCard] { get { return _hand.cards } set { _hand.cards = newValue }}
@@ -60,6 +61,11 @@ open class CardHolderBase :  CardHolder
     
     public init(name s: String) {
         self.name = s
+        self.sound = s
+    }
+    public init(name n: String, sound s: String) {
+        self.name = n
+        self.sound = s
     }
     open func removeFromHand(_ card:PlayingCard) -> PlayingCard?
     {
@@ -190,8 +196,8 @@ open class HumanPlayer :CardPlayer
         super.init(name: name)
     }
     
-    public override init(name:String) {
-        super.init(name: name )
+    public override init(name:String,sound:String) {
+        super.init(name: name, sound: sound)
     }
 }
 

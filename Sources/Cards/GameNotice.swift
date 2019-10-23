@@ -8,6 +8,7 @@
 
 public protocol GameMove {
     var description : String? {get}
+    var sound : [String] {get}
 }
 
 public protocol GameTip {
@@ -16,12 +17,13 @@ public protocol GameTip {
 
 public protocol PlayerScored {
     var description : String? {get}
+    var sound : [String] {get}
 }
 
 public enum GameNotice : Equatable
 {
-    case winTrick(String)
-    case winGame(String)
+    case winTrick(CardPlayer)
+    case winGame(CardPlayer)
     case suiteFinished(PlayingCard.Suite)
     case player(PlayerScored)
     case invalidMove(GameMove)
@@ -35,15 +37,29 @@ public enum GameNotice : Equatable
     case discardWorstCards(Int)
     case discardWorstCards2(String,Int)
     
-  
+  public var sound : [String]
+   {
+       switch self
+         {
+              case .validMove(let move) :
+                     return move.sound
+              case .player( let scored )  :
+                  return scored.sound
+              case .winGame( let player ) :
+                  return player.isYou ? ["YouWonGame"] : [player.sound,"WonGame"]
+        
+         default:
+          return []
+         }
+   }
     public var description : String?
     {
         switch self
         {
-        case .winTrick( let name ) :
-            return  "%@ just Won the Trick".sayTo(name)
-        case .winGame( let name ) :
-            return "%@ just Won the Game".sayCongratsTo(name)
+        case .winTrick( let player ) :
+            return  "%@ just Won the Trick".sayTo(player.name)
+        case .winGame( let player ) :
+            return "%@ just Won the Game".sayCongratsTo(player.name)
         case .suiteFinished(let suite) :
             return suite.description + " " + "Finished".localize
         case .turnOverYourCards :

@@ -29,10 +29,9 @@ open class CardScene : SKScene, HasDiscardArea, PositionedOnTable  {
         self._currentPlayer <~  Bus.sharedInstance.gameSignal
             . filter { switch $0 {case .turnFor: return true; default: return false } }
             . map { switch $0 {
-            case GameEvent.turnFor(let player) : Bus.send(GameNotice.turnFor(player)) ; return player
-            default : return CardPlayer(name: "None")
-             
-                                }
+                        case GameEvent.turnFor(let player) : Bus.send(GameNotice.turnFor(player)) ; return player
+                        default : return CardPlayer(name: "None")
+              }
         }
     }
  

@@ -59,12 +59,14 @@ open class DisplayedSlider: DisplayedTextBase<Int>, CanDisable {
             slider.minimumTrackTintColor = .lightGray
             slider.maximumTrackTintColor = .lightGray
             slider.thumbTintColor = color
+            slider.isUserInteractionEnabled = true
             label.fontColor = .white
         } else {
             let green = UIColor(red: 0.0, green: 0.7, blue: 0.0, alpha: 0.7)
             slider.minimumTrackTintColor = green
             slider.maximumTrackTintColor = green
             slider.thumbTintColor = green
+            slider.isUserInteractionEnabled = true
             label.fontColor = green
         }
     }
@@ -131,7 +133,8 @@ open class DisplayedSlider: DisplayedTextBase<Int>, CanDisable {
         
      @objc func sliderValueDidChange(_ sender:UISlider!)
      {
-         onValueChanged(Int(sender!.value))
+        if self.enabled { onValueChanged(Int(sender!.value)) }
+        else { slider.value = Float(_current) }
      }
 }
     

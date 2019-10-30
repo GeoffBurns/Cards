@@ -350,7 +350,21 @@ public class CardDisplayScreen: MultiPagePopup, HasDiscardArea{
             renderPage()
         }
     }
-    
+    public func newPage(size:CGSize)
+    {
+        if self.tabNo < 0 { return }
+
+        if self.size != size {
+            self.arrangeLayoutFor(size, bannerHeight: CGFloat())
+        }
+   
+        clearLabels()
+        let renderPage = self.tabNewPage[self.tabNo](self)
+        self.schedule(delay: 0.3)
+        {
+            renderPage()
+        }
+    }
 
     func storeDraggedNode(_ node:CardSprite)
     {

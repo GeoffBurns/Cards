@@ -164,7 +164,7 @@ public class RuleScreen: MultiPagePopup {
             cardDisplay.pageNo = self.pageNo
             cardDisplay.zPosition = 400
             addChild(cardDisplay)
-            cardDisplay.newPage()
+            cardDisplay.newPage(size:self.size)
             return
         }
         self.rulesText!.page = self.pageNo

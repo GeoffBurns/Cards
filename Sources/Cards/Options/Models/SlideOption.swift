@@ -48,5 +48,8 @@ public class SlideOption :  SaveableOptionBase<Int>, CanDisable
     public override func onAdd(_ point :CGPoint) {
         self.sliderCtrl.addSlider(point)
     }
+    public override func onAdd(_ point :CGPoint, size:CGSize) {
+        self.sliderCtrl.addSlider(point, size:size)
+    }
 }
 

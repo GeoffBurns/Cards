@@ -15,6 +15,7 @@ public protocol SaveableOption
     var hasChanged : Bool {get}
     func onRemove()
     func onAdd(_ point :CGPoint)
+    func onAdd(_ point :CGPoint, size: CGSize)
     func load()
     func save()
 }
@@ -33,6 +34,21 @@ extension SaveableOption
         page.addChild(optionSetting)
         onAdd(position)
     }
+ fileprivate func add(_ i: Int,
+                       _ prefix: String,
+                       x: CGFloat, y: CGFloat,
+                       size: CGSize,
+                       toPage page: Popup) {
+      
+      let optionSetting = self.view
+     
+      optionSetting.name = prefix + (i + 1).description
+      let position =  CGPoint(x:x,y:y)
+      optionSetting.position = position
+      page.addChild(optionSetting)
+      onAdd(position,size: size)
+  }
+    
 }
 public class SaveableOptionBase<OptionType> : SaveableOption where OptionType : Equatable
 {
@@ -52,6 +68,7 @@ public class SaveableOptionBase<OptionType> : SaveableOption where OptionType : 
     }
     public func onRemove() {}
     public func onAdd(_ point :CGPoint) {}
+    public func onAdd(_ point :CGPoint, size : CGSize) {}
     
     public func load() {
         displayed.current = value
@@ -107,7 +124,19 @@ extension Sequence where Iterator.Element == SaveableOption
                 let y = scene.frame.height * (startHeight - separationOfItems * CGFloat(i))
                 optionSetting.add(  i,  prefix, x:x, y:y, toPage: page)
             }
-      
+    }
+      public func addAll(_ prefix: String,
+                         startHeight : CGFloat,
+                         separationOfItems : CGFloat,
+                         toPage page: Popup,
+                         size: CGSize) {
+               
+     
+             let x = size.width*0.5
+              for (i, optionSetting) in self.enumerated() {
+                let y = size.height * (startHeight - separationOfItems * CGFloat(i))
+                optionSetting.add(  i,  prefix, x:x, y:y, size:size, toPage: page)
+              }
     }
 }
 extension Sequence where Iterator.Element == SKNode

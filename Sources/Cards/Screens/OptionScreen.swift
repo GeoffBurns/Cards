@@ -11,8 +11,6 @@ import SpriteKit
 /// Game Option Setting Screen
 public class OptionScreen: MultiPagePopup {
     var isSetup = false
-  //  var optionSettings = [SKNode]()
-  //  var audioSettings = [SKNode]()
     var multiPlayerSettings = [SKNode]()
     var gameCenterSettings = [SKNode]()
     var noOfItemsOnPage = 3
@@ -142,21 +140,7 @@ public class OptionScreen: MultiPagePopup {
       
         renderPage()
     }
-    fileprivate func addOption(_ optionSetting: SKNode,  _ i: Int,
-                               _ midWidth: CGFloat, _ namePrefix: String,
-                               toPage scene: SKNode) {
-        optionSetting.name = namePrefix + (i + 1).description
-        optionSetting.position = CGPoint(x:midWidth,y:scene.frame.height * (startHeight - separationOfItems * CGFloat(i)))
-        self.addChild(optionSetting)
-    }
-    
-    fileprivate func AddOptions(_ optionSettingsDisplayed: [SKNode], _ namePrefix: String, toPage scene: SKNode) {
-        let midWidth = gameScene!.frame.midX
-        for (i, optionSetting) in optionSettingsDisplayed.enumerated() {
-            addOption(optionSetting,  i, midWidth, namePrefix, toPage: scene)
-        }
-    }
-    
+
     /// Allow rule of the game to be changed
     func displayOptions()
     {
@@ -168,7 +152,9 @@ public class OptionScreen: MultiPagePopup {
         optionDisplayed.addAll("Setting",
                                startHeight : startHeight,
                                separationOfItems : separationOfItems,
-                               toPage: self)
+                               toPage: self,
+                               size: self.size
+                               )
     }
     func speakOptions()
     {
@@ -179,7 +165,9 @@ public class OptionScreen: MultiPagePopup {
         optionDisplayed.addAll("AudioSetting",
                                startHeight : startHeight,
                                separationOfItems : separationOfItems,
-                                toPage: self)
+                               toPage: self,
+                               size: self.size
+                               )
     }
     ///
     func gameCentre()

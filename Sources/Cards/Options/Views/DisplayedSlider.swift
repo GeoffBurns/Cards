@@ -68,14 +68,15 @@ open class DisplayedSlider: DisplayedTextBase<Int>, CanDisable {
             label.fontColor = green
         }
     }
-    public func addSlider(_ point :CGPoint) {
+    
+    public func addSlider(_ point :CGPoint, size:CGSize) {
          let height = label.frame.size.height
          let width = label.frame.size.width
          
          
          if let scene = self.label.scene
          {
-             let page_height = scene.frame.height
+             let page_height = size.height
              slider.frame = CGRect(x: point.x - 10.0*height ,
                                    y: page_height - point.y + 0.6*height  ,
                                    width: 20.0*height,
@@ -94,7 +95,35 @@ open class DisplayedSlider: DisplayedTextBase<Int>, CanDisable {
              showEnabledState()
          }
      }
-    
+    public func addSlider(_ point :CGPoint) {
+           let height = label.frame.size.height
+           let width = label.frame.size.width
+           
+           
+           if let scene = self.label.scene
+           {
+               let page_height = scene.frame.height
+               slider.frame = CGRect(x: point.x - 10.0*height ,
+                                     y: page_height - point.y + 0.6*height  ,
+                                     width: 20.0*height,
+                                     height: 0.6*height)
+
+               slider.maximumValue = Float(max)
+               slider.minimumValue = Float(min)
+             
+          
+               if let view = scene.view
+               {
+                   view.addSubview(slider)
+               }
+               slider.value = Float(_current)
+               slider.addTarget(self, action: #selector(DisplayedSlider.sliderValueDidChange(_:)), for: .valueChanged)
+               showEnabledState()
+           }
+       }
+      
+  
+       
     public func removeSlider() {
         slider.removeFromSuperview()
         

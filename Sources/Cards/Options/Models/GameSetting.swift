@@ -208,6 +208,7 @@ public class Options
                     else { SoundManager.sharedInstance.stopAllMusic()}
                 
         }
+               result.dependencies = [musicVolume, credit]
                return result
     }()
     
@@ -224,6 +225,7 @@ public class Options
                result.onValueChanged = { newValue in
             if newValue
             { SoundManager.sharedInstance.stopAllSound()} }
+               result.dependencies = [soundVolume]
                return result
     }()
     public static var soundVolume : SlideOption = {

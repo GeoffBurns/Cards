@@ -1,0 +1,52 @@
+//
+//  YesNoOption.swift
+//  
+//
+//  Created by Geoff Burns on 30/10/19.
+//
+
+import SpriteKit
+
+public class YesNoOption : SaveableOptionBase<Bool>
+{
+    open override var hasChanged: Bool { get { return (displayed.current == value) != isInverted }}
+    
+    public var dependencies : [CanDisable] = [] {didSet{ showEnabledStateOfDependencies(self.value) }}
+    public var onValueChanged : (Bool) -> Void = { _ in }
+    var isInverted : Bool
+
+    public override var value : Bool  {
+        get { return UserDefaults.standard.bool(forKey: key) != isInverted }
+        set (newValue) {
+            UserDefaults.standard.set(newValue != isInverted, forKey: key)
+            onValueChanged(newValue)
+            showEnabledStateOfDependencies(newValue)
+        }
+    }
+    convenience init(inverted:Bool, prompt: String, key: GameProperties)
+    {
+        self.init(inverted:inverted, prompt: prompt, key: key.rawValue,  isImmediate: false)
+    }
+    convenience init(inverted:Bool, prompt: String, key: GameProperties, isImmediate: Bool)
+    {
+        self.init(inverted:inverted, prompt: prompt, key: key.rawValue,  isImmediate: isImmediate)
+    }
+    public init(inverted:Bool, prompt: String, key: String, isImmediate: Bool)
+    {
+        self.isInverted = inverted
+        let displayed = DisplayedYesNo(current: isInverted, text: prompt.localize)
+        super.init(displayed: displayed, defaultValue: inverted, key: key)
+        
+        if isImmediate {
+            let oldOnChange = displayed.onValueChanged
+            displayed.onValueChanged = { newValue in
+                self.value =  newValue
+                oldOnChange(newValue)
+            }
+        }
+        showEnabledStateOfDependencies(self.value)
+    }
+    fileprivate func showEnabledStateOfDependencies(_ newValue: Bool) {
+        for var dependency in dependencies { dependency.enabled = newValue }
+    }
+}

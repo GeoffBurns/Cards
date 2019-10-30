@@ -95,6 +95,7 @@ public class RuleScreen: MultiPagePopup {
     
     public override func arrangeLayoutFor(_ size:CGSize,bannerHeight:CGFloat)
     {
+        self.size = size
         if let text = rulesText
         {
             text.dontUpdate = true

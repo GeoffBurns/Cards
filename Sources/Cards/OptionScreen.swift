@@ -11,7 +11,8 @@ import SpriteKit
 /// Game Option Setting Screen
 public class OptionScreen: MultiPagePopup {
     var isSetup = false
-    var optionSettings = [SKNode]()
+  //  var optionSettings = [SKNode]()
+  //  var audioSettings = [SKNode]()
     var multiPlayerSettings = [SKNode]()
     var gameCenterSettings = [SKNode]()
     var noOfItemsOnPage = 3
@@ -19,7 +20,7 @@ public class OptionScreen: MultiPagePopup {
     var startHeight =  CGFloat(0.7)
     
 //    var tabNewPage = [ displayOptions, gameCentre, displayMultiplayer ]
-    var tabNewPage = [ displayOptions, gameCentre ]
+    var tabNewPage = [ displayOptions, speakOptions, gameCentre ]
     
     public override func onEnter() {
 
@@ -39,6 +40,7 @@ public class OptionScreen: MultiPagePopup {
                 scene.resetSceneAsDemo()
             }
         }
+      cleanUp()
       super.onExit()
     }
     
@@ -58,11 +60,11 @@ public class OptionScreen: MultiPagePopup {
         name = "Option Background"
         pageNo = 0
         
-        optionSettings = Game.settings.options.map { $0.view }
-
+     //   optionSettings = Game.settings.options.map { $0.view }
+     //   audioSettings = Game.settings.audioOptions.map { $0.view }
         multiPlayerSettings = [Options.noOfHumans.view]
      //   tabNames = ["Options","Gamecentre","multiplayer"]
-        tabNames = ["Options","Gamecentre"]
+        tabNames = ["Options","speak","Gamecentre"]
         if let resize = scene as? Resizable
         {
             self.adHeight = resize.adHeight
@@ -76,7 +78,9 @@ public class OptionScreen: MultiPagePopup {
         switch tab
         {
         case 0:
-            return optionSettings.numOfPagesOf(noOfItemsOnPage)
+            return Game.settings.options.numOfPagesOf(noOfItemsOnPage)
+        case 1:
+            return Game.settings.audioOptions.numOfPagesOf(noOfItemsOnPage)
         default :
             return 1
         }
@@ -109,8 +113,8 @@ public class OptionScreen: MultiPagePopup {
             separationOfItems =  CGFloat(0.2)
             startHeight = CGFloat(0.7)
         }
-        
-        super.arrangeLayoutFor(size,bannerHeight:bannerHeight)
+        self.size = size
+   //     super.arrangeLayoutFor(size,bannerHeight:bannerHeight)
         if pageNo > noPageFor(tabNo) - 1 {
             pageNo = noPageFor(tabNo) - 1
         }
@@ -123,7 +127,9 @@ public class OptionScreen: MultiPagePopup {
     
     func cleanUp()
     {
-        optionSettings.removeAllFromParent()
+    
+        Game.settings.options.removeAllFromParent()
+        Game.settings.audioOptions.removeAllFromParent()
         multiPlayerSettings.removeAllFromParent()
         gameCenterSettings.removeAllFromParent()
     }
@@ -136,21 +142,44 @@ public class OptionScreen: MultiPagePopup {
       
         renderPage()
     }
+    fileprivate func addOption(_ optionSetting: SKNode,  _ i: Int,
+                               _ midWidth: CGFloat, _ namePrefix: String,
+                               toPage scene: SKNode) {
+        optionSetting.name = namePrefix + (i + 1).description
+        optionSetting.position = CGPoint(x:midWidth,y:scene.frame.height * (startHeight - separationOfItems * CGFloat(i)))
+        self.addChild(optionSetting)
+    }
+    
+    fileprivate func AddOptions(_ optionSettingsDisplayed: [SKNode], _ namePrefix: String, toPage scene: SKNode) {
+        let midWidth = gameScene!.frame.midX
+        for (i, optionSetting) in optionSettingsDisplayed.enumerated() {
+            addOption(optionSetting,  i, midWidth, namePrefix, toPage: scene)
+        }
+    }
+    
     /// Allow rule of the game to be changed
     func displayOptions()
     {
         let settingStart = noOfItemsOnPage*self.pageNo
-        let optionSettingsDisplayed = optionSettings
+  
+        let optionDisplayed = Game.settings.options
             .from(settingStart, forLength: noOfItemsOnPage)
       
-        let scene = gameScene!
-        let midWidth = gameScene!.frame.midX
-        
-        for (i, optionSetting) in optionSettingsDisplayed.enumerated() {
-            optionSetting.name = "Setting" + (i + 1).description
-            optionSetting.position = CGPoint(x:midWidth,y:scene.frame.height * (startHeight - separationOfItems * CGFloat(i)))
-            self.addChild(optionSetting)
-        }
+        optionDisplayed.addAll("Setting",
+                               startHeight : startHeight,
+                               separationOfItems : separationOfItems,
+                               toPage: self)
+    }
+    func speakOptions()
+    {
+        let settingStart = noOfItemsOnPage*self.pageNo
+        let optionDisplayed = Game.settings.audioOptions
+            .from(settingStart, forLength: noOfItemsOnPage)
+      
+        optionDisplayed.addAll("AudioSetting",
+                               startHeight : startHeight,
+                               separationOfItems : separationOfItems,
+                                toPage: self)
     }
     ///
     func gameCentre()

@@ -34,6 +34,8 @@ public protocol ICardGameSettings
     var hasFool : Bool { get }
     var isPlayingMusic : Bool { get }
     var isPlayingSound : Bool { get }
+    var musicVolume : Float  { get }
+    var soundVolume : Float  { get }
     var isFoolATrump : Bool { get set}
     var showTips : Bool { get }
     var willPassCards  : Bool { get }
@@ -52,6 +54,7 @@ public protocol ICardGameSettings
     var noOfJokers : Int { get }
     var specialSuite : PlayingCard.Suite { get }
     var options : [SaveableOption]  { get set}
+    var audioOptions : [SaveableOption]  { get set}
     func changed() -> Bool
     func clearData(_ : Int) -> Void
     func cacheSpeed(_ : Int) -> Void
@@ -75,6 +78,8 @@ enum GameProperties : String
     case silenceMusic = "silenceMusic"
     case playSound  = "playSound"
     case silenceSound = "silenceSound"
+    case musicVolume = "musicVolume"
+    case soundVolume = "soundVolume"
 }
 
 /// User controlled options for the game
@@ -196,13 +201,36 @@ public class Options
     public static var jokers = YesNoOption(inverted: false, prompt: "Include Jokers", key: GameProperties.HasJokers)
     
     
-    public static var music = YesNoOption(inverted: true, prompt: "Play Music", key: GameProperties.silenceMusic)
+    public static var music : YesNoOption = {
+               let result = YesNoOption(inverted: true, prompt: "Play Music", key: GameProperties.silenceMusic,  isImmediate: true)
+               result.onValueChanged = { newValue in
+                    if newValue { SoundManager.sharedInstance.playMusic(Game.currentOperator) }
+                    else { SoundManager.sharedInstance.stopAllMusic()}
+                
+        }
+               return result
+    }()
     
-    
+    public static var musicVolume : SlideOption = {
+               let result = SlideOption(min: 1, max: 101, defaultValue: 30, color:.red, prompt: "Music Volume", key: GameProperties.musicVolume)
+        result.onValueChanged = { newValue in SoundManager.sharedInstance.musicVolume(volume: Float(newValue-1) / 100.0) }
+               return result
+    }()
+       
     public static var credit = InfoOption(prompt: "Music by Kevin MacLeod (creative commons 3.0 licience)")
     
-    public static var sound = YesNoOption(inverted: true, prompt: "Play Sound", key: GameProperties.silenceSound)
-
+    public static var sound : YesNoOption = {
+               let result = YesNoOption(inverted: true, prompt: "Play Sound", key: GameProperties.silenceSound,  isImmediate: true)
+               result.onValueChanged = { newValue in
+            if newValue
+            { SoundManager.sharedInstance.stopAllSound()} }
+               return result
+    }()
+    public static var soundVolume : SlideOption = {
+        let result = SlideOption(min: 1, max: 101, defaultValue: 70, color:.blue, prompt: "Sound Volume", key: GameProperties.soundVolume)
+        result.onValueChanged = { newValue in SoundManager.sharedInstance.soundVolume(volume: Float(newValue-1) / 100.0)}
+               return result
+    }()
 }
 
 class Silent : GameTip {
@@ -240,7 +268,12 @@ public class Game
                                           UIColor(red: 0.0, green: 0.0, blue: 0.6, alpha: 1.0),
                                           UIColor(red: 0.6, green: 0.1, blue: 0.1, alpha: 1.0)]
     
-    public static var currentOperator : Int = 0
+    
+    public static var currentOperator : Int = 0 {
+    didSet {
+        SoundManager.sharedInstance.playMusic(currentOperator)
+    }
+    }
     
     /// Tips shown in demo mode
     public static var demoTips : [GameTip] = []
@@ -280,6 +313,7 @@ public class LiveGameSettings : ICardGameSettings
     public var isClient = false
     public var willRemoveLow = true
     public var options: [SaveableOption]
+    public var audioOptions: [SaveableOption]
     public var specialSuite: PlayingCard.Suite  = PlayingCard.Suite.none
     public var isFoolATrump = false
     public var noOfJokers = 2
@@ -294,6 +328,7 @@ public class LiveGameSettings : ICardGameSettings
     public init(options: [SaveableOption])
     {
         self.options = options
+        self.audioOptions = []
     }
     public var memoryWarning : Bool {
         
@@ -392,9 +427,25 @@ public class LiveGameSettings : ICardGameSettings
            get { return Options.sound.value }
            set (newValue) { Options.sound.value = newValue }
        }
+    
+    public var musicVolume: Float {
+        get { return Float(Options.musicVolume.value-1)/100.0 }
+           set (newValue) {
+            SoundManager.sharedInstance.musicVolume(volume: newValue)
+            Options.musicVolume.value = Int(newValue*100.0)+1
+            
+        }
+       }
+    public var soundVolume: Float {
+    get { return Float(Options.soundVolume.value-1)/100.0 }
+    set (newValue) {
+         SoundManager.sharedInstance.soundVolume(volume: newValue)
+         Options.soundVolume.value = Int(newValue*100.0)+1
+        }
+       }
     public func changed() -> Bool
     {
-        return changed(settings:options);
+        return changed(settings:Array(options.then(audioOptions)));
     }
     
     func changed(settings:[SaveableOption]) -> Bool

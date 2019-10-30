@@ -18,7 +18,6 @@ public class SoundManager : NSObject, AVAudioPlayerDelegate
     public static let sharedInstance = SoundManager()
     fileprivate override init() { super.init() }
     public var isPlaying = false
-    
     func songs(_ index:Int) -> AVAudioPlayer?
     {
         let i = index % _songs.count
@@ -90,9 +89,8 @@ public class SoundManager : NSObject, AVAudioPlayerDelegate
                   return
               }
         isPlaying = true
-        sound.volume = 1.0
+        sound.volume = Game.settings.soundVolume
         sound.play()
-      
     }
     public func playQueuedSound(_ soundName: String) -> Bool
     {
@@ -102,7 +100,7 @@ public class SoundManager : NSObject, AVAudioPlayerDelegate
       
         guard let sound = sounds(soundName) else {return false}
 
-        sound.volume = 1.0
+        sound.volume =  Game.settings.soundVolume
         sound.play()
         return true
       
@@ -138,6 +136,21 @@ public class SoundManager : NSObject, AVAudioPlayerDelegate
                sound!.stop()
            }
        }
+    public func musicVolume(volume:Float)
+        {
+            for song in _songs where song != nil
+            {
+                song!.volume = volume
+            }
+        }
+     public func soundVolume(volume:Float)
+        {
+    
+            for (_, sound) in _sounds where sound != nil
+            {
+                sound!.volume = volume
+            }
+        }
     public func playMusic(_ n: Int = 0) {
           stopAllMusic(except:n)
           guard Game.settings.isPlayingMusic else {
@@ -146,7 +159,7 @@ public class SoundManager : NSObject, AVAudioPlayerDelegate
           guard let song = songs(n) else { return }
           
           song.numberOfLoops = -1
-          song.volume = 0.3
+          song.volume =  Game.settings.musicVolume
           if song.isPlaying {return}
           song.play()
       }
@@ -160,7 +173,7 @@ public class SoundManager : NSObject, AVAudioPlayerDelegate
             return
             }
         let soundName = soundQueue.remove(at: 0)
-        if playQueuedSound(soundName) {return }
+        if playQueuedSound(soundName) { return }
         }
     }
         

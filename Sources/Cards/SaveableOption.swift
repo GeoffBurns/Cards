@@ -8,19 +8,58 @@
 
 import SpriteKit
 
-protocol DisplayedItem : class
-{
-    associatedtype Value
-    var current : Value {get set}
-}
-
 
 public protocol SaveableOption
 {
     var view : SKNode {get}
     var hasChanged : Bool {get}
+    func onRemove()
+    func onAdd(_ point :CGPoint)
     func load()
     func save()
+}
+extension SaveableOption
+{
+    fileprivate func add(_ i: Int,
+                         _ prefix: String,
+                         x: CGFloat, y: CGFloat,
+                         toPage page: Popup) {
+        
+        let optionSetting = self.view
+       
+        optionSetting.name = prefix + (i + 1).description
+        let position =  CGPoint(x:x,y:y)
+        optionSetting.position = position
+        page.addChild(optionSetting)
+        onAdd(position)
+    }
+}
+public class SaveableOptionBase<OptionType> : SaveableOption where OptionType : Equatable
+{
+    typealias Value = OptionType
+    open var view : SKNode { get { return displayed as SKNode}}
+    var displayed : DisplayedBase<OptionType>
+    public var value : OptionType
+    public var hasChanged: Bool { get { return displayed.current == value }}
+    var defaultValue : OptionType
+    var key : String
+    public init(displayed : DisplayedBase<OptionType>, defaultValue:OptionType, key: String) {
+        self.displayed = displayed
+        self.value = defaultValue
+        self.defaultValue = defaultValue
+        self.key = key
+        load()
+    }
+    public func onRemove() {}
+    public func onAdd(_ point :CGPoint) {}
+    
+    public func load() {
+        displayed.current = value
+    }
+    
+    public func save() {
+        value = displayed.current
+    }
 }
 extension Sequence where Iterator.Element == SaveableOption
 {
@@ -46,6 +85,30 @@ extension Sequence where Iterator.Element == SaveableOption
             o.load()
         }
     }
+    public func removeAllFromParent()
+    {
+        for o in self
+        {
+           let view = o.view
+            if view.parent != nil {
+                o.onRemove()
+                view.removeFromParent()
+            }
+        }
+    }
+    public func addAll(_ prefix: String,
+                       startHeight : CGFloat,
+                       separationOfItems : CGFloat,
+                       toPage page: Popup) {
+             
+            let scene = page.gameScene!
+            let x = scene.frame.midX
+            for (i, optionSetting) in self.enumerated() {
+                let y = scene.frame.height * (startHeight - separationOfItems * CGFloat(i))
+                optionSetting.add(  i,  prefix, x:x, y:y, toPage: page)
+            }
+      
+    }
 }
 extension Sequence where Iterator.Element == SKNode
 {
@@ -54,22 +117,18 @@ extension Sequence where Iterator.Element == SKNode
         for o in self
         {
             if o.parent != nil {
+                
                 o.removeFromParent()
             }
         }
     }
 }
 
-public class RangeOption : SaveableOption
+
+public class RangeOption :  SaveableOptionBase<Int>
 {
-    public var view: SKNode { get { return toggle as SKNode}}
-    
-    public var hasChanged: Bool { get { return toggle.current == value }}
-    
-    var toggle : NumberRangeToggle
-    var defaultValue : Int
-    var key : String
-    public var value : Int  {
+
+    public override var value : Int  {
            get {
                 let result = UserDefaults.standard.integer(forKey: key)
                     if result == 0
@@ -89,88 +148,118 @@ public class RangeOption : SaveableOption
     }
     public init(min:Int, max:Int, defaultValue:Int, prompt: String, key: String)
     {
-        self.key = key
-        self.defaultValue = defaultValue
-        self.toggle = NumberRangeToggle(min:min, max:max, current:defaultValue, text: prompt.localize)
-        load()
+ 
+        let numberRange = NumberRangeToggle(min:min, max:max, current:defaultValue, text: prompt.localize)
+
+        super.init(displayed: numberRange, defaultValue: defaultValue, key: key)
+      
     }
      
-    public func load() {
-        toggle.current = value
-    }
-    
-    public func save() {
-        value = toggle.current
-    }
 }
 
 
 
-public class YesNoOption : SaveableOption
+public class YesNoOption : SaveableOptionBase<Bool>
 {
-    public var view: SKNode { get { return toggle as SKNode}}
+ 
+    open override var hasChanged: Bool { get { return (displayed.current == value) != isInverted }}
     
-    public var hasChanged: Bool { get { return (toggle.current == value) != isInverted }}
     
-    var toggle : BinaryToggle
+    public var onValueChanged : (Bool) -> Void = { _ in }
     var isInverted : Bool
-    var key : String
-    public var value : Bool  {
+    public override var value : Bool  {
         get { return UserDefaults.standard.bool(forKey: key) != isInverted }
         set (newValue) {
             UserDefaults.standard.set(newValue != isInverted, forKey: key)
+            onValueChanged(newValue)
         }
     }
-    
     convenience init(inverted:Bool, prompt: String, key: GameProperties)
     {
-        self.init(inverted:inverted, prompt: prompt, key: key.rawValue)
+        self.init(inverted:inverted, prompt: prompt, key: key.rawValue,  isImmediate: false)
     }
-    public init(inverted:Bool, prompt: String, key: String)
+    convenience init(inverted:Bool, prompt: String, key: GameProperties, isImmediate: Bool)
     {
-        self.key = key
+        self.init(inverted:inverted, prompt: prompt, key: key.rawValue,  isImmediate: isImmediate)
+    }
+    public init(inverted:Bool, prompt: String, key: String, isImmediate: Bool)
+    {
         self.isInverted = inverted
-        self.toggle = BinaryToggle(current: isInverted, text: prompt.localize)
-        load()
+        let displayed = BinaryToggle(current: isInverted, text: prompt.localize)
+        super.init(displayed: displayed, defaultValue: inverted, key: key)
+        if isImmediate {
+            let oldOnChange = displayed.onValueChanged
+            displayed.onValueChanged = { newValue in
+                self.value =  newValue
+                oldOnChange(newValue)
+            }
+        }
+        
+        
     }
     
-    public func load() {
-        toggle.current = value
-    }
-    
-    public func save() {
-        value = toggle.current
-    }
 }
-public class InfoOption : SaveableOption
+
+public class SlideOption :  SaveableOptionBase<Int>
 {
-    public var view: SKNode { get { return info.label as SKNode}}
-    
-    public var hasChanged: Bool = false
-    
-    var info : InfoLabel
-    
-    public init(prompt: String)
+
+    var sliderCtrl : SliderCtrl
+    public var onValueChanged : (Int) -> Void = { _ in }
+    public override var value : Int  {
+           get {
+                let result = UserDefaults.standard.integer(forKey: key)
+                if result == 0 { return defaultValue }
+                return result
+               }
+           set (newValue) {
+                UserDefaults.standard.set(newValue, forKey: key)
+                onValueChanged(newValue)
+        }
+        }
+
+    convenience init(min:Int, max:Int, defaultValue:Int, color:UIColor, prompt: String, key: GameProperties)
     {
-        self.info = InfoLabel(text: prompt.localize)
+        self.init(min:min, max:max, defaultValue:defaultValue, color:color, prompt: prompt, key: key.rawValue)
+    }
+    public init(min:Int, max:Int, defaultValue:Int, color:UIColor, prompt: String, key: String)
+    {
+        var currentValue = UserDefaults.standard.integer(forKey: key)
+        if currentValue == 0 { currentValue = defaultValue }
+        self.sliderCtrl = SliderCtrl(min:min, max:max, current: currentValue,  color:color, text: prompt.localize)
+        super.init(displayed: self.sliderCtrl, defaultValue: defaultValue, key: key)
+     //   self.sliderCtrl.current = self.value
+        self.sliderCtrl.onValueChanged = { newValue in self.value = newValue}
     }
     
-    public func load() {
-    }
     
-    public func save() {
+    public override func onRemove() {
+         self.sliderCtrl.removeSlider()
+    }
+    public override func onAdd(_ point :CGPoint) {
+        self.sliderCtrl.addSlider(point)
     }
 }
 
-public class SelectOption : SaveableOption
+public class InfoOption :  SaveableOptionBase<String>
 {
-    public var view: SKNode { get { return toggle as SKNode}}
-    public var hasChanged: Bool { get { return toggle.current == value }}
-    var toggle : ListToggle
-    var defaultValue : Int
-    var key : String
-    public var valueWasSetTo : (Int) -> Void = { _ in }
-    public var value : Int  {
+    
+    open override var hasChanged: Bool { get {return false}}
+    
+    
+    public init(prompt: String)
+    {
+        let info = InfoLabel(text: prompt.localize)
+        super.init(displayed: info, defaultValue: "", key: "")
+    }
+    
+}
+
+public class SelectOption : SaveableOptionBase<Int>
+{
+  
+
+    public var onValueChanged : (Int) -> Void = { _ in }
+    public override var value : Int  {
         get {
             let result = UserDefaults.standard.integer(forKey: key)
             if result == 0
@@ -181,7 +270,7 @@ public class SelectOption : SaveableOption
         }
         set (newValue) {
             UserDefaults.standard.set(newValue, forKey: key)
-            valueWasSetTo(newValue)
+            onValueChanged(newValue)
         }
     }
     
@@ -191,18 +280,10 @@ public class SelectOption : SaveableOption
     }
     public init(selections:[String], defaultValue:Int, prompt: String, key: String)
     {
-        self.key = key
-        self.defaultValue = defaultValue
         let selectStrings = selections.map { $0.isNumber ? $0 : $0.localize }
-        self.toggle = ListToggle(list: selectStrings, current: defaultValue, text: prompt.localize)
-        load()
+        let displayed = ListToggle(list: selectStrings, current: defaultValue, text: prompt.localize)
+        super.init(displayed: displayed, defaultValue: defaultValue, key: key)
     }
     
-    public func load() {
-        toggle.current = value
-    }
-    
-    public func save() {
-        value = toggle.current
-    }
 }
+

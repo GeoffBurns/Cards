@@ -138,6 +138,7 @@ public class CardDisplayScreen: MultiPagePopup, HasDiscardArea{
     
     public override func arrangeLayoutFor(_ size:CGSize,bannerHeight:CGFloat)
     {
+        self.size = size
         layoutSize = size
         switch DeviceSettings.layout
         {
@@ -191,6 +192,7 @@ public class CardDisplayScreen: MultiPagePopup, HasDiscardArea{
     }
     public override func noPageFor(_ tab:Int) -> Int
     {
+     
         switch tab
         {
         case 0 :
@@ -337,7 +339,10 @@ public class CardDisplayScreen: MultiPagePopup, HasDiscardArea{
     public override func newPage()
     {
         if self.tabNo < 0 { return }
-
+        if let gs = gameScene {
+            self.size = gs.frame.size
+            
+        }
         clearLabels()
         let renderPage = self.tabNewPage[self.tabNo](self)
         self.schedule(delay: 0.3)

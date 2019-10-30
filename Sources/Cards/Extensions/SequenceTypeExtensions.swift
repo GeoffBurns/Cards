@@ -20,7 +20,10 @@ public extension Sequence {
         }
         return dict
     }
-    
+    func then<S: Sequence>(_ sequence: S) -> AnySequence<Self.Element> where Self.Element == S.Element {
+      var (first, second) = (self.makeIterator(), sequence.makeIterator())
+      return AnySequence(AnyIterator { first.next() ?? second.next() })
+    }
      func from(_ n: Int, forLength: Int) -> [Iterator.Element] {
         
         var result : [Iterator.Element]
@@ -37,6 +40,7 @@ public extension Sequence {
         
         return result
     }
+    
      func rotate(_ n: Int) -> [Iterator.Element] {
         
         var result : [Iterator.Element]

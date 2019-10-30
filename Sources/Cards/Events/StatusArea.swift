@@ -46,10 +46,7 @@ public class StatusDisplay : Resizable
     {
         let fontsize : CGFloat = FontSize.huge.scale
         adHeight = bannerHeight
-    /*    noticeLabel.position = CGPoint(x:size.width * 0.5, y:size.height * 0.33 + bannerHeight);
-    
-        noticeLabel2.position = CGPoint(x:size.width * 0.5, y:size.height * 0.68 + bannerHeight);
-        */
+
         noticeLabel.position = CGPoint(x:size.width * 0.5, y:size.height *  (DeviceSettings.isPhoneX ? 0.28 : (DeviceSettings.isPhone ? 0.28 :0.33)) + bannerHeight);
         noticeLabel2.position = CGPoint(x:size.width * 0.5, y:size.height * (DeviceSettings.isPhoneX ? 0.72 : (DeviceSettings.isPhone ? 0.72 :0.68)) + bannerHeight);
         
@@ -80,15 +77,7 @@ public class StatusDisplay : Resizable
             . filter { $0.description != nil }
             . map { $0.line1! }
         
-     Bus.sharedInstance.noteSignal
-                  .observe(on: UIScheduler())
-                  .filter { $0.sound.count > 0 }
-                  .observeValues { /* [weak self] */ value in
-                   // if let s = self
-                   //   {
-                    SoundManager.sharedInstance.playSounds(value.sound)
-                   //  }
-              }
+    
     }
    
 

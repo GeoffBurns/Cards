@@ -34,7 +34,18 @@ open class CardScene : SKScene, HasDiscardArea, PositionedOnTable  {
               }
         }
     }
- 
+    open func setupSounds()
+    {
+    Bus.sharedInstance.noteSignal
+                     .observe(on: UIScheduler())
+                     .filter { $0.sound.count > 0 }
+                     .observeValues { /* [weak self] */ value in
+                      // if let s = self
+                      //   {
+                       SoundManager.sharedInstance.playSounds(value.sound)
+                      //  }
+                 }
+    }
 }
 
 extension HasDiscardArea

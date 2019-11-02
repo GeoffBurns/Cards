@@ -9,12 +9,14 @@
 import SpriteKit
 
 /// Are you sure screen
-public class ExitScreen: Popup //, Resizable
+public class ExitScreen: Popup , Resizable
 {
+    public var adHeight : CGFloat = 0.0
     var exitLabel = SKLabelNode(fontNamed:"Chalkduster")
     var exitLabel2 = SKLabelNode(fontNamed:"Chalkduster")
     let yesButton =  SKSpriteNode(imageNamed:"Yes")
     let noButton =  SKSpriteNode(imageNamed:"No")
+    let hex = SKShapeNode()
     var isSetup = false
     
     public override init()
@@ -26,58 +28,118 @@ public class ExitScreen: Popup //, Resizable
         fatalError("init(coder:) has not been implemented")
     }
     
-    public override func setup(_ scene:SKNode)
-    {
-        button!.zPosition = 350
-        let fontsize = FontSize.huge.scale
-        self.gameScene = scene
-        color = UIColor(red: 0.0, green: 0.3, blue: 0.1, alpha: 0.9)
-        size = scene.frame.size
-        position = CGPoint.zero
-        anchorPoint = CGPoint.zero
-        name = "ExitBackground"
-        isUserInteractionEnabled = true
+    fileprivate func setupHexBackground(_ size: CGSize) {
+        let h = size.height
+        let w = size.width
+        var x_off : CGFloat = 0.0
+        var y_off  : CGFloat = 0.0
+        let h1  : CGFloat = 0.9*h
+        let w1  : CGFloat = 0.9*w
+        var length : CGFloat = 0.0
+        if h > w {
+            x_off = 0.05*w
+            y_off = 0.117*w + (h1-w1) / 2.0
+            length = w1
+        } else {
+            x_off = 0.05*h + (w1-h1) / 2.0
+            y_off = 0.117*h
+            
+            length = h1
+        }
         
-        let midWidth = scene.frame.midX
+        let points = [
+            CGPoint(x:0.25, y:0.0),
+            CGPoint(x:0.75, y:0.0),
+            CGPoint(x:1.0, y:0.433),
+            CGPoint(x:0.75, y:0.866),
+            CGPoint(x:0.25, y:0.866),
+            CGPoint(x:0.0, y:0.433),
+            CGPoint(x:0.25, y:0.0)]
         
-        exitLabel.text = "Are you sure".localize
-        exitLabel.fontSize = fontsize;
-        exitLabel.position = CGPoint(x:midWidth, y:self.frame.size.height * 0.7);
+        let path = CGMutablePath()
+        path.move(to: CGPoint(x:points[0].x*length+x_off, y: points[0].y*length+y_off))
+        for i in 1...6 {
+            path.addLine(to: CGPoint(x:points[i].x*length+x_off, y: points[i].y*length+y_off))
+        }
         
-        self.addChild(exitLabel)
         
-        exitLabel2.text = "you want to exit".localize
-        exitLabel2.fontSize = fontsize;
-        exitLabel2.position = CGPoint(x:midWidth, y:self.frame.size.height * 0.57);
+        hex.path = path
+        hex.fillColor = UIColor(red: 0.1, green: 0.3, blue: 0.5, alpha: 1.0) //.blue
+        hex.strokeColor = .white
+        hex.lineWidth = 2.0
+        hex.zPosition = 50
+    }
+    
+    fileprivate func setupButtons(_ size: CGSize) {
         
-        self.addChild(exitLabel2)
-        
-        yesButton.position = CGPoint(x:self.frame.width * 0.25,y:self.frame.height * 0.4)
+        let midwidth = size.width * 0.5
+        var separation = size.width * 0.25
+        if size.width > size.height { separation = size.height * 0.25 }
+        yesButton.position = CGPoint(x:midwidth-separation,y:size.height * 0.4)
         yesButton.setScale(ButtonSize.small.scale)
         yesButton.zPosition = 100
         yesButton.name = "Yes"
         yesButton.isUserInteractionEnabled = false
         
-        noButton.position = CGPoint(x:self.frame.width*0.75,y:self.frame.height * 0.4)
+        noButton.position = CGPoint(x:midwidth+separation,y:size.height * 0.4)
         noButton.setScale(ButtonSize.small.scale)
         noButton.zPosition = 100
         noButton.name = "No"
         noButton.isUserInteractionEnabled = false
+    }
+    
+    fileprivate func setupBackground() {
+        button!.zPosition = 350
+        color = UIColor(red: 0.0, green: 0.3, blue: 0.1, alpha: 0.9)
+        position = CGPoint.zero
+        anchorPoint = CGPoint.zero
+        name = "ExitBackground"
+        isUserInteractionEnabled = true
+    }
+    
+      fileprivate func setupLabels(_ size: CGSize) {
+        let fontsize = FontSize.huge.scale
+        let midWidth = size.width*0.5
+        let height = size.height
+        exitLabel.text = "Are you sure".localize
+        exitLabel.fontSize = fontsize;
+        exitLabel.zPosition = 100
+        exitLabel.position = CGPoint(x:midWidth, y: height * 0.7);
+        
+        exitLabel2.text = "you want to exit".localize
+        exitLabel2.fontSize = fontsize;
+        exitLabel2.zPosition = 100
+        exitLabel2.position = CGPoint(x:midWidth, y: height * 0.57);
+    }
+    public override func setup(_ scene:SKNode)
+    {
+        self.gameScene = scene
+        size = scene.frame.size
+        let layoutSize = size
+        setupBackground()
+        setupHexBackground(layoutSize)
+        self.addChild(hex)
+
+        
+
+        setupLabels(layoutSize)
+        self.addChild(exitLabel)
+        self.addChild(exitLabel2)
+        
+        setupButtons(layoutSize)
         
         self.addChild(yesButton)
         self.addChild(noButton)
     }
-/*
-    func arrangeLayoutFor(size:CGSize, bannerHeight:CGFloat)
+
+    public func arrangeLayoutFor(_ size:CGSize, bannerHeight:CGFloat)
     {
-        noButton.position = CGPoint(x:size.width*0.75,y:size.height * 0.4 + bannerHeight)
-        yesButton.position = CGPoint(x:size.width * 0.25,y:size.height * 0.4 + bannerHeight)
-        
-        exitLabel.position = CGPoint(x:size.width * 0.5, y:self.frame.size.height * 0.7 + bannerHeight);
-   
-        exitLabel2.position = CGPoint(x:size.width * 0.5, y:self.frame.size.height * 0.57 + bannerHeight);
+        self.size = size
+        setupHexBackground(size)
+        setupLabels(size)
+        setupButtons(size)
     }
-    */
+ 
     public override func touchesBegan(_ touches: Set<UITouch>, with event: UIEvent?) {
         /* Called when a touch begins */
 

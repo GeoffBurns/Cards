@@ -276,7 +276,22 @@ public class Game
         SoundManager.sharedInstance.playMusic(currentOperator)
     }
     }
+    fileprivate static let cardbackMax : Int = 12
+    public static var cardbackno : Int = 4
     
+    public static var cardback : String  {
+        var i = Game.cardbackno
+        if  i < 1 { i = 1 }
+        if  i > Game.cardbackMax { i = Game.cardbackMax }
+        return "back\(i)"
+    }
+    public static func nextCardback()  {
+            var i =  Game.cardbackno
+            i+=1
+            if i > Game.cardbackMax { i = 1 }
+            Game.cardbackno = i
+    }
+
     /// Tips shown in demo mode
     public static var demoTips : [GameTip] = []
     

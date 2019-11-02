@@ -43,7 +43,7 @@ public class CardSprite : SKSpriteNode
     /////////////////////////////////////////////////////
     /// Constructors
     /////////////////////////////////////////////////////
-    init(card:PlayingCard,  texture: SKTexture = SKTexture(imageNamed: "Back1"))
+    init(card:PlayingCard,  texture: SKTexture = SKTexture(imageNamed: Game.cardback))
     {
     self.card = card
     super.init(texture: texture, color: UIColor.white, size: texture.size())
@@ -73,7 +73,7 @@ public class CardSprite : SKSpriteNode
         let sprite = CardSprite(card: card,
             texture: isUp
                 ? SKTexture(imageNamed: card.imageName)
-                :SKTexture(imageNamed: "Back1"))
+                :SKTexture(imageNamed: Game.cardback))
         sprite.isUp = isUp
         if isUp {
             sprite.addLocalization()
@@ -403,7 +403,7 @@ public class CardSprite : SKSpriteNode
         if isUp
         {
             self.removeAll()
-            texture = SKTexture(imageNamed: "Back1")
+            texture = SKTexture(imageNamed: Game.cardback)
             isUp = false
         }
     }

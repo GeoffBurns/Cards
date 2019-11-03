@@ -276,7 +276,7 @@ public class Game
         SoundManager.sharedInstance.playMusic(currentOperator)
     }
     }
-    fileprivate static let cardbackMax : Int = 12
+    fileprivate static let cardbackMax : Int = 14
     public static var cardbackno : Int = 4
     
     public static var cardback : String  {

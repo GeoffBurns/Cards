@@ -26,19 +26,20 @@ public class StatusDisplay : Resizable
     
     public func setDemoMode()
     {
-        Game.tips = Game.demoTips
+        Tips.setToDemoMode()
         noticeLabel.displayTime = 4
         noticeLabel2.displayTime = 4
     }
+    
     public func setGameMode()
     {
-        Game.tips = Game.gameTips
+        Tips.setToSinglePlayerMode()
         noticeLabel.displayTime = 6
         noticeLabel2.displayTime = 6
     }
     public func setMultiplayerMode()
        {
-        Game.tips = Game.multiplayerTips
+        Tips.setToMultiplayerMode()
            noticeLabel.displayTime = 6
            noticeLabel2.displayTime = 6
        }
@@ -62,7 +63,7 @@ public class StatusDisplay : Resizable
         
     noticeLabel = Game.settings.showTips
             ? Label(fontNamed:"Chalkduster").withShadow().withFadeOutAndAction
-                {  Bus.send(GameNotice.showTip(Game.nextTip())) }
+                {  Bus.send(GameNotice.showTip(Tips.random)) }
             : Label(fontNamed:"Chalkduster").withShadow().withFadeInOut()
     noticeLabel.resetToScene(scene)
     noticeLabel2.resetToScene(scene)

@@ -235,11 +235,58 @@ public enum Options
     }()
 }
 
-enum Silent {
-    private struct SilentTip : GameTip { var description = "" }
-    static var Tip  : GameTip = SilentTip()
+public enum Tips {
+    
+fileprivate struct SilentTip : GameTip { var description = "" }
+static var none  : GameTip = SilentTip()
+    
+/// Tips shown in demo mode
+public static var forDemo : [GameTip] = []
 
+/// Tips shown in game mode
+public static var forSinglePlayer : [GameTip] = []
+
+/// Tips shown in multiplayer mode
+public static var forMultiplayer : [GameTip] = []
+    
+    public static func setToDemoMode()
+    {
+        Tips.currentValues = Tips.forDemo
+    }
+        
+    public static func setToSinglePlayerMode()
+        {
+            Tips.currentValues = Tips.forSinglePlayer
+        }
+    public static func setToMultiplayerMode()
+        {
+            Tips.currentValues = Tips.forMultiplayer
+        }
+
+/// current tips displayed
+fileprivate static var currentValues = forDemo
+
+/// last tip displayed
+fileprivate static var lastTip  : GameTip = none
+
+
+/// next tip displayed
+public static var random : GameTip {
+get {
+    var result : GameTip = none
+    
+    repeat {
+        result = currentValues.randomItem!
+    } while result==lastTip
+    
+    lastTip = result
+    
+    return result
+    }
 }
+}
+
+
 public enum Game
 {
     public static var settings : ICardGameSettings = LiveGameSettings(options: [])
@@ -290,34 +337,7 @@ public enum Game
             Game.cardbackno = i
     }
 
-    /// Tips shown in demo mode
-    public static var demoTips : [GameTip] = []
-    
-    /// Tips shown in game mode
-    public static var gameTips : [GameTip] = []
-    
-    /// Tips shown in multiplayer mode
-    public static var multiplayerTips : [GameTip] = []
-    
-    /// current tips displayed
-    public static var tips = demoTips
-    
-    /// last tip displayed
-    static var lastTip  : GameTip = Silent.Tip
-    
-    /// next tip displayed
-    static func nextTip()->GameTip
-    {
-        var result : GameTip = Silent.Tip
-        
-        repeat {
-            result = tips.randomItem!
-        } while result==lastTip
-        
-        lastTip = result
-        
-        return result
-    }
+
 }
 
 /// User controlled options for the game

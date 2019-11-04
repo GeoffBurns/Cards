@@ -83,7 +83,7 @@ enum GameProperties : String
 }
 
 /// User controlled options for the game
-open class DeviceSettings
+public enum DeviceSettings
 {
     public static var isPad : Bool
     {
@@ -172,7 +172,7 @@ open class DeviceSettings
     }
 }
 
-public class Options
+public enum Options
 {
     public static var memoryWarning = YesNoOption(inverted: false, prompt: "Memory Warning", key: GameProperties.memoryWarning)
 
@@ -235,14 +235,12 @@ public class Options
     }()
 }
 
-class Silent : GameTip {
-    var description = ""
-    
-    static var Tip = Silent()
+enum Silent {
+    private struct SilentTip : GameTip { var description = "" }
+    static var Tip  : GameTip = SilentTip()
 
 }
-
-public class Game
+public enum Game
 {
     public static var settings : ICardGameSettings = LiveGameSettings(options: [])
     static var _deck  : PlayingCard.BuiltCardDeck? = nil

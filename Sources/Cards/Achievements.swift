@@ -3,7 +3,7 @@
 //  Rickety Kate
 //
 //  Created by Geoff Burns on 21/12/2015.
-//  Copyright © 2015 Nereids Gold. All rights reserved.
+//  Copyright © 2015 Geoff Burns All rights reserved.
 //
 
 import Foundation
@@ -64,7 +64,7 @@ extension Int
         }
     }
 }
-public enum LearderBoard : String
+public enum LeaderBoard : String
 {
     case Spades = "grp.spades"
     case Hearts = "grp.hearts"

@@ -7,10 +7,15 @@
 
 import SpriteKit
 
+
+/*
 public class InfoOption :  SaveableOptionBase<String>, CanDisable
 {
-    
     open override var hasChanged: Bool { get {return false}}
+    public override var value : String  {
+        get { return "" }
+        set (newValue) { }
+    }
     public var enabled : Bool = true { didSet {
               info.enabled = enabled
               }}
@@ -22,3 +27,4 @@ public class InfoOption :  SaveableOptionBase<String>, CanDisable
     }
     
 }
+*/

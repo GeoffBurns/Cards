@@ -83,7 +83,7 @@ enum GameProperties : String
 }
 
 /// User controlled options for the game
-public enum DeviceSettings
+public struct DeviceSettings
 {
     public static var isPad : Bool
     {
@@ -172,7 +172,7 @@ public enum DeviceSettings
     }
 }
 
-public enum Options
+public struct Options
 {
     public static var memoryWarning = YesNoOption(inverted: false, prompt: "Memory Warning", key: GameProperties.memoryWarning)
 
@@ -208,7 +208,7 @@ public enum Options
                     else { SoundManager.sharedInstance.stopAllMusic()}
                 
         }
-               result.dependencies = [musicVolume, credit]
+               result.dependencies = [musicVolume /*, credit*/]
                return result
     }()
     
@@ -218,24 +218,24 @@ public enum Options
                return result
     }()
        
-    public static var credit = InfoOption(prompt: "Music by Kevin MacLeod (creative commons 3.0 licience)")
+ //   public static var credit = InfoOption(prompt: "Music by Kevin MacLeod (creative commons 3.0 licience)")
     
     public static var sound : YesNoOption = {
                let result = YesNoOption(inverted: true, prompt: "Play Sound", key: GameProperties.silenceSound,  isImmediate: true)
                result.onValueChanged = { newValue in
-            if newValue
-            { SoundManager.sharedInstance.stopAllSound()} }
+               if newValue
+                        { SoundManager.sharedInstance.stopAllSound()} }
                result.dependencies = [soundVolume]
                return result
     }()
     public static var soundVolume : SlideOption = {
         let result = SlideOption(min: 1, max: 101, defaultValue: 70, color:.blue, prompt: "Sound Volume", key: GameProperties.soundVolume)
-        result.onValueChanged = { newValue in SoundManager.sharedInstance.soundVolume(volume: Float(newValue-1) / 100.0)}
-               return result
+             result.onValueChanged = { newValue in SoundManager.sharedInstance.soundVolume(volume: Float(newValue-1) / 100.0)}
+            return result
     }()
 }
 
-public enum Tips {
+public struct Tips {
     
 fileprivate struct SilentTip : GameTip { var description = "" }
 static var none  : GameTip = SilentTip()
@@ -287,7 +287,7 @@ get {
 }
 
 
-public enum Game
+public struct Game
 {
     public static var settings : ICardGameSettings = LiveGameSettings(options: [])
     static var _deck  : PlayingCard.BuiltCardDeck? = nil

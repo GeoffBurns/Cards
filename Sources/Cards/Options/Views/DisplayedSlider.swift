@@ -24,7 +24,7 @@ open class DisplayedSlider: DisplayedTextBase<Int>, CanDisable {
     }
     let slider = UISlider()
 
-    public init(min:Int, max:Int, current: Int, color:UIColor, text: String, onChange: @escaping (Int)->Void)
+  /*  public init(min:Int, max:Int, current: Int, color:UIColor, text: String, onChange: @escaping (Int)->Void)
     {
         self.min = min
         self.max = max
@@ -33,7 +33,7 @@ open class DisplayedSlider: DisplayedTextBase<Int>, CanDisable {
         updateLabelText()
         self.addChild(label)
    
-    }
+    }*/
     public init(min:Int, max:Int, current: Int, color:UIColor, text: String)
       {
           self.min = min
@@ -73,7 +73,7 @@ open class DisplayedSlider: DisplayedTextBase<Int>, CanDisable {
     
     public func addSlider(_ point :CGPoint, size:CGSize) {
          let height = label.frame.size.height
-         let width = label.frame.size.width
+        // let width = label.frame.size.width
          
          
          if let scene = self.label.scene
@@ -99,7 +99,7 @@ open class DisplayedSlider: DisplayedTextBase<Int>, CanDisable {
      }
     public func addSlider(_ point :CGPoint) {
            let height = label.frame.size.height
-           let width = label.frame.size.width
+         //  let width = label.frame.size.width
            
            
            if let scene = self.label.scene

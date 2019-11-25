@@ -8,7 +8,7 @@
 
 import SpriteKit
 
-
+/*
 public class DisplayedInfo : DisplayedTextBase<String>, CanDisable {
 
     fileprivate func showEnabledState() {
@@ -36,3 +36,4 @@ public required init?(coder aDecoder: NSCoder) {
     fatalError("init(coder:) has not been implemented")
 }
 }
+*/

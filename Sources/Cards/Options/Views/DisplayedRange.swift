@@ -27,7 +27,7 @@ open class DisplayedRange: DisplayedTextBase<Int> {
                                 if(newValue > max) { return min }
                                return newValue
                    }
-    self.onValueChanged = { (_:Int) in self.update()}
+    self.onValueChanged = { [weak self] (_:Int) in self?.update()}
      
     label.text = "\(text) : \(current)"
     let height = label.frame.size.height

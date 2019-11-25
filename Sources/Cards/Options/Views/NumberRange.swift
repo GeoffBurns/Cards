@@ -24,7 +24,7 @@ public class NumberRange:  TouchableRange {
                             if(newValue > max) { return min }
                            return newValue
                }
-    self.onValueChanged = { (_:Int) in self.updateLabelText()}
+    self.onValueChanged = { [weak self] (_:Int) in self?.updateLabelText()}
         
          
     let height = label.frame.size.height

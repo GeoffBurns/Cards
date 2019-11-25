@@ -16,7 +16,7 @@ public class DisplayedYesNo:  TouchableToggle {
     public init(current:Bool, text: String)
     {
         super.init(current,text:text)
-        self.onValueChanged = { (_:Bool) in self.updateLabelText()}
+        self.onValueChanged = { [weak self] (_:Bool) in self?.updateLabelText()}
     
         updateLabelText()
         self.addChild(label)

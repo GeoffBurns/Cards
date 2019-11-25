@@ -33,7 +33,7 @@ open class DisplayedSelection:  DisplayedTextBase<Int> {
                               if(newValue > list.count) { return 1 }
                              return newValue
                  }
-        self.onValueChanged = { (_:Int) in self.update()}
+        self.onValueChanged = { [weak self] (_:Int) in self?.update()}
          
         label.text = "\(text) : \(list[index])"
         let height = label.frame.size.height
@@ -117,6 +117,7 @@ open class DisplayedSelection:  DisplayedTextBase<Int> {
     }}
 
 /// User input control for integers
+/*
 public class ListToggle2:  TouchableRange {
     var list = [String]()
 
@@ -183,3 +184,4 @@ public class ListToggle2:  TouchableRange {
 
    }
 
+*/

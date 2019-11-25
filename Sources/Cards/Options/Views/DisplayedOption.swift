@@ -48,7 +48,7 @@ open class DisplayedBase<DisplayedValue> : SKNode, DisplayedItem
 
 open class DisplayedTextBase<DisplayedValue> : DisplayedBase<DisplayedValue>
 {
-    public var text:String {didSet {updateLabelText()}}
+    public var text:String {didSet { self.updateLabelText()}}
     public var label = SKLabelNode(fontNamed:"Chalkduster")
     
 
@@ -59,13 +59,13 @@ open class DisplayedTextBase<DisplayedValue> : DisplayedBase<DisplayedValue>
         label.isUserInteractionEnabled = false
         super.init(current)
     }
-    public init(_ current : DisplayedValue, text: String, onChange : @escaping (DisplayedValue)->Void)
+ /*   public init(_ current : DisplayedValue, text: String, onChange : @escaping (DisplayedValue)->Void)
     {
      self.text = text
              label.fontSize =  FontSize.big.scale
              label.isUserInteractionEnabled = false
         super.init(current,onChange:onChange)
-    }
+    } */
     public required init?(coder aDecoder: NSCoder) {
          fatalError("init(coder:) has not been implemented")
      }

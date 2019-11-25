@@ -186,7 +186,7 @@ open class GameKitHelper: NSObject, GKGameCenterControllerDelegate, GKTurnBasedM
     }
  
     public func reportScore(_ score: Int64,
-        forLeaderBoard leaderBoard: LearderBoard) {
+        forLeaderBoard leaderBoard: LeaderBoard) {
             
             if !gameCenterEnabled {
                 print("Local player is not authenticated")

@@ -38,7 +38,8 @@ public class SlideOption :  SaveableOptionBase<Int>, CanDisable
         self.sliderCtrl = DisplayedSlider(min:min, max:max, current: currentValue,  color:color, text: prompt.localize)
         super.init(displayed: self.sliderCtrl, defaultValue: defaultValue, key: key)
      //   self.sliderCtrl.current = self.value
-        self.sliderCtrl.onValueChanged = { newValue in self.value = newValue}
+        self.sliderCtrl.onValueChanged = { [weak self] newValue in
+            if let s = self { s.value = newValue }}
     }
     
     

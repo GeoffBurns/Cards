@@ -64,7 +64,7 @@ public class SaveableOptionBase<OptionType> : SaveableOption where OptionType : 
         self.value = defaultValue
         self.defaultValue = defaultValue
         self.key = key
-        load()
+        if !key.isEmpty { load() }
     }
     public func onRemove() {}
     public func onAdd(_ point :CGPoint) {}

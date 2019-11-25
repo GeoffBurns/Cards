@@ -39,8 +39,8 @@ public class YesNoOption : SaveableOptionBase<Bool>
         
         if isImmediate {
             let oldOnChange = displayed.onValueChanged
-            displayed.onValueChanged = { newValue in
-                self.value =  newValue
+            displayed.onValueChanged = { [weak self] newValue in
+                if let s = self { s.value =  newValue }
                 oldOnChange(newValue)
             }
         }

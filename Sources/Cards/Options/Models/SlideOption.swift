@@ -11,9 +11,9 @@ import SpriteKit
 public class SlideOption :  SaveableOptionBase<Int>, CanDisable
 {
     public var enabled : Bool = true { didSet {
-           sliderCtrl.enabled = enabled
+           sliderCtrl?.enabled = enabled
            }}
-    var sliderCtrl : DisplayedSlider
+    var sliderCtrl : DisplayedSlider? {get{ _displayed as? DisplayedSlider }}
     public var onValueChanged : (Int) -> Void = { _ in }
     public override var value : Int  {
            get {
@@ -35,22 +35,30 @@ public class SlideOption :  SaveableOptionBase<Int>, CanDisable
     {
         var currentValue = UserDefaults.standard.integer(forKey: key)
         if currentValue == 0 { currentValue = defaultValue }
-        self.sliderCtrl = DisplayedSlider(min:min, max:max, current: currentValue,  color:color, text: prompt.localize)
-        super.init(displayed: self.sliderCtrl, defaultValue: defaultValue, key: key)
-     //   self.sliderCtrl.current = self.value
-        self.sliderCtrl.onValueChanged = { [weak self] newValue in
-            if let s = self { s.value = newValue }}
+  
+        super.init(defaultValue: defaultValue, key: key) {
+            print("missing factory for slider")
+            return DisplayedBase<Int>(0)
+            }
+        
+        self.viewFactory =  { [weak self] in
+                let sliderCtrl = DisplayedSlider(min:min, max:max, current: currentValue,
+                                                 color:color, text: prompt.localize)
+                    sliderCtrl.onValueChanged = { [weak self] newValue in
+                                                    if let s = self { s.value = newValue }}
+                return sliderCtrl
+        }
     }
     
     
     public override func onRemove() {
-         self.sliderCtrl.removeSlider()
+         self.sliderCtrl?.removeSlider()
     }
     public override func onAdd(_ point :CGPoint) {
-        self.sliderCtrl.addSlider(point)
+        self.sliderCtrl?.addSlider(point)
     }
     public override func onAdd(_ point :CGPoint, size:CGSize) {
-        self.sliderCtrl.addSlider(point, size:size)
+        self.sliderCtrl?.addSlider(point, size:size)
     }
 }
 

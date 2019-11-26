@@ -54,18 +54,29 @@ public class SaveableOptionBase<OptionType> : SaveableOption where OptionType : 
 {
     typealias Value = OptionType
     open var view : SKNode { get { return displayed as SKNode}}
-    var displayed : DisplayedBase<OptionType>
+    var viewFactory : () -> DisplayedBase<OptionType>
+    var _displayed : DisplayedBase<OptionType>? = nil
+    var displayed : DisplayedBase<OptionType> { get {
+        if !finalized { return viewFactory() }
+        if _displayed == nil {
+            _displayed = viewFactory()
+            if !key.isEmpty { _displayed!.current = self.value }
+        }
+        
+        return _displayed!
+        }}
+    var finalized : Bool = true
     public var value : OptionType
     public var hasChanged: Bool { get { return displayed.current == value }}
     var defaultValue : OptionType
     var key : String
-    public init(displayed : DisplayedBase<OptionType>, defaultValue:OptionType, key: String) {
-        self.displayed = displayed
+    public init( defaultValue:OptionType, key: String, viewFactory : @escaping () -> DisplayedBase<OptionType>) {
+        self.viewFactory = viewFactory
         self.value = defaultValue
         self.defaultValue = defaultValue
         self.key = key
-        if !key.isEmpty { load() }
     }
+  
     public func onRemove() {}
     public func onAdd(_ point :CGPoint) {}
     public func onAdd(_ point :CGPoint, size : CGSize) {}

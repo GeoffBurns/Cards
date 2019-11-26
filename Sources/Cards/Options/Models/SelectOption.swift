@@ -35,8 +35,8 @@ public class SelectOption : SaveableOptionBase<Int>
     public init(selections:[String], defaultValue:Int, prompt: String, key: String)
     {
         let selectStrings = selections.map { $0.isNumber ? $0 : $0.localize }
-        let displayed = DisplayedSelection(list: selectStrings, current: defaultValue, text: prompt.localize)
-        super.init(displayed: displayed, defaultValue: defaultValue, key: key)
+
+        super.init(defaultValue: defaultValue, key: key)  { () in return DisplayedSelection(list: selectStrings, current: defaultValue, text: prompt.localize)}
     }
     
 }

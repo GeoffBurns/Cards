@@ -33,9 +33,8 @@ public class RangeOption :  SaveableOptionBase<Int>
     public init(min:Int, max:Int, defaultValue:Int, prompt: String, key: String)
     {
  
-        let numberRange = DisplayedRange(min:min, max:max, current:defaultValue, text: prompt.localize)
-
-        super.init(displayed: numberRange, defaultValue: defaultValue, key: key)
+   
+        super.init( defaultValue: defaultValue, key: key){ () in return DisplayedRange(min:min, max:max, current:defaultValue, text: prompt.localize)}
       
     }
      

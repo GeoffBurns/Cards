@@ -34,8 +34,8 @@ public class YesNoOption : SaveableOptionBase<Bool>
     public init(inverted:Bool, prompt: String, key: String, isImmediate: Bool)
     {
         self.isInverted = inverted
-        let displayed = DisplayedYesNo(current: isInverted, text: prompt.localize)
-        super.init(displayed: displayed, defaultValue: inverted, key: key)
+       
+        super.init(defaultValue: inverted, key: key) { DisplayedYesNo(current: inverted, text: prompt.localize)}
         
         if isImmediate {
             let oldOnChange = displayed.onValueChanged

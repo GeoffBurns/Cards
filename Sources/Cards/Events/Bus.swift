@@ -7,34 +7,34 @@
 //
 
 
-import ReactiveSwift
+import RxRelay
 //import enum Result.NoError
 
 
 public class Bus {
     
-    public let (gameSignal,gameSink) = Signal<GameEvent,Never>.pipe()
+    public let events = PublishRelay<GameEvent>()
     
-    public let (noteSignal,noteSink) = Signal<GameNotice,Never>.pipe()
+    public let notices = PublishRelay<GameNotice>()
     
     public static let sharedInstance = Bus()
     fileprivate init() { }
     
     public static func send(_ gameEvent:GameEvent)
     {
-        sharedInstance.gameSink.send( value: gameEvent)
+        sharedInstance.events.accept(gameEvent)
     }
     public static func send(_ gameNotice:GameNotice)
     {
-        sharedInstance.noteSink.send( value: gameNotice)
+        sharedInstance.notices.accept(gameNotice)
     }
     
     public func send(_ gameEvent:GameEvent)
     {
-    gameSink.send( value: gameEvent)
+        self.events.accept(gameEvent)
     }
     public func send(_ gameNotice:GameNotice)
     {
-        noteSink.send( value: gameNotice)
+        self.notices.accept(gameNotice)
     }
 }

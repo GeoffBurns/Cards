@@ -7,7 +7,7 @@
 //
 
 import SpriteKit
-import ReactiveSwift
+import RxSwift
 
 public protocol HasDiscardArea : class
 {
@@ -20,26 +20,29 @@ open class CardScene : SKScene, HasDiscardArea, PositionedOnTable  {
     open var discardPile = CardPile(name: CardPileType.discard.description)
     open var discardWhitePile = CardPile(name: CardPileType.discard.description)
     open var tableSize = CGSize()
-    var _currentPlayer = MutableProperty<CardPlayer>(CardPlayer(name: "None"))
-    public var currentPlayer : CardPlayer { get { return _currentPlayer.value }}
+    public var currentPlayer : CardPlayer = CardPlayer(name: "None")
   
     
     open func setupCurrentPlayer()
     {
-        self._currentPlayer <~  Bus.sharedInstance.gameSignal
+        
+       let _ = Bus.sharedInstance.events
             . filter { switch $0 {case .turnFor: return true; default: return false } }
             . map { switch $0 {
-                        case GameEvent.turnFor(let player) : Bus.send(GameNotice.turnFor(player)) ; return player
-                        default : return CardPlayer(name: "None")
+                        case GameEvent.turnFor(let player) :
+                            Bus.send(GameNotice.turnFor(player))
+                            self.currentPlayer = player
+                        default :
+                            self.currentPlayer = CardPlayer(name: "None")
               }
         }
     }
     open func setupSounds()
     {
-    Bus.sharedInstance.noteSignal
-                     .observe(on: UIScheduler())
+    let _ = Bus.sharedInstance.notices
+                     .observeOn(MainScheduler.asyncInstance)
                      .filter { $0.sound.count > 0 }
-                     .observeValues { /* [weak self] */ value in
+                     .map { /* [weak self] */ value in
                       // if let s = self
                       //   {
                        SoundManager.sharedInstance.playSounds(value.sound)

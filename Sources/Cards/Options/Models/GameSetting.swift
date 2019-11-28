@@ -95,7 +95,7 @@ public struct DeviceSettings
     }
     public static var isPortrait : Bool
     {
-        let size = UIScreen.main.applicationFrame
+        let size = Game.screen
         return size.width < size.height
     }
     public static var isPhoneX : Bool
@@ -113,12 +113,12 @@ public struct DeviceSettings
    
     public static var isPadPro : Bool
     {
-        let size = UIScreen.main.applicationFrame
+        let size = Game.screen.size
         return size.width > 1250 || size.height > 1250
     }
     public static var isBigPro : Bool
     {
-        let size = UIScreen.main.applicationFrame
+        let size = Game.screen.size
         return isBigPad && (size.width > 1360 || size.height > 1360)
     }
     public static var isBigPhone : Bool
@@ -298,7 +298,7 @@ public struct Game
         return _deck!
       
     }
-    
+    public static var screen : CGRect { get { UIScreen.main.bounds }}
     public static func newDeck() {
         _deck = PlayingCard.BuiltCardDeck(gameSettings: settings)
     }

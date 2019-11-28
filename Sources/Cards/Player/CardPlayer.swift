@@ -7,7 +7,7 @@
 //
 
 import SpriteKit
-import ReactiveSwift
+import RxRelay
 
 
 // Cut down version of a CardPlayer that is visible to tests
@@ -82,9 +82,9 @@ open class CardPlayer :CardHolderBase , Equatable, Hashable
     /// Variables
     //////////////////////////////////////
     // public var score : Int = 0
-    public var currentTotalScore  = MutableProperty<Int>(0)
+    public var currentTotalScore  = BehaviorRelay<Int>(value: 0)
     public var isSetup = false
-    public var noOfWins = MutableProperty<Int>(0)
+    public var noOfWins = BehaviorRelay<Int>(value: 0)
     public var scoreForCurrentHand = 0
     open var sideOfTable = SideOfTable.bottom
     open var tempSide = SideOfTable.bottom

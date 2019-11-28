@@ -7,11 +7,12 @@
 //
 
 import SpriteKit
-import ReactiveSwift
+import RxSwift
 
 // Tells the game player what is going on
 public class StatusDisplay : Resizable
 {
+    private let disposeBag = DisposeBag()
     public var adHeight = CGFloat(0.0)
     var noticeLabel2 = Label(fontNamed:"Chalkduster")
     var noticeLabel = Label(fontNamed:"Chalkduster")
@@ -69,15 +70,18 @@ public class StatusDisplay : Resizable
     noticeLabel2.resetToScene(scene)
     arrangeLayoutFor(scene.frame.size,bannerHeight: 0.0)
 
-    noticeLabel.rac_text <~ Bus.sharedInstance.noteSignal
+     Bus.sharedInstance.notices
         . filter { $0.description != nil }
         . map { $0.line2! }
-       
+                   .bind(to: noticeLabel.rx.text)
+                   .disposed(by: disposeBag)
         
-    noticeLabel2.rac_text <~ Bus.sharedInstance.noteSignal
-            . filter { $0.description != nil }
-            . map { $0.line1! }
-        
+    Bus.sharedInstance.notices
+           . filter { $0.description != nil }
+           . map { $0.line1! }
+                      .bind(to: noticeLabel2.rx.text)
+                      .disposed(by: disposeBag)
+
     
     }
    

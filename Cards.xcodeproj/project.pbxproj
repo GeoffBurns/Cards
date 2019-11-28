@@ -53,7 +53,6 @@
 		AC879B3F238B996C005050B6 /* SequenceTypeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC879B03238B996B005050B6 /* SequenceTypeExtensions.swift */; };
 		AC879B40238B996C005050B6 /* stringExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC879B04238B996B005050B6 /* stringExtensions.swift */; };
 		AC879B41238B996D005050B6 /* SKNodeExtensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC879B05238B996B005050B6 /* SKNodeExtensions.swift */; };
-		AC879B42238B996D005050B6 /* SKNodeExtensions2.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC879B06238B996B005050B6 /* SKNodeExtensions2.swift */; };
 		AC879B43238B996D005050B6 /* GameKitHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC879B07238B996C005050B6 /* GameKitHelper.swift */; };
 		AC879B44238B996D005050B6 /* GameNotice.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC879B09238B996C005050B6 /* GameNotice.swift */; };
 		AC879B45238B996D005050B6 /* Bus.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC879B0A238B996C005050B6 /* Bus.swift */; };
@@ -66,7 +65,10 @@
 		AC879B4D238B996D005050B6 /* CardPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC879B13238B996C005050B6 /* CardPlayer.swift */; };
 		AC879B4E238B996D005050B6 /* ScoreDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC879B14238B996C005050B6 /* ScoreDisplay.swift */; };
 		AC879B4F238B996D005050B6 /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC879B15238B996C005050B6 /* Direction.swift */; };
-		AC879B59238BCD78005050B6 /* ReactiveSwift in Frameworks */ = {isa = PBXBuildFile; platformFilter = ios; productRef = AC879B58238BCD78005050B6 /* ReactiveSwift */; };
+		AC99FDCA238F33DC009B2FCB /* RxSwift in Frameworks */ = {isa = PBXBuildFile; platformFilter = ios; productRef = AC99FDC9238F33DC009B2FCB /* RxSwift */; };
+		AC99FDCE238F33DC009B2FCB /* RxRelay in Frameworks */ = {isa = PBXBuildFile; platformFilter = ios; productRef = AC99FDCD238F33DC009B2FCB /* RxRelay */; };
+		AC99FDD0238F33DC009B2FCB /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; platformFilter = ios; productRef = AC99FDCF238F33DC009B2FCB /* RxCocoa */; };
+		AC99FDD4238F39A2009B2FCB /* SKLabelNode+Binder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC99FDD3238F39A2009B2FCB /* SKLabelNode+Binder.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -128,7 +130,6 @@
 		AC879B03238B996B005050B6 /* SequenceTypeExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SequenceTypeExtensions.swift; sourceTree = "<group>"; };
 		AC879B04238B996B005050B6 /* stringExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = stringExtensions.swift; sourceTree = "<group>"; };
 		AC879B05238B996B005050B6 /* SKNodeExtensions.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKNodeExtensions.swift; sourceTree = "<group>"; };
-		AC879B06238B996B005050B6 /* SKNodeExtensions2.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SKNodeExtensions2.swift; sourceTree = "<group>"; };
 		AC879B07238B996C005050B6 /* GameKitHelper.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = GameKitHelper.swift; path = Sources/Cards/GameKitHelper.swift; sourceTree = SOURCE_ROOT; };
 		AC879B09238B996C005050B6 /* GameNotice.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = GameNotice.swift; sourceTree = "<group>"; };
 		AC879B0A238B996C005050B6 /* Bus.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Bus.swift; sourceTree = "<group>"; };
@@ -142,6 +143,7 @@
 		AC879B14238B996C005050B6 /* ScoreDisplay.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ScoreDisplay.swift; sourceTree = "<group>"; };
 		AC879B15238B996C005050B6 /* Direction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Direction.swift; sourceTree = "<group>"; };
 		AC879B50238B9AA3005050B6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist; name = Info.plist; path = Sources/Cards/Info.plist; sourceTree = SOURCE_ROOT; };
+		AC99FDD3238F39A2009B2FCB /* SKLabelNode+Binder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = "SKLabelNode+Binder.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -149,7 +151,9 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AC879B59238BCD78005050B6 /* ReactiveSwift in Frameworks */,
+				AC99FDCE238F33DC009B2FCB /* RxRelay in Frameworks */,
+				AC99FDD0238F33DC009B2FCB /* RxCocoa in Frameworks */,
+				AC99FDCA238F33DC009B2FCB /* RxSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -306,12 +310,12 @@
 		AC879B00238B996B005050B6 /* Extensions */ = {
 			isa = PBXGroup;
 			children = (
+				AC99FDD3238F39A2009B2FCB /* SKLabelNode+Binder.swift */,
 				AC879B01238B996B005050B6 /* MathExtention.swift */,
 				AC879B02238B996B005050B6 /* ArrayExtensions.swift */,
 				AC879B03238B996B005050B6 /* SequenceTypeExtensions.swift */,
 				AC879B04238B996B005050B6 /* stringExtensions.swift */,
 				AC879B05238B996B005050B6 /* SKNodeExtensions.swift */,
-				AC879B06238B996B005050B6 /* SKNodeExtensions2.swift */,
 			);
 			name = Extensions;
 			path = Sources/Cards/Extensions;
@@ -372,7 +376,9 @@
 			);
 			name = Cards;
 			packageProductDependencies = (
-				AC879B58238BCD78005050B6 /* ReactiveSwift */,
+				AC99FDC9238F33DC009B2FCB /* RxSwift */,
+				AC99FDCD238F33DC009B2FCB /* RxRelay */,
+				AC99FDCF238F33DC009B2FCB /* RxCocoa */,
 			);
 			productName = Cards;
 			productReference = AC1D449421009EE9008E80B3 /* Cards.framework */;
@@ -426,7 +432,7 @@
 			);
 			mainGroup = AC1D448A21009EE9008E80B3;
 			packageReferences = (
-				AC364FC8233861E900BCE2EF /* XCRemoteSwiftPackageReference "ReactiveSwift" */,
+				AC99FDC8238F33DC009B2FCB /* XCRemoteSwiftPackageReference "RxSwift" */,
 			);
 			productRefGroup = AC1D449521009EE9008E80B3 /* Products */;
 			projectDirPath = "";
@@ -460,6 +466,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AC99FDD4238F39A2009B2FCB /* SKLabelNode+Binder.swift in Sources */,
 				AC879B38238B996C005050B6 /* DisplayedSelection.swift in Sources */,
 				AC879B23238B996C005050B6 /* PopupButton.swift in Sources */,
 				AC879B16238B996C005050B6 /* CardSlide.swift in Sources */,
@@ -482,7 +489,6 @@
 				AC879B17238B996C005050B6 /* CardState.swift in Sources */,
 				AC879B3F238B996C005050B6 /* SequenceTypeExtensions.swift in Sources */,
 				AC879B21238B996C005050B6 /* CardPileType.swift in Sources */,
-				AC879B42238B996D005050B6 /* SKNodeExtensions2.swift in Sources */,
 				AC879B25238B996C005050B6 /* Resizable.swift in Sources */,
 				AC879B33238B996C005050B6 /* DisplayedSlider.swift in Sources */,
 				AC879B22238B996C005050B6 /* ExitScreen.swift in Sources */,
@@ -590,7 +596,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
@@ -647,7 +653,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 10.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
 				SWIFT_COMPILATION_MODE = wholemodule;
@@ -669,13 +675,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
+				FRAMEWORK_SEARCH_PATHS = "";
 				INFOPLIST_FILE = Cards/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -684,6 +687,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.GeoffBurns.Cards;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -701,13 +705,10 @@
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
+				FRAMEWORK_SEARCH_PATHS = "";
 				INFOPLIST_FILE = Cards/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -716,6 +717,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.GeoffBurns.Cards;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
+				STRIP_INSTALLED_PRODUCT = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
@@ -790,21 +792,31 @@
 /* End XCConfigurationList section */
 
 /* Begin XCRemoteSwiftPackageReference section */
-		AC364FC8233861E900BCE2EF /* XCRemoteSwiftPackageReference "ReactiveSwift" */ = {
+		AC99FDC8238F33DC009B2FCB /* XCRemoteSwiftPackageReference "RxSwift" */ = {
 			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ReactiveCocoa/ReactiveSwift.git";
+			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
 			requirement = {
 				kind = upToNextMajorVersion;
-				minimumVersion = 6.1.0;
+				minimumVersion = 5.0.1;
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
-		AC879B58238BCD78005050B6 /* ReactiveSwift */ = {
+		AC99FDC9238F33DC009B2FCB /* RxSwift */ = {
 			isa = XCSwiftPackageProductDependency;
-			package = AC364FC8233861E900BCE2EF /* XCRemoteSwiftPackageReference "ReactiveSwift" */;
-			productName = ReactiveSwift;
+			package = AC99FDC8238F33DC009B2FCB /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxSwift;
+		};
+		AC99FDCD238F33DC009B2FCB /* RxRelay */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AC99FDC8238F33DC009B2FCB /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxRelay;
+		};
+		AC99FDCF238F33DC009B2FCB /* RxCocoa */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = AC99FDC8238F33DC009B2FCB /* XCRemoteSwiftPackageReference "RxSwift" */;
+			productName = RxCocoa;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};

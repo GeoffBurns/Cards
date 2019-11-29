@@ -13,6 +13,7 @@ public class SlideOption :  SaveableOptionBase<Int>, CanDisable
     public var enabled : Bool = true { didSet {
            sliderCtrl?.enabled = enabled
            }}
+   // override public var hasChanged: Bool { get { return false }}
     var sliderCtrl : DisplayedSlider? {get{ _displayed as? DisplayedSlider }}
     public var onValueChanged : (Int) -> Void = { _ in }
     public override var value : Int  {
@@ -33,8 +34,8 @@ public class SlideOption :  SaveableOptionBase<Int>, CanDisable
     }
     public init(min:Int, max:Int, defaultValue:Int, color:UIColor, prompt: String, key: String)
     {
-        var currentValue = UserDefaults.standard.integer(forKey: key)
-        if currentValue == 0 { currentValue = defaultValue }
+     //   var currentValue = UserDefaults.standard.integer(forKey: key)
+     //   if currentValue == 0 { currentValue = defaultValue }
   
         super.init(defaultValue: defaultValue, key: key) {
             print("missing factory for slider")
@@ -42,7 +43,7 @@ public class SlideOption :  SaveableOptionBase<Int>, CanDisable
             }
         
         self.viewFactory =  { [weak self] in
-                let sliderCtrl = DisplayedSlider(min:min, max:max, current: currentValue,
+            let sliderCtrl = DisplayedSlider(min:min, max:max, current: self?.value ?? defaultValue,
                                                  color:color, text: prompt.localize)
                     sliderCtrl.onValueChanged = { [weak self] newValue in
                                                     if let s = self { s.value = newValue }}
@@ -52,13 +53,19 @@ public class SlideOption :  SaveableOptionBase<Int>, CanDisable
     
     
     public override func onRemove() {
+//         let new = self.sliderCtrl?.current
+ //        self.value =  new ?? defaultValue
          self.sliderCtrl?.removeSlider()
+       
     }
     public override func onAdd(_ point :CGPoint) {
         self.sliderCtrl?.addSlider(point)
+        self.sliderCtrl?.current = self.value
     }
     public override func onAdd(_ point :CGPoint, size:CGSize) {
         self.sliderCtrl?.addSlider(point, size:size)
+        
+        self.sliderCtrl?.current = self.value
     }
 }
 

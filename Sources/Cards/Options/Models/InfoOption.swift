@@ -8,7 +8,7 @@
 import SpriteKit
 
 
-/*
+
 public class InfoOption :  SaveableOptionBase<String>, CanDisable
 {
     open override var hasChanged: Bool { get {return false}}
@@ -17,14 +17,23 @@ public class InfoOption :  SaveableOptionBase<String>, CanDisable
         set (newValue) { }
     }
     public var enabled : Bool = true { didSet {
-              info.enabled = enabled
+              info?.enabled = enabled
               }}
-    var info : DisplayedInfo
+    var info : DisplayedInfo? = nil
     public init(prompt: String)
     {
-        info = DisplayedInfo(text: prompt.localize)
-        super.init(displayed: info, defaultValue: "", key: "")
+        super.init(defaultValue: "", key: "") {
+                   print("missing factory for info")
+                   return DisplayedBase<String>("")
+                   }
+               
+         self.viewFactory =  { [weak self] in
+                      
+                                  let i = DisplayedInfo(text: prompt.localize)
+                                  self?.info = i
+                                  return i
+               }
     }
     
 }
-*/
+

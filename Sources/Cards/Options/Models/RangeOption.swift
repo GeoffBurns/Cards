@@ -34,7 +34,7 @@ public class RangeOption :  SaveableOptionBase<Int>
     {
  
    
-        super.init( defaultValue: defaultValue, key: key){ () in return DisplayedRange(min:min, max:max, current:defaultValue, text: prompt.localize)}
+        super.init( defaultValue: defaultValue, key: key){  DisplayedRange(min:min, max:max, current:defaultValue, text: prompt.localize)}
       
     }
      

@@ -21,33 +21,34 @@ open class CardScene : SKScene, HasDiscardArea, PositionedOnTable  {
     open var discardWhitePile = CardPile(name: CardPileType.discard.description)
     open var tableSize = CGSize()
     public var currentPlayer : CardPlayer = CardPlayer(name: "None")
-  
+    private let disposeBag = DisposeBag()
     
     open func setupCurrentPlayer()
     {
         
        let _ = Bus.sharedInstance.events
-            . filter { switch $0 {case .turnFor: return true; default: return false } }
-            . map { switch $0 {
-                        case GameEvent.turnFor(let player) :
-                            Bus.send(GameNotice.turnFor(player))
-                            self.currentPlayer = player
-                        default :
-                            self.currentPlayer = CardPlayer(name: "None")
-              }
-        }
+                    .asObservable()
+                    . filter { switch $0 {case .turnFor: return true; default: return false } }
+                     .subscribe(onNext: {  switch $0 {
+                               case GameEvent.turnFor(let player) :
+                                   Bus.send(GameNotice.turnFor(player))
+                                   self.currentPlayer = player
+                               default : break
+                     }
+                     })
+                     .disposed(by: disposeBag)
+ 
     }
     open func setupSounds()
     {
     let _ = Bus.sharedInstance.notices
-                     .observeOn(MainScheduler.asyncInstance)
-                     .filter { $0.sound.count > 0 }
-                     .map { /* [weak self] */ value in
-                      // if let s = self
-                      //   {
-                       SoundManager.sharedInstance.playSounds(value.sound)
-                      //  }
-                 }
+                    .asObservable()
+                    .filter { $0.sound.count > 0 }
+                    .subscribe(onNext: {  /* [weak self] */ value in
+                                        SoundManager.sharedInstance.playSounds(value.sound)
+                    })
+                    .disposed(by: disposeBag)
+          
     }
 }
 

@@ -123,7 +123,7 @@ public class ScoreDisplay
     
             
             player.currentTotalScore.map {
-                ScoreDisplay.scoreToString(player.name,$0, player.noOfWins.value)
+                ScoreDisplay.scoreToString(player.name, player.noOfWins.value,$0)
             }     .bind(to: l.rx.text)
                    .disposed(by: disposeBag)
                /*

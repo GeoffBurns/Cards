@@ -208,7 +208,7 @@ public struct Options
                     else { SoundManager.sharedInstance.stopAllMusic()}
                 
         }
-               result.dependencies = [musicVolume /*, credit*/]
+               result.dependencies = [musicVolume , credit]
                return result
     }()
     
@@ -218,7 +218,7 @@ public struct Options
                return result
     }()
        
- //   public static var credit = InfoOption(prompt: "Music by Kevin MacLeod (creative commons 3.0 licience)")
+    public static var credit = InfoOption(prompt: "Music by Kevin MacLeod (creative commons 3.0 licience)")
     
     public static var sound : YesNoOption = {
                let result = YesNoOption(inverted: true, prompt: "Play Sound", key: GameProperties.silenceSound,  isImmediate: true)
@@ -235,7 +235,7 @@ public struct Options
     }()
 }
 
-public struct Tips {
+public enum Tips {
     
 fileprivate struct SilentTip : GameTip { var description = "" }
 static var none  : GameTip = SilentTip()
@@ -287,7 +287,7 @@ get {
 }
 
 
-public struct Game
+public enum Game
 {
     public static var settings : ICardGameSettings = LiveGameSettings(options: [])
     static var _deck  : PlayingCard.BuiltCardDeck? = nil

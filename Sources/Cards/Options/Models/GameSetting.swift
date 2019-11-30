@@ -55,6 +55,9 @@ public protocol ICardGameSettings
     var specialSuite : PlayingCard.Suite { get }
     var options : [SaveableOption]  { get set}
     var audioOptions : [SaveableOption]  { get set}
+    var deckOptions : [SaveableOption]  { get set}
+    var scoreOptions : [SaveableOption]  { get set}
+    var multiOptions : [SaveableOption]  { get set}
     func changed() -> Bool
     func clearData(_ : Int) -> Void
     func cacheSpeed(_ : Int) -> Void
@@ -219,7 +222,11 @@ public struct Options
     }()
        
     public static var credit = InfoOption(prompt: "Music by Kevin MacLeod (creative commons 3.0 licience)")
-    
+    public static var buildDeck = InfoOption(prompt: "Build your own deck of cards")
+    public static var scoring = InfoOption(prompt: "What cards help you score?")
+    public static var multiplay = InfoOption(prompt: "Pass the phone/pad to play others")
+    public static var hooligan = InfoOption(prompt: "let the seven of clubs score 7 points")
+    public static var omnibus = InfoOption(prompt: "let the Jack of diamonds score -10 points")
     public static var sound : YesNoOption = {
                let result = YesNoOption(inverted: true, prompt: "Play Sound", key: GameProperties.silenceSound,  isImmediate: true)
                result.onValueChanged = { newValue in
@@ -348,6 +355,9 @@ public class LiveGameSettings : ICardGameSettings
     public var isClient = false
     public var willRemoveLow = true
     public var options: [SaveableOption]
+    public var deckOptions: [SaveableOption]
+    public var scoreOptions: [SaveableOption]
+    public var multiOptions: [SaveableOption]
     public var audioOptions: [SaveableOption]
     public var specialSuite: PlayingCard.Suite  = PlayingCard.Suite.none
     public var isFoolATrump = false
@@ -364,6 +374,9 @@ public class LiveGameSettings : ICardGameSettings
     {
         self.options = options
         self.audioOptions = []
+        self.deckOptions = []
+        self.scoreOptions = []
+        self.multiOptions = []
     }
     public var memoryWarning : Bool {
         
@@ -480,7 +493,7 @@ public class LiveGameSettings : ICardGameSettings
        }
     public func changed() -> Bool
     {
-        return changed(settings:Array(options.then(audioOptions)));
+        return changed(settings:Array(options.then(deckOptions).then(scoreOptions)))
     }
     
     func changed(settings:[SaveableOption]) -> Bool

@@ -70,7 +70,7 @@ public class StatusDisplay : Resizable
     noticeLabel2.resetToScene(scene)
     arrangeLayoutFor(scene.frame.size,bannerHeight: 0.0)
 
-     Bus.sharedInstance.notices
+    Bus.sharedInstance.notices
         . filter { $0.description != nil }
         . map { $0.line2! }
                    .bind(to: noticeLabel.rx.text)

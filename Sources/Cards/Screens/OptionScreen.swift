@@ -11,19 +11,16 @@ import SpriteKit
 /// Game Option Setting Screen
 public class OptionScreen: MultiPagePopup {
     var isSetup = false
-    var multiPlayerSettings = [SKNode]()
     var gameCenterSettings = [SKNode]()
     var noOfItemsOnPage = 3
     var separationOfItems =  CGFloat(0.2)
     var startHeight =  CGFloat(0.7)
     
-//    var tabNewPage = [ displayOptions, gameCentre, displayMultiplayer ]
-    var tabNewPage = [ displayOptions, speakOptions, gameCentre ]
+    var tabNewPage = [ displayOptions, deckOptions, scoreOptions, speakOptions,  multiOptions, gameCentre ]
     
     public override func onEnter() {
 
         }
-    
     public override func exit()
     {
         onExit()
@@ -53,16 +50,13 @@ public class OptionScreen: MultiPagePopup {
         anchorPoint = CGPoint.zero
         
         isUserInteractionEnabled = true
-        if  GameKitHelper.sharedInstance.gameCenterEnabled { self.tabNames = ["Options","Gamecentre"] }
-        else { self.tabNames = ["Options"] }
+        if  GameKitHelper.sharedInstance.gameCenterEnabled { self.tabNames = ["Options","deck","scores","speak","multiplayer","Gamecentre"] }
+        else { self.tabNames = ["Options","deck","scores","speak","multiplayer"] }
+        
+        if Game.settings.scoreOptions.count == 0 { self.tabNames.removeAll{ $0 == "scores"}}
         name = "Option Background"
         pageNo = 0
-        
-     //   optionSettings = Game.settings.options.map { $0.view }
-     //   audioSettings = Game.settings.audioOptions.map { $0.view }
-        multiPlayerSettings = [Options.noOfHumans.view]
-     //   tabNames = ["Options","Gamecentre","multiplayer"]
-        tabNames = ["Options","speak","Gamecentre"]
+   
         if let resize = scene as? Resizable
         {
             self.adHeight = resize.adHeight
@@ -73,12 +67,21 @@ public class OptionScreen: MultiPagePopup {
     
     public override func noPageFor(_ tab:Int) -> Int
     {
-        switch tab
+        
+        var tabNo = tab
+        if Game.settings.scoreOptions.count == 0 && tabNo > 1 { tabNo += 1 }
+        switch tabNo
         {
         case 0:
             return Game.settings.options.numOfPagesOf(noOfItemsOnPage)
         case 1:
+            return Game.settings.deckOptions.numOfPagesOf(noOfItemsOnPage)
+        case 2:
+            return Game.settings.scoreOptions.numOfPagesOf(noOfItemsOnPage)
+        case 3:
             return Game.settings.audioOptions.numOfPagesOf(noOfItemsOnPage)
+        case 4:
+            return Game.settings.multiOptions.numOfPagesOf(noOfItemsOnPage)
         default :
             return 1
         }
@@ -127,8 +130,10 @@ public class OptionScreen: MultiPagePopup {
     {
     
         Game.settings.options.removeAllFromParent()
+        Game.settings.deckOptions.removeAllFromParent()
+        Game.settings.scoreOptions.removeAllFromParent()
         Game.settings.audioOptions.removeAllFromParent()
-        multiPlayerSettings.removeAllFromParent()
+        Game.settings.multiOptions.removeAllFromParent()
         gameCenterSettings.removeAllFromParent()
     }
     public override func newPage()
@@ -136,7 +141,9 @@ public class OptionScreen: MultiPagePopup {
         if self.tabNo < 0 { return }
      
         cleanUp()
-        let renderPage = self.tabNewPage[self.tabNo](self)
+        var tab = self.tabNo
+        if Game.settings.scoreOptions.count == 0 && tab > 1 { tab += 1 }
+        let renderPage = self.tabNewPage[tab](self)
       
         renderPage()
     }
@@ -163,6 +170,46 @@ public class OptionScreen: MultiPagePopup {
             .from(settingStart, forLength: noOfItemsOnPage)
       
         optionDisplayed.addAll("AudioSetting",
+                               startHeight : startHeight,
+                               separationOfItems : separationOfItems,
+                               toPage: self,
+                               size: self.size
+                               )
+    }
+    func deckOptions()
+    {
+        let settingStart = noOfItemsOnPage*self.pageNo
+        let optionDisplayed = Game.settings.deckOptions
+            .from(settingStart, forLength: noOfItemsOnPage)
+      
+        optionDisplayed.addAll("DeckSetting",
+                               startHeight : startHeight,
+                               separationOfItems : separationOfItems,
+                               toPage: self,
+                               size: self.size
+                               )
+    }
+    func scoreOptions()
+    {
+        guard noOfItemsOnPage > 0 else { return }
+        let settingStart = noOfItemsOnPage*self.pageNo
+        let optionDisplayed = Game.settings.scoreOptions
+            .from(settingStart, forLength: noOfItemsOnPage)
+      
+        optionDisplayed.addAll("ScoreSetting",
+                               startHeight : startHeight,
+                               separationOfItems : separationOfItems,
+                               toPage: self,
+                               size: self.size
+                               )
+    }
+    func multiOptions()
+    {
+        let settingStart = noOfItemsOnPage*self.pageNo
+        let optionDisplayed = Game.settings.multiOptions
+            .from(settingStart, forLength: noOfItemsOnPage)
+      
+        optionDisplayed.addAll("ScoreSetting",
                                startHeight : startHeight,
                                separationOfItems : separationOfItems,
                                toPage: self,
@@ -208,7 +255,7 @@ public class OptionScreen: MultiPagePopup {
         self.addChild(warn)
     }
     /// display pass the phone multiplayer mode settings
-    func displayMultiplayer()
+/*    func displayMultiplayer()
     {
         let settingStart = noOfItemsOnPage*self.pageNo
         let multiplayerSettingsDisplayed = multiPlayerSettings
@@ -223,7 +270,7 @@ public class OptionScreen: MultiPagePopup {
             multiplayerSetting.position = CGPoint(x:midWidth,y:scene.frame.height * (startHeight - separationOfItems * CGFloat(i)))
             self.addChild(multiplayerSetting)
         }
-    }
+    }*/
 
     }
     

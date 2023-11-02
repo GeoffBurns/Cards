@@ -9,7 +9,7 @@
 import Foundation
 import UIKit
 
-public protocol Resizable : class
+public protocol Resizable : AnyObject
 {
     var adHeight : CGFloat { get }
     func arrangeLayoutFor(_ size:CGSize, bannerHeight:CGFloat)

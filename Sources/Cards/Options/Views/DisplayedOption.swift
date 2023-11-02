@@ -7,7 +7,7 @@
 
 import SpriteKit
 
-protocol DisplayedItem : class
+protocol DisplayedItem : AnyObject
 {
     associatedtype Value
     var current : Value {get set}

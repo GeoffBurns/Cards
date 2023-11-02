@@ -60,7 +60,7 @@ open class GameKitHelper: NSObject, GKGameCenterControllerDelegate, GKTurnBasedM
       
        
     }
-    public var  gameCenterEnabled : Bool { return GKLocalPlayer.local.isAuthenticated }
+    public var gameCenterEnabled : Bool { return GKLocalPlayer.local.isAuthenticated }
     public var gameCenterName : String?
         {
         if  !gameCenterEnabled { return nil }

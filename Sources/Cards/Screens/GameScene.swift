@@ -9,7 +9,7 @@
 import SpriteKit
 import RxSwift
 
-public protocol HasDiscardArea : class
+public protocol HasDiscardArea : AnyObject
 {
     var discardPile : CardPile { get }
     var discardWhitePile : CardPile { get }
@@ -155,7 +155,7 @@ extension HasBackgroundSpread
     }
 }
 
-public protocol HasDraggableCards : class
+public protocol HasDraggableCards : AnyObject
 {
 
     var draggedNode: CardSprite? { get set }

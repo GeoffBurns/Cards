@@ -6,15 +6,13 @@
 //  Copyright © 2015 Geoff Burns. All rights reserved.
 //
 
-import SpriteKit
-import RxSwift
+import SpriteKit 
 
 
 // Display the score for each player
 public class ScoreDisplay
 {
     public var scoreLabel = [SKLabelNode]()
-    let disposeBag = DisposeBag()
     var players = [CardPlayer]()
     public static var top : CGFloat { get { return DeviceSettings.isPortrait ? 0.893 : 0.873 } }
     public static var _bottom : ()->CGFloat = {
@@ -120,20 +118,14 @@ public class ScoreDisplay
 
             scene.addChild(l)
 
-    
-            
-            player.currentTotalScore.map {
-                ScoreDisplay.scoreToString(player.name, player.noOfWins.value,$0)
-            }     .bind(to: l.rx.text)
-                   .disposed(by: disposeBag)
-               /*
-            Observable.combineLatest(player.currentTotalScore, player.noOfWins)
-            {
-                   ScoreDisplay.scoreToString(player.name,$1,$0)
+            Task {
+                for await v in player.currentTotalScore.asStream() {
+                    await MainActor.run {
+                        let text = ScoreDisplay.scoreToString(player.name, player.noOfWins.value,v)
+                        l.text = text
+                    }
+                }
             }
-            .bind(to: l.rx.text)
-            .disposed(by: disposeBag)
-*/
             return l
         }
     

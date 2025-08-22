@@ -82,9 +82,9 @@ open class CardPlayer :CardHolderBase , Equatable, Hashable
     /// Variables
     //////////////////////////////////////
     // public var score : Int = 0
-    public var currentTotalScore  = BehaviorRelay<Int>(value: 0)
+    public var currentTotalScore  = AsyncBehaviorRelay<Int>(value: 0)
     public var isSetup = false
-    public var noOfWins = BehaviorRelay<Int>(value: 0)
+    public var noOfWins = AsyncBehaviorRelay<Int>(value: 0)
     public var scoreForCurrentHand = 0
     open var sideOfTable = SideOfTable.bottom
     open var tempSide = SideOfTable.bottom

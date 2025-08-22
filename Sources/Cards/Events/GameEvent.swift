@@ -12,9 +12,8 @@ public enum GameEvent : Equatable
     case turnFor(CardPlayer)
 
     
-    public var description : String?
-        {
-            switch self
+    public var description : String? {
+        switch self
             {
             case .turnFor( let player ) :
                 if player is HumanPlayer
@@ -25,11 +24,19 @@ public enum GameEvent : Equatable
                 } else { return nil }
 
             case .newHand :
-                    return nil
+                return nil
             }
     }
+    public var hand : Void? {
+        self == .newHand ? () : nil
+    }
     
-  
+    public var turn : CardPlayer? {
+        if case let .turnFor(player) = self {
+            return player
+        }
+        return nil
+    }
 }
 
 public func ==(lhs: GameEvent, rhs: GameEvent) -> Bool {

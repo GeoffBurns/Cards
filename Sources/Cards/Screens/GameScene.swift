@@ -5,9 +5,7 @@
 //  Created by Geoff Burns on 10/09/2015.
 //  Copyright (c) 2015 Geoff Burns. All rights reserved.
 //
-
-import SpriteKit
-import RxSwift
+import SpriteKit 
 
 public protocol HasDiscardArea : AnyObject
 {
@@ -21,35 +19,35 @@ open class CardScene : SKScene, HasDiscardArea, PositionedOnTable  {
     open var discardWhitePile = CardPile(name: CardPileType.discard.description)
     open var tableSize = CGSize()
     public var currentPlayer : CardPlayer = CardPlayer(name: "None")
-    private let disposeBag = DisposeBag()
     
     open func setupCurrentPlayer()
     {
-        
-       let _ = Bus.sharedInstance.events
-                    .asObservable()
-                    . filter { switch $0 {case .turnFor: return true; default: return false } }
-                     .subscribe(onNext: {  switch $0 {
-                               case GameEvent.turnFor(let player) :
-                                   Bus.send(GameNotice.turnFor(player))
-                                   self.currentPlayer = player
-                               default : break
+        Task {
+            for await player in Bus.sharedInstance.events
+                .asStream()
+                .compactMap(\.turn) {
+                    await MainActor.run {  [unowned self] in
+                       Bus.send(GameNotice.turnFor(player))
+                       self.currentPlayer = player
                      }
-                     })
-                     .disposed(by: disposeBag)
+               }
+           }
+
  
     }
     open func setupSounds()
     {
-    let _ = Bus.sharedInstance.notices
-                    .asObservable()
-                    .filter { $0.sound.count > 0 }
-                    .subscribe(onNext: {  /* [weak self] */ value in
-                                        SoundManager.sharedInstance.playSounds(value.sound)
-                    })
-                    .disposed(by: disposeBag)
-          
-    }
+        Task {
+            for await sound in Bus.sharedInstance.notices
+                .asStream()
+                .compactMap(\.sound) {
+                await MainActor.run {
+                    SoundManager.sharedInstance.playSounds(sound)
+                }
+            }
+        }
+    } 
+    
 }
 
 extension HasDiscardArea

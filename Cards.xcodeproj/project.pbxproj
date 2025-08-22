@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 54;
+	objectVersion = 50;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -65,9 +65,6 @@
 		AC879B4D238B996D005050B6 /* CardPlayer.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC879B13238B996C005050B6 /* CardPlayer.swift */; };
 		AC879B4E238B996D005050B6 /* ScoreDisplay.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC879B14238B996C005050B6 /* ScoreDisplay.swift */; };
 		AC879B4F238B996D005050B6 /* Direction.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC879B15238B996C005050B6 /* Direction.swift */; };
-		AC99FDCA238F33DC009B2FCB /* RxSwift in Frameworks */ = {isa = PBXBuildFile; platformFilter = ios; productRef = AC99FDC9238F33DC009B2FCB /* RxSwift */; };
-		AC99FDCE238F33DC009B2FCB /* RxRelay in Frameworks */ = {isa = PBXBuildFile; platformFilter = ios; productRef = AC99FDCD238F33DC009B2FCB /* RxRelay */; };
-		AC99FDD0238F33DC009B2FCB /* RxCocoa in Frameworks */ = {isa = PBXBuildFile; platformFilter = ios; productRef = AC99FDCF238F33DC009B2FCB /* RxCocoa */; };
 		AC99FDD4238F39A2009B2FCB /* SKLabelNode+Binder.swift in Sources */ = {isa = PBXBuildFile; fileRef = AC99FDD3238F39A2009B2FCB /* SKLabelNode+Binder.swift */; };
 /* End PBXBuildFile section */
 
@@ -151,9 +148,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				AC99FDCE238F33DC009B2FCB /* RxRelay in Frameworks */,
-				AC99FDD0238F33DC009B2FCB /* RxCocoa in Frameworks */,
-				AC99FDCA238F33DC009B2FCB /* RxSwift in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -376,9 +370,6 @@
 			);
 			name = Cards;
 			packageProductDependencies = (
-				AC99FDC9238F33DC009B2FCB /* RxSwift */,
-				AC99FDCD238F33DC009B2FCB /* RxRelay */,
-				AC99FDCF238F33DC009B2FCB /* RxCocoa */,
 			);
 			productName = Cards;
 			productReference = AC1D449421009EE9008E80B3 /* Cards.framework */;
@@ -432,7 +423,6 @@
 			);
 			mainGroup = AC1D448A21009EE9008E80B3;
 			packageReferences = (
-				AC99FDC8238F33DC009B2FCB /* XCRemoteSwiftPackageReference "RxSwift" */,
 			);
 			productRefGroup = AC1D449521009EE9008E80B3 /* Products */;
 			projectDirPath = "";
@@ -678,7 +668,7 @@
 				FRAMEWORK_SEARCH_PATHS = "";
 				INFOPLIST_FILE = Cards/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -708,7 +698,7 @@
 				FRAMEWORK_SEARCH_PATHS = "";
 				INFOPLIST_FILE = Cards/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.6;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -790,35 +780,6 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
-
-/* Begin XCRemoteSwiftPackageReference section */
-		AC99FDC8238F33DC009B2FCB /* XCRemoteSwiftPackageReference "RxSwift" */ = {
-			isa = XCRemoteSwiftPackageReference;
-			repositoryURL = "https://github.com/ReactiveX/RxSwift.git";
-			requirement = {
-				kind = upToNextMajorVersion;
-				minimumVersion = 5.0.1;
-			};
-		};
-/* End XCRemoteSwiftPackageReference section */
-
-/* Begin XCSwiftPackageProductDependency section */
-		AC99FDC9238F33DC009B2FCB /* RxSwift */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AC99FDC8238F33DC009B2FCB /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxSwift;
-		};
-		AC99FDCD238F33DC009B2FCB /* RxRelay */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AC99FDC8238F33DC009B2FCB /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxRelay;
-		};
-		AC99FDCF238F33DC009B2FCB /* RxCocoa */ = {
-			isa = XCSwiftPackageProductDependency;
-			package = AC99FDC8238F33DC009B2FCB /* XCRemoteSwiftPackageReference "RxSwift" */;
-			productName = RxCocoa;
-		};
-/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = AC1D448B21009EE9008E80B3 /* Project object */;
 }

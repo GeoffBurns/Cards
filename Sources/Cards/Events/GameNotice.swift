@@ -8,7 +8,7 @@
 
 public protocol GameMove {
     var description : String? {get}
-    var sound : [String] {get}
+    var sound : [String]? {get}
 }
 
 public protocol GameTip {
@@ -37,19 +37,19 @@ public enum GameNotice : Equatable
     case discardWorstCards(Int)
     case discardWorstCards2(String,Int)
     
-  public var sound : [String]
+  public var sound : [String]?
    {
        switch self
          {
               case .validMove(let move) :
                      return move.sound
-              case .player( let scored )  :
+              case .player(let scored )  :
                   return scored.sound
-              case .winGame( let player ) :
+              case .winGame(let player ) :
                   return player.isYou ? ["YouWonGame"] : [player.sound,"WonGame"]
         
          default:
-          return []
+           return nil
          }
    }
     public var description : String?
@@ -108,39 +108,22 @@ public enum GameNotice : Equatable
             }
         }
     }
-    
-    public var line2 : String?
+    public var lines : [String]?
     {
         if let message = description {
             if message == "" {
-                return ""
+                return ["",""]
             }
+            
             let messageLines = message.components(separatedBy: "\n")
-            switch (messageLines.count) {
-            case 1 :
-                return message
-            default :
-                return messageLines[1]
+            if (messageLines.count <= 1) {
+                return ["", messageLines[0]]
             }
+            return messageLines
         }
         return nil
     }
-    public var line1 : String?
-    {
-        if let message = description {
-            if message == "" {
-                return ""
-            }
-            let messageLines = message.components(separatedBy: "\n")
-            switch (messageLines.count) {
-            case 1 :
-                return ""
-            default :
-                return messageLines[0]
-            }
-        }
-        return nil
-    }
+ 
 }
 
 public func ==(lhs: GameNotice, rhs: GameNotice) -> Bool {

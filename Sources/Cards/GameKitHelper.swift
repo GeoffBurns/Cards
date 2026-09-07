@@ -68,7 +68,8 @@ open class GameKitHelper: NSObject, GKGameCenterControllerDelegate, GKTurnBasedM
         let name = GKLocalPlayer.local.alias
         return name.truncated(18)
         }
-
+    
+    @available(iOS 9.0, macCatalyst 13.0, macOS 10.15, tvOS 9.0, *)
     public func authenticateLocalPlayer () {
         
         //1
@@ -89,6 +90,7 @@ open class GameKitHelper: NSObject, GKGameCenterControllerDelegate, GKTurnBasedM
             }
         }
     }
+    @available(iOS 9.0, macCatalyst 13.0, macOS 10.15, tvOS 9.0, *)
     public func findMatch(_ minPlayers: Int, maxPlayers: Int,
         presentingViewController viewController: UIViewController,
         delegate: GameKitHelperDelegate) {
@@ -164,6 +166,7 @@ open class GameKitHelper: NSObject, GKGameCenterControllerDelegate, GKTurnBasedM
       {
         reportAchievements([achievement])
     }
+    @available(iOS 9.0, macCatalyst 13.0, macOS 10.15, tvOS 9.0, *)
     public func reportAchievements(_ achievements: [Achievement]) {
   
         let gkAchievements : [GKAchievement] = achievements.map {
@@ -180,11 +183,16 @@ open class GameKitHelper: NSObject, GKGameCenterControllerDelegate, GKTurnBasedM
             print("Local player is not authenticated")
             return
         }
-        GKAchievement.report(gkAchievements, withCompletionHandler: {(error) in
+
+        // Use modern achievements reporting; API remains valid on older OS versions
+        GKAchievement.report(gkAchievements) { error in
             self.lastError = error
-        }) 
+            if let error = error {
+                print("Error reporting achievements: \(error.localizedDescription)")
+            }
+        }
     }
- 
+    @available(iOS 9.0, macCatalyst 13.0, macOS 10.15, tvOS 9.0, *)
     public func reportScore(_ score: Int64,
         forLeaderBoard leaderBoard: LeaderBoard) {
             
@@ -192,20 +200,32 @@ open class GameKitHelper: NSObject, GKGameCenterControllerDelegate, GKTurnBasedM
                 print("Local player is not authenticated")
                 return
             }
-            
-            //1
-            let scoreReporter =
-            GKScore(leaderboardIdentifier: leaderBoard.rawValue)
-            scoreReporter.value = score
-            scoreReporter.context = 0
-            
-            let scores = [scoreReporter]
-            
-            //2
-            GKScore.report(scores, withCompletionHandler: {(error) in
-                self.lastError = error
-            }) 
+
+            // Prefer modern GameKit API when available; fall back for very old OS targets
+            if #available(iOS 14.0, macCatalyst 14.0, macOS 11.0, tvOS 14.0, *) {
+                GKLeaderboard.submitScore(Int(score),
+                                          context: 0,
+                                          player: GKLocalPlayer.local,
+                                          leaderboardIDs: [leaderBoard.rawValue]) { error in
+                    self.lastError = error
+                    if let error = error {
+                        print("Error reporting score: \(error.localizedDescription)")
+                    }
+                }
+            } else {
+                // Legacy path using deprecated GKScore for older systems
+                let scoreReporter = GKScore(leaderboardIdentifier: leaderBoard.rawValue)
+                scoreReporter.value = score
+                scoreReporter.context = 0
+                GKScore.report([scoreReporter]) { error in
+                    self.lastError = error
+                    if let error = error {
+                        print("Error reporting score (legacy): \(error.localizedDescription)")
+                    }
+                }
+            }
     }
+    @available(iOS 9.0, macCatalyst 13.0, macOS 10.15, tvOS 9.0, *)
     public func showGKGameCenterViewController(_ viewController: UIViewController!, onDismiss : @escaping () -> ()) {
         
         
@@ -217,18 +237,23 @@ open class GameKitHelper: NSObject, GKGameCenterControllerDelegate, GKTurnBasedM
         }
         
         //1
-        let gameCenterViewController = GKGameCenterViewController()
+        let gameCenterViewController: GKGameCenterViewController
+        
+        // Prefer not to set deprecated viewState on Mac Catalyst 14.0+
+        if #available(macCatalyst 14.0, *) {
+            // Initialize with default initializer and avoid setting viewState
+            gameCenterViewController = GKGameCenterViewController()
+        } else {
+            gameCenterViewController = GKGameCenterViewController()
+            // On older platforms, setting viewState is still valid
+            gameCenterViewController.viewState = .achievements
+        }
         
         //2
         gameCenterViewController.gameCenterDelegate = self
         
         //3
-        gameCenterViewController.viewState = .achievements
-        
-        //4
-        viewController .
-            present(gameCenterViewController,
-                animated: true, completion: nil)
+        viewController.present(gameCenterViewController, animated: true, completion: nil)
     }
     
     open func gameCenterViewControllerDidFinish(_ gameCenterViewController:
@@ -240,3 +265,4 @@ open class GameKitHelper: NSObject, GKGameCenterControllerDelegate, GKTurnBasedM
     }
    
 }
+

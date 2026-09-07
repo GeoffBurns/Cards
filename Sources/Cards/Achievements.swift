@@ -8,6 +8,17 @@
 
 import Foundation
 
+
+public enum LeaderBoard : String
+{
+    case Spades = "grp.spades"
+    case Hearts = "grp.hearts"
+    case Jacks = "grp.Jacks"
+    case RicketyKate = "grp.Rickety"
+    case Sevens = "grp.Sevens"
+    case None = ""
+}
+
 public enum Achievement : String
 {
     case HooliganHearts = "grp.Won1HooliganHeart"
@@ -64,13 +75,3 @@ extension Int
         }
     }
 }
-public enum LeaderBoard : String
-{
-    case Spades = "grp.spades"
-    case Hearts = "grp.hearts"
-    case Jacks = "grp.Jacks"
-    case RicketyKate = "grp.Rickety"
-    case Sevens = "grp.Sevens"
-    case None = ""
-}
-

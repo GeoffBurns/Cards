@@ -83,7 +83,14 @@ public final class AsyncRelay<Element> {
 
 
 
-public class Bus {
+public protocol BusType: AnyObject {
+    var events: AsyncRelay<GameEvent> { get }
+    var notices: AsyncRelay<GameNotice> { get }
+    func send(_ gameEvent: GameEvent)
+    func send(_ gameNotice: GameNotice)
+}
+
+public class Bus: BusType {
     
     public let events = AsyncRelay<GameEvent>()
     

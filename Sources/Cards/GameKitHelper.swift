@@ -256,8 +256,7 @@ open class GameKitHelper: NSObject, GKGameCenterControllerDelegate, GKTurnBasedM
         viewController.present(gameCenterViewController, animated: true, completion: nil)
     }
     
-    open func gameCenterViewControllerDidFinish(_ gameCenterViewController:
-        GKGameCenterViewController) {
+    @objc open func gameCenterViewControllerDidFinish(_ gameCenterViewController: GKGameCenterViewController) {
             
             self.onDismiss()
             gameCenterViewController .

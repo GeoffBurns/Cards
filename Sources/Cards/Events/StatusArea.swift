@@ -14,6 +14,8 @@ public class StatusDisplay : Resizable
     public var adHeight = CGFloat(0.0)
     var noticeLabel2 = Label(fontNamed:"Chalkduster")
     var noticeLabel = Label(fontNamed:"Chalkduster")
+    // Task listening for Bus notices; stored so it can be cancelled when UI is torn down
+    private var lifecycleTask: Task<Void, Never>? = nil
  
     public static let sharedInstance = StatusDisplay()
     fileprivate init() { }
@@ -68,16 +70,26 @@ public class StatusDisplay : Resizable
     noticeLabel2.resetToScene(scene)
     arrangeLayoutFor(scene.frame.size,bannerHeight: 0.0)
  
-        Task {
+        lifecycleTask?.cancel()
+        lifecycleTask = Task { [weak self] in
             for await lines in Bus.sharedInstance
                     .notices.asStream()
                 .compactMap(\.lines)
                 {
-                await MainActor.run {
-                    noticeLabel.text = lines[1]
-                    noticeLabel2.text = lines[0]
-                }
+                    await MainActor.run {
+                        guard let self = self else { return }
+                        self.noticeLabel.text = lines[1]
+                        self.noticeLabel2.text = lines[0]
+                    }
             }
         }
+    }
+
+    /// Cancel any active background tasks and remove labels from their scene
+    public func unregister() {
+        lifecycleTask?.cancel()
+        lifecycleTask = nil
+        if noticeLabel.parent != nil { noticeLabel.removeFromParent() }
+        if noticeLabel2.parent != nil { noticeLabel2.removeFromParent() }
     }
 }

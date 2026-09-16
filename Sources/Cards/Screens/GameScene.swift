@@ -19,34 +19,61 @@ open class CardScene : SKScene, HasDiscardArea, PositionedOnTable  {
     open var discardWhitePile = CardPile(name: CardPileType.discard.description)
     open var tableSize = CGSize()
     public var currentPlayer : CardPlayer = CardPlayer(name: "None")
+    // Tasks started by the scene that should be cancelled when the scene is dismissed
+    private var lifecycleTasks = [Task<Void, Never>]()
     
     open func setupCurrentPlayer()
     {
-        Task {
+        // store the Task so it can be cancelled when the scene is torn down
+        let t = Task { [weak self] in
             for await player in Bus.sharedInstance.events
                 .asStream()
                 .compactMap(\.turn) {
-                    await MainActor.run {  [unowned self] in
-                       Bus.send(GameNotice.turnFor(player))
-                       self.currentPlayer = player
-                     }
-               }
-           }
+                    await MainActor.run {  [weak self] in
+                        guard let self = self else { return }
+                        Bus.send(GameNotice.turnFor(player))
+                        self.currentPlayer = player
+                    }
+            }
+        }
+        lifecycleTasks.append(t)
 
- 
     }
     open func setupSounds()
     {
-        Task {
+        let t = Task { [weak self] in
             for await sound in Bus.sharedInstance.notices
                 .asStream()
                 .compactMap(\.sound) {
-                await MainActor.run {
-                    SoundManager.sharedInstance.playSounds(sound)
-                }
+                    await MainActor.run {
+                        // sound playing does not need the scene but keep weak self to avoid retains
+                        _ = self
+                        SoundManager.sharedInstance.playSounds(sound)
+                    }
             }
         }
+        lifecycleTasks.append(t)
     } 
+
+    /// Cancel and clear any lifecycle tasks created by this scene
+    public func cancelLifecycleTasks() {
+        for t in lifecycleTasks { t.cancel() }
+        lifecycleTasks.removeAll()
+    }
+
+    open override func willMove(from view: SKView) {
+        super.willMove(from: view)
+        // Tear down scene-owned tasks and singletons listening to streams
+        cancelLifecycleTasks()
+        StatusDisplay.sharedInstance.unregister()
+        ScoreDisplay.sharedInstance.unregister()
+    }
+
+    deinit {
+        cancelLifecycleTasks()
+        StatusDisplay.sharedInstance.unregister()
+        ScoreDisplay.sharedInstance.unregister()
+    }
     
 }
 

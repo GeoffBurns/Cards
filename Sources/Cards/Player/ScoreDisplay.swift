@@ -14,6 +14,8 @@ public class ScoreDisplay
 {
     public var scoreLabel = [SKLabelNode]()
     var players = [CardPlayer]()
+    // Tasks created to observe player score streams. Stored so they can be cancelled.
+    private var lifecycleTasks = [Task<Void, Never>]()
     public static var top : CGFloat { get { return DeviceSettings.isPortrait ? 0.893 : 0.873 } }
     public static var _bottom : ()->CGFloat = {
         let isBig = DeviceSettings.isBigPro
@@ -118,28 +120,44 @@ public class ScoreDisplay
 
             scene.addChild(l)
 
-            Task {
+            // Observe the player's score stream on a Task we can cancel later
+            let t = Task { [weak l] in
                 for await v in player.currentTotalScore.asStream() {
                     await MainActor.run {
-                        let text = ScoreDisplay.scoreToString(player.name, player.noOfWins.value,v)
-                        l.text = text
+                        if let label = l {
+                            let text = ScoreDisplay.scoreToString(player.name, player.noOfWins.value, v)
+                            label.text = text
+                        }
                     }
                 }
             }
+            lifecycleTasks.append(t)
             return l
         }
     
   
 public func setupScoreArea(_ scene: SKNode, players: [CardPlayer])
 {
-    scoreLabel  = []
+    // Ensure any previous observers are cancelled before creating new ones
+    unregister()
 
-    self.players=players
+    scoreLabel  = []
+    self.players = players
     for player in players
     {
         scoreLabel.append(setupScoreFor(scene,player:player))
     }
 }
+
+    /// Cancel any active Tasks observing player score streams and remove labels
+    public func unregister() {
+        for t in lifecycleTasks { t.cancel() }
+        lifecycleTasks.removeAll()
+        for label in scoreLabel {
+            if label.parent != nil { label.removeFromParent() }
+        }
+        scoreLabel.removeAll()
+    }
 
     public func resetScoreLabels(_ players: [CardPlayer], size: CGSize, bannerHeight:CGFloat)
     {

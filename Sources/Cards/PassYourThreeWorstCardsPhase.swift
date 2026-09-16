@@ -52,7 +52,7 @@ public var isCurrentlyActive = true
     
     for (cardTrioPassed,_) in zip(cardsPassed,players)
        {
-       cardTrioPassed.cards = []
+       cardTrioPassed.clearCards()
     }
     }
     public func showPassPile(_ playerNo:Int)

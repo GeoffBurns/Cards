@@ -29,16 +29,13 @@ public class CardFan : CardPile
 
     }
 
-    public override func append(_ card:PlayingCard)
+    public override func normalizeCards(_ cards:[PlayingCard]) -> [PlayingCard]
     {
-        var updatedCards = cards
-        updatedCards.append(card)
-        let sortedHand = updatedCards.sorted()
-        cards = ( Array(sortedHand.reversed()))
+        return Array(cards.sorted().reversed())
     }
     public override func update()
     {
-       rearrange()
+       layoutAnimated()
     }
     override func positionOfCard(_ positionInSpread:CGFloat, spriteHeight:CGFloat,fullHand:CGFloat) -> CGPoint
     {
@@ -50,19 +47,6 @@ public class CardFan : CardPile
     override func rotationOfCard(_ positionInSpread:CGFloat, fullHand:CGFloat) -> CGFloat
     {
         return direction.rotationOfCard(positionInSpread, fullHand:fullHand)
-    }
-    public override func appendContentsOf(_ newCards:[PlayingCard])
-    {
-        var updatedCards = cards
-        updatedCards.append(contentsOf: newCards)
-        let sortedHand = updatedCards.sorted()
-        cards = ( Array(sortedHand.reversed()))
-    }
-    public override func replaceWithContentsOf(_ newCards:[PlayingCard])
-    {
-        let updatedCards = newCards
-        let sortedHand = updatedCards.sorted()
-        cards = ( Array(sortedHand.reversed()))
     }
     public override func rearrange()
     {

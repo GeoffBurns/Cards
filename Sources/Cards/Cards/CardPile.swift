@@ -10,12 +10,19 @@ import SpriteKit
 
 public typealias CreateSprite = (PlayingCard,SKNode) -> CardSprite?
 
+public enum CardPileLayout
+{
+    case none
+    case animated
+    case immediate
+}
+
 /// How the cards are displayed in a pile
 open class CardPile : PositionedOnTable
 {
  
     public static let defaultSpread = CGFloat(10)
-    public var cards = [PlayingCard]() { didSet { update() } }
+    public internal(set) var cards = [PlayingCard]()
     public var tableSize : CGSize
     public var isUp = false { didSet { update() } }
     var sizeOfCards = CardSize.small
@@ -70,38 +77,93 @@ open class CardPile : PositionedOnTable
                
         }
     }
+    open func normalizeCards(_ cards:[PlayingCard]) -> [PlayingCard]
+    {
+        return cards
+    }
+    open func cardsDidChange()
+    {
+    }
+    public func setCards(_ newCards:[PlayingCard], layout: CardPileLayout = .animated)
+    {
+        cards = normalizeCards(newCards)
+        cardsDidChange()
+        applyLayout(layout)
+    }
+    public func addCard(_ card:PlayingCard, layout: CardPileLayout = .animated)
+    {
+        setCards(cards + [card], layout: layout)
+    }
+    public func addCards(_ newCards:[PlayingCard], layout: CardPileLayout = .animated)
+    {
+        setCards(cards + newCards, layout: layout)
+    }
+    public func clearCards(layout: CardPileLayout = .animated)
+    {
+        setCards([], layout: layout)
+    }
+    public func removeCard(_ card:PlayingCard, layout: CardPileLayout = .animated) -> PlayingCard?
+    {
+        guard let index = cards.firstIndex(of: card) else {
+            return nil
+        }
+        var updatedCards = cards
+        let removedCard = updatedCards.remove(at: index)
+        setCards(updatedCards, layout: layout)
+        return removedCard
+    }
+    public func layoutAnimated()
+    {
+        rearrange()
+    }
+    public func layoutImmediate()
+    {
+        rearrangeFast()
+    }
+    public func applyLayout(_ layout: CardPileLayout)
+    {
+        switch layout
+        {
+        case .none:
+            break
+        case .animated:
+            layoutAnimated()
+        case .immediate:
+            layoutImmediate()
+        }
+    }
     public func transferFrom(_ pile:CardPile)
     {
     
-        appendContentsOf(pile.cards)
-        pile.clear()
+        addCards(pile.cards)
+        pile.clearCards()
         
     }
     public func replaceFrom(_ pile:CardPile)
     {
       
-        replaceWithContentsOf(pile.cards)
-          pile.clear()
+        setCards(pile.cards)
+          pile.clearCards()
        
     }
     
     public func transferCardFrom(_ pile:CardPile, card:PlayingCard) -> PlayingCard?
     {
-        let result = pile.remove(card)
-        append(card)
+        let result = pile.removeCard(card)
+        addCard(card)
         return result
     }
     public func safeTransferCardFrom(_ pile:CardPile, card:PlayingCard) -> PlayingCard?
      {
-         let result = pile.remove(card)
+         let result = pile.removeCard(card)
          if card == result
          {
-         append(card)
+         addCard(card)
         }
          return result
      }
      
-    public func discardAll()
+    public func discardAnimated()
     {
        if isBackground
        {
@@ -112,12 +174,13 @@ open class CardPile : PositionedOnTable
         discardAreas?.discardPile.transferFrom(self)
         }
     }
+    public func discardAll()
+    {
+        discardAnimated()
+    }
     public func append(_ card:PlayingCard)
     {
-        let count = cards.count
-        cards.append(card)
- 
-        rearrangeFor(card, positionInSpread: CGFloat(count),  fullHand: 1)
+        addCard(card)
     }
     public func update()
     {
@@ -125,17 +188,11 @@ open class CardPile : PositionedOnTable
     }
     public func clear()
     {
-        cards = []
+        clearCards()
     }
     public func appendContentsOf(_ newCards:[PlayingCard])
     {
-        let count = cards.count
-        cards.append(contentsOf: newCards)
-        
-        for (i,card) in cards.enumerated()
-        {
-            rearrangeFor(card, positionInSpread: CGFloat(i+count),  fullHand: 1)
-        }
+        addCards(newCards)
     }
     
     public func rearrange()
@@ -154,21 +211,11 @@ open class CardPile : PositionedOnTable
     }
     public func replaceWithContentsOf(_ newCards:[PlayingCard])
     {
-        cards = newCards
-        
-        
-        for (i,card) in cards.enumerated()
-        {
-            rearrangeFor(card, positionInSpread: CGFloat(i),  fullHand: 1)
-        }
+        setCards(newCards)
     }
     public func remove(_ card:PlayingCard) -> PlayingCard?
     {
-        if let index = cards.firstIndex(of: card)
-        {
-            return cards.remove(at: index)
-        }
-        return nil
+        return removeCard(card)
     }
     func positionOfCard(_ cpositionInSpread:CGFloat, spriteHeight:CGFloat,fullHand:CGFloat) -> CGPoint
     {

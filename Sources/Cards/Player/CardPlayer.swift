@@ -52,7 +52,7 @@ open class CardHolderBase :  CardHolder
     open var sound : String = "Base"
     open var isYou : Bool { return name=="You".localize }
     public lazy var _hand : CardFan = CardFan(name: CardPileType.hand.description, player:self)
-    open var hand : [PlayingCard] { get { return _hand.cards } set { _hand.cards = newValue }}
+    open var hand : [PlayingCard] { get { return _hand.cards } set { _hand.setCards(newValue) }}
     open func cardsIn(_ suite:PlayingCard.Suite) -> [PlayingCard]
     {
         return _hand.cards.filter {$0.suite == suite}

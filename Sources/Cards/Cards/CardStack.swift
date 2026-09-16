@@ -145,6 +145,10 @@ public class CardStack : CardPile
         }
         
     }
+    public override func cardsDidChange()
+    {
+        update()
+    }
     public override func update()
     {
         
